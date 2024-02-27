@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('paises_id');
             $table->unsignedBigInteger('generos_id');
             $table->string('apellido', 80);
-            $table->string('tipo_identificacion', 25);
+            $table->string('tipo_identificacion',50);
             $table->string('identificacion', 25);
             $table->date('fecha_nacimiento');
             $table->timestamps();

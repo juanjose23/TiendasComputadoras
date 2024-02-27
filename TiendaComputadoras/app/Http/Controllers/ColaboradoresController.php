@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreColaborador;
+use App\Http\Requests\UpdateColaborador;
 use App\Models\Direcciones;
 use App\Models\Empleados;
 use App\Models\Departamentos;
@@ -13,7 +14,8 @@ use App\Models\Personas;
 use App\Models\Persona_Naturales;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class ColaboradoresController extends Controller
@@ -24,8 +26,7 @@ class ColaboradoresController extends Controller
     public function index()
     {
         //
-        $datos = Personas::with(['persona_natural','empleados'])
-            ->get();
+
         return view('Gestion_Negocio.Colaborador.index');
     }
 
@@ -120,24 +121,91 @@ class ColaboradoresController extends Controller
             'generos' => Genero::obtenerGenero(),
             'estadosCiviles' => Estado_civiles::obtenerEstados(),
         ];
-
-
-        return view('Gestion_Negocio.Colaborador.edit', compact('datos'));
+        $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
+        ->find($colaboradores->id);
+    
+       
+        return view('Gestion_Negocio.Colaborador.edit', compact('datos', 'empleados'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Empleados $colaboradores)
+    public function update(UpdateColaborador $request, Empleados $colaboradores)
     {
-        //
+        // Obtener el empleado existente con sus relaciones
+        $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
+            ->find($colaboradores->id);
+
+
+        // Actualizar los valores de los atributos de la persona
+        $empleados->personas->nombre = $request->nombre;
+        $empleados->personas->correo = $request->correo;
+        $empleados->personas->telefono = $request->telefono;
+
+        // Subir y guardar la nueva foto en Cloudinary si se ha proporcionado
+        if ($request->hasFile('foto')) {
+            $foto = $request->foto;
+            $result = $request->file('foto')->storeOnCloudinary('empleados');
+
+            // Eliminar la foto anterior de Cloudinary
+            if ($empleados->personas->foto_id) {
+                Cloudinary::destroy($empleados->personas->foto_id);
+            }
+
+            // Guardar la nueva URL de la foto
+            $empleados->personas->foto = $result->getSecurePath();
+        }
+        
+        // Actualizar los valores de los atributos de la persona natural
+        $empleados->personas->persona_naturales->apellido = $request->apellido;
+        $empleados->personas->persona_naturales->fecha_nacimiento = $request->fecha;
+        $empleados->personas->persona_naturales->tipo_identificacion = $request->tipo;
+        $empleados->personas->persona_naturales->identificacion = $request->identificacion;
+        $empleados->personas->persona_naturales->paises_id = $request->pais;
+        $empleados->personas->persona_naturales->generos_id = $request->genero;
+
+        // Actualizar los valores de los atributos de las direcciones
+        $empleados->personas->direcciones->municipios_id = $request->departamentos;
+        $empleados->personas->direcciones->punto_referencia = $request->punto;
+        $empleados->personas->direcciones->direccion = $request->direccion;
+        //Actualizar los valores de los atributos de los empleados
+        $empleados->estado_civiles_id=$request->estado_civil;
+        $empleados->codigo_inss=$request->inss;
+        $empleados->estado=$request->estado;
+
+        // Guardar los cambios en la base de datos
+        $empleados->personas->save();
+        $empleados->personas->persona_naturales->save();
+        $empleados->personas->direcciones->each->save();
+        $empleados->save();
+
+        // Comparar los atributos originales con los nuevos valores
+
+        Session::flash('success', 'Se ha actualizado correctamente el colaborador.');
+
+        // Redireccionar de vuelta a la página de edición
+        return redirect()->route('colaboradores.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Empleados $colaboradores)
+    public function destroy($colaboradores)
     {
         //
+         // Encuentra el cargo por su ID
+         $empleados = Empleados::findOrFail($colaboradores);
+
+         // Cambia el estado del cargo
+         $empleados->estado = $empleados->estado == 1 ? 2 : 1;
+         $empleados->save();
+ 
+         // Redirige de vuelta a la página de índice con un mensaje flash
+         Session::flash('success', 'El estado del colaborador ha sido cambiado exitosamente.');
+ 
+         return redirect()->route('colaboradores.index');
+         
     }
 }

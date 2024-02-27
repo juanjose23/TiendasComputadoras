@@ -98,8 +98,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="pais" class="form-label text-dark">País</label>
-                    <select id="pais" name="pais" class="form-select buscador @error('pais') is-invalid @enderror">
-                        <option disabled>Elegir país</option>
+                    <select id="pais" name="pais" class="form-control buscador @error('pais') is-invalid @enderror">
+                        <option >Elegir país</option>
                         @foreach ($datos['paises'] as $pais)
                             <option value="{{ $pais->id }}" {{ old('pais') == $pais->id ? 'selected' : '' }}>
                                 {{ $pais->nombre }}
@@ -114,7 +114,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="genero" class="form-label text-dark">Género</label>
-                    <select id="genero" name="genero" class="form-select buscador @error('genero') is-invalid @enderror">
+                    <select id="genero" name="genero" class="form-control buscador @error('genero') is-invalid @enderror">
                         <option disabled>Elegir género</option>
                         @foreach ($datos['generos'] as $genero)
                             <option value="{{ $genero->id }}" {{ old('genero') == $genero->id ? 'selected' : '' }}>
@@ -133,8 +133,8 @@
                 <div class="form-group">
                     <label for="estado_civil" class="form-label text-dark">Estado Civil</label>
                     <select id="estado_civil" name="estado_civil"
-                        class="form-select buscador @error('estado_civil') is-invalid @enderror">
-                        <option disabled>Elegir estado civil</option>
+                        class="form-control buscador @error('estado_civil') is-invalid @enderror">
+                        <option>Elegir estado civil</option>
                         @foreach ($datos['estadosCiviles'] as $estadoCivil)
                             <option value="{{ $estadoCivil->id }}" {{ old('estado_civil') == $estadoCivil->id ? 'selected' : '' }}>
                                 {{ $estadoCivil->nombre }}
@@ -146,12 +146,10 @@
                     @enderror
                 </div>
             </div>
-            
-
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="estado" class="form-label text-dark">Estado:</label>
-                    <select id="estado" name="estado" class="form-select @error('estado') is-invalid @enderror">
+                    <select id="estado" name="estado" class="form-control buscador @error('estado') is-invalid @enderror">
                         <option  >Elegir estado</option>
                         <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Activo</option>
                         <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Inactivo</option>
@@ -174,7 +172,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="departamentos" class="form-label text-dark">Localización:</label>
-                    <select id="departamentos" name="departamentos" class="buscador form-select @error('departamentos') is-invalid @enderror">
+                    <select id="departamentos" name="departamentos" class="buscador form-control @error('departamentos') is-invalid @enderror">
                         <option disabled>Selecciona un departamento</option>
                         @foreach ($datos['departamentos'] as $departamento => $municipios)
                             <optgroup label="{{ $departamento }}">

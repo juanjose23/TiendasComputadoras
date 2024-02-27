@@ -32,7 +32,7 @@ class StoreColaborador extends FormRequest
             'estado'=>'integer',
             'correo' => 'nullable|email|unique:personas,correo',
             'tipo' => 'required',
-            'identificacion' => ['regex:/^\d{3}-\d{6}-\d{4}[a-zA-Z]$/'],
+            'identificacion' => ['regex:/^\d{3}-\d{6}-\d{4}[a-zA-Z]$/','required','unique:persona_naturales,identificacion'],
             'fecha' => ['before:' . Carbon::now()->subYears(18)->format('Y-m-d')],
             'direccion' => 'required',
             'foto' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

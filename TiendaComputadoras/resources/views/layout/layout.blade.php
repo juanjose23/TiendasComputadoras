@@ -11,6 +11,7 @@
     <link rel="preconnect" defer href="https://fonts.gstatic.com" rel="stylesheet">
     <link rel="shortcut icon" defer href="img/icons/icon-48x48.png" />
     <title>Sistema @yield('title')</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link defer href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link defer href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -63,15 +64,17 @@
         });
     </script>
     <!-- Utiliza una versión específica de jQuery y carga de forma asíncrona -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Carga de forma asíncrona y desde un CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
 
     <script>
         $(document).ready(function() {
-            $('.buscador').select2();
+            $('.buscador').select2({
+                width: 'resolve' // o puedes usar un valor numérico si prefieres un ancho fijo
+            });
         });
     </script>
 </body>

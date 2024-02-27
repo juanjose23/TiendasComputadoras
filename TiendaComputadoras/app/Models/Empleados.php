@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Empleados extends Model
 {
     use HasFactory;
-    public function persona()
+    public function personas()
     {
         return $this->belongsTo('App\Models\Personas');
     }

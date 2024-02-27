@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Personas extends Model
 {
     use HasFactory;
-    public function persona_natural()
+    public function persona_naturales()
     {
         return $this->HasOne('App\Models\Persona_Naturales');
     }

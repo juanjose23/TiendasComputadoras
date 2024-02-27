@@ -22,11 +22,11 @@ class Colaboradores extends Component
     {
         $buscar = $this->buscar; // Asigna el valor de $this->buscar a una variable local $buscar
 
-        $datos = Personas::with(['persona_natural', 'empleados'])
+        $datos = Personas::with(['persona_naturales', 'empleados'])
             ->whereHas('empleados', function ($query) use ($buscar) { // Añade $buscar aquí
                 $query->where('codigo', 'like', '%' . $buscar . '%');
             })
-            ->orWhereHas('persona_natural', function ($query) use ($buscar) { // Añade $buscar aquí
+            ->orWhereHas('persona_naturales', function ($query) use ($buscar) { // Añade $buscar aquí
                 $query->where('nombre', 'like', '%' . $buscar . '%')
                     ->orWhere('apellido', 'like', '%' . $buscar . '%')
                     ->orWhere('tipo_identificacion', 'like', '%' . $buscar . '%')
