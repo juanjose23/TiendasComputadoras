@@ -15,8 +15,7 @@ use App\Models\Persona_Naturales;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
+
 
 class ColaboradoresController extends Controller
 {
@@ -107,6 +106,9 @@ class ColaboradoresController extends Controller
     public function show(Empleados $colaboradores)
     {
         //
+        $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
+        ->find($colaboradores->id);
+        return view('Gestion_Negocio.Colaborador.show',compact('empleados'));
     }
 
     /**
@@ -166,9 +168,9 @@ class ColaboradoresController extends Controller
         $empleados->personas->persona_naturales->generos_id = $request->genero;
 
         // Actualizar los valores de los atributos de las direcciones
-        $empleados->personas->direcciones->municipios_id = $request->departamentos;
-        $empleados->personas->direcciones->punto_referencia = $request->punto;
-        $empleados->personas->direcciones->direccion = $request->direccion;
+        $empleados->personas->direcciones[0]->municipios_id = $request->departamentos;
+        $empleados->personas->direcciones[0]->punto_referencia = $request->punto;
+        $empleados->personas->direcciones[0]->direccion = $request->direccion;
         //Actualizar los valores de los atributos de los empleados
         $empleados->estado_civiles_id=$request->estado_civil;
         $empleados->codigo_inss=$request->inss;

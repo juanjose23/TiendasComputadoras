@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\CargosController;
 use App\Http\Controllers\ColaboradoresController;
-
+use App\Models\AsignacionCargos;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,4 @@ Route::get('/', function () {
 
 Route::resource('cargos',CargosController::class)->parameters(['cargos'=>'cargos'])->names('cargos');
 Route::resource('colaboradores',ColaboradoresController::class)->parameters(['colaboradores'=>'colaboradores'])->names('colaboradores');
+Route::resource('asignaciones',AsignacionesController::class)->parameters(['asignaciones'=>'asignaciones'])->names('asignaciones');

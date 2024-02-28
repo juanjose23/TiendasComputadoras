@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cargos extends Model
 {
     use HasFactory;
+    public function asignaciones()
+    {
+        return $this->hasMany('App\Models\AsingacionCargos');
+    }
     public static function generarCodigo(string $perfil): string
     {
         

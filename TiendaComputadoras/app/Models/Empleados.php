@@ -16,6 +16,11 @@ class Empleados extends Model
     {
         return $this->belongsTo('App\Models\Estado_civiles');
     }
+
+    public function asignaciones()
+    {
+        return $this->hasMany('App\Models\AsingacionCargos');
+    }
     public static function generarCodigo()
     {
         // Obtener el ID máximo actual de la tabla empleados

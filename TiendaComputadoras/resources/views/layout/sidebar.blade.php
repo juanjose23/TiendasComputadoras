@@ -7,7 +7,7 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Gestión de productos
+                Gestión de catalogos
             </li>
             <li class="sidebar-item">
                 <a data-bs-target="#productos" data-bs-toggle="collapse" class="sidebar-link collapsed">
@@ -65,7 +65,7 @@
                 <ul id="negocio" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('cargos.index')}}'>Cargos</a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('colaboradores.index')}}'>Colaboradores</a></li>
-                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-orders'>Asignacion de cargos</a></li>
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{route('asignaciones.index')}}'>Asignacion de cargos</a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-pricing'>Salarios </a></li>
 
                 </ul>
