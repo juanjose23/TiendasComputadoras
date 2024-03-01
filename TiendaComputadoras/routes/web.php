@@ -3,6 +3,7 @@
 use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\CargosController;
 use App\Http\Controllers\ColaboradoresController;
+use App\Http\Controllers\ExportacionesController;
 use App\Models\AsignacionCargos;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,8 @@ Route::get('/', function () {
 Route::resource('cargos',CargosController::class)->parameters(['cargos'=>'cargos'])->names('cargos');
 Route::resource('colaboradores',ColaboradoresController::class)->parameters(['colaboradores'=>'colaboradores'])->names('colaboradores');
 Route::get('/colaborador/pdf', [ColaboradoresController::class, 'pdf']);
+Route::get('/exportcargosexcel', [ExportacionesController::class, 'exportcargosexcel'])->name('exportcargosexcel');
+Route::get('/exportcargopdf', [ExportacionesController::class, 'exportcargopdf'])->name('exportcargopdf');
+Route::get('/exportColaboradores', [ExportacionesController::class, 'exportColaboradores'])->name('exportColaboradores');
+
 Route::resource('asignaciones',AsignacionesController::class)->parameters(['asignaciones'=>'asignaciones'])->names('asignaciones');

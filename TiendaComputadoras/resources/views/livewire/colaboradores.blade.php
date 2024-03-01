@@ -24,7 +24,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a wire:click="exportToExcel" class="dropdown-item" href="#"><i
+                        <li><a  class="dropdown-item" href="{{route('exportColaboradores')}}"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
                         <li><a class="dropdown-item" href="#"><i class="bi bi-file-pdf text-danger"></i>

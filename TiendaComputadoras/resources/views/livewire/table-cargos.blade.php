@@ -1,4 +1,4 @@
-<div  wire:poll.1s >
+<div wire:poll.1s>
     <div class="d-flex justify-content-between align-items-center flex-wrap">
         <div class="input-group mb-3" style="max-width: 300px;">
             <input type="text" wire:model.live.debounce.300ms="buscar" class="form-control form-control rounded-start"
@@ -24,12 +24,16 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a wire:click="exportToExcel" class="dropdown-item" href="#"><i
+                        <li><a href="{{ route('exportcargosexcel') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-file-pdf text-danger"></i> Exportar
+                        <li>
+                            <a class="dropdown-item" href="{{ route('exportcargopdf') }}"><i
+                                    class="bi bi-file-pdf text-danger"></i> Exportar
                                 a
-                                PDF</a></li>
+                                PDF
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -98,7 +102,7 @@
                             action="{{ route('cargos.destroy', ['cargos' => $cargo->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                        
+
                             <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
                             <button id="submitBtn{{ $cargo->id }}" type="submit" style="display: none;"></button>
                         </form>
@@ -179,4 +183,3 @@
         });
     }
 </script>
-
