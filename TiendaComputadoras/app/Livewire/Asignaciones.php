@@ -20,10 +20,27 @@ class Asignaciones extends Component
     public function render()
     {
         $buscar = $this->buscar; // Asigna el valor de $this->buscar a una variable local $buscar
-        $datos = AsignacionCargos::with(['empleados', 'empleados.personas', 'empleados.personas.persona_naturales'])
+        $datos = AsignacionCargos::with(['empleados', 'empleados.personas', 'empleados.personas.persona_naturales','cargos'])
         ->select('empleados_id', AsignacionCargos::raw('COUNT(cargos_id) as cantidad_cargos'))
         ->groupBy('empleados_id')
-        ->paginate($this->perPage);
+        ->whereHas('empleados', function ($query) use ($buscar) { // Añade $buscar aquí
+            $query->where('codigo', 'like', '%' . $buscar . '%');
+        })
+        ->orWhereHas('empleados.personas', function ($query) use ($buscar) { // Añade $buscar aquí
+            $query->where('nombre', 'like', '%' . $buscar . '%')
+                ->orWhere('correo', 'like', '%' . $buscar . '%')
+                ->orWhere('telefono', 'like', '%' . $buscar . '%');
+        })
+        ->orWhereHas('empleados.personas.persona_naturales', function ($query) use ($buscar) { // Añade $buscar aquí
+            $query->where('apellido', 'like', '%' . $buscar . '%')
+                ->orWhere('tipo_identificacion', 'like', '%' . $buscar . '%')
+                ->orWhere('identificacion', 'like', '%' . $buscar . '%');
+        })
+        ->orWhereHas('cargos', function ($query) use ($buscar) { // Añade $buscar aquí
+            $query->where('nombre', 'like', '%' . $buscar . '%')
+                ->orWhere('codigo', 'like', '%' . $buscar . '%')
+                ->orWhere('perfil', 'like', '%' . $buscar . '%');
+        })->paginate($this->perPage);
         return view('livewire.asignaciones',compact('datos'));
     }
 

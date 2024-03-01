@@ -14,7 +14,8 @@ use App\Models\Personas;
 use App\Models\Persona_Naturales;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class ColaboradoresController extends Controller
@@ -209,5 +210,13 @@ class ColaboradoresController extends Controller
  
          return redirect()->route('colaboradores.index');
          
+    }
+
+    public function pdf()
+    {
+        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf');
+
+       // Envía el PDF generado al navegador
+       return $pdf->stream('documento.pdf');
     }
 }

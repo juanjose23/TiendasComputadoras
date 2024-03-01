@@ -23,4 +23,5 @@ Route::get('/', function () {
 
 Route::resource('cargos',CargosController::class)->parameters(['cargos'=>'cargos'])->names('cargos');
 Route::resource('colaboradores',ColaboradoresController::class)->parameters(['colaboradores'=>'colaboradores'])->names('colaboradores');
+Route::get('/colaborador/pdf', [ColaboradoresController::class, 'pdf']);
 Route::resource('asignaciones',AsignacionesController::class)->parameters(['asignaciones'=>'asignaciones'])->names('asignaciones');

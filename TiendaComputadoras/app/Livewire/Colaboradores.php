@@ -27,8 +27,7 @@ class Colaboradores extends Component
                 $query->where('codigo', 'like', '%' . $buscar . '%');
             })
             ->orWhereHas('persona_naturales', function ($query) use ($buscar) { // Añade $buscar aquí
-                $query->where('nombre', 'like', '%' . $buscar . '%')
-                    ->orWhere('apellido', 'like', '%' . $buscar . '%')
+                $query->where('apellido', 'like', '%' . $buscar . '%')
                     ->orWhere('tipo_identificacion', 'like', '%' . $buscar . '%')
                     ->orWhere('identificacion', 'like', '%' . $buscar . '%');
             })

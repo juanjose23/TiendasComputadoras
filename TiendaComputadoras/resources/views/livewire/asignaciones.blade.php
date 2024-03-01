@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    {{$datos}}
+    {{ $datos }}
 
     <div class="table-responsive">
         <table class="table mb-0">
@@ -67,65 +67,55 @@
             </thead>
             <tbody>
                 <tr>
-                    
+
                     @foreach ($datos as $colaborador)
-                
-                  
-                    <td>{{ $colaborador->empleados->id }}</td>
-                    <td>{{ $colaborador->empleados->codigo }}</td>
+                        <td>{{ $loop->index }}</td>
+                        <td>{{ $colaborador->empleados->codigo }}</td>
 
-                    <td>{{ $colaborador->empleados->personas->nombre }}</td>
-                    <td>{{ $colaborador->empleados->personas->persona_naturales->apellido }}</td>
-                   <td>Número de cargos en responsabilidad: {{$colaborador->cantidad_cargos}}</td>
-                    <td><span
-                            class="badge rounded-pill {{ $colaborador->empleados->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $colaborador->empleados->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
+                        <td>{{ $colaborador->empleados->personas->nombre }}</td>
+                        <td>{{ $colaborador->empleados->personas->persona_naturales->apellido }}</td>
+                        <td>Número de cargos registrados: {{ $colaborador->cantidad_cargos }}</td>
+                        <td><span
+                                class="badge rounded-pill {{ $colaborador->empleados->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $colaborador->empleados->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
 
-                        <div class="d-flex">
-                            <div class="mr-1">
-                                <a href="{{ route('colaboradores.edit', ['colaboradores' => $colaborador->empleados->id]) }}"
-                                    class="btn btn-info" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                
-                                </a>
+                            <div class="d-flex">
+                                <div class="mr-2">
+                                    <a href="{{ route('asignaciones.edit', ['asignaciones' => $colaborador->empleados->id]) }}"
+                                        class="btn btn-info" role="button">
+                                        <i class="bi bi-pencil"></i>
+
+                                    </a>
+                                </div>
+
+                                <div class="ml-3">
+                                    <a href="{{ route('asignaciones.show', ['asignaciones' => $colaborador->empleados->id]) }}"
+                                        class="btn btn-info" role="button">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="mr-1">
-                                <!-- Botón para activar/desactivar -->
-                                <button type="button"
-                                    class="btn btn-{{ $colaborador->empleados->estado == 1 ? 'danger' : 'success' }}"
-                                    role="button" onclick="confirmAction({{ $colaborador->empleados->id }})">
-                                    <i
-                                        class="bi bi-{{ $colaborador->empleados->estado == 1 ? 'trash' : 'power' }}"></i>
-                                </button>
-                            </div>
-                            <div>
-                                <a href="{{ route('colaboradores.show', ['colaboradores' => $colaborador->empleados->id]) }}"
-                                    class="btn btn-info" role="button">
-                                    <i class="bi bi-info-circle"></i>
-                                </a>
-                            </div>
-                        </div>
 
 
 
-                        <form id="deleteForm{{ $colaborador->empleados->id }}"
-                            action="{{ route('colaboradores.destroy', ['colaboradores' => $colaborador->empleados->id]) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
+                            <form id="deleteForm{{ $colaborador->empleados->id }}"
+                                action="{{ route('colaboradores.destroy', ['colaboradores' => $colaborador->empleados->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $colaborador->empleados->id }}" type="submit"
-                                style="display: none;"></button>
-                        </form>
+                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                <button id="submitBtn{{ $colaborador->empleados->id }}" type="submit"
+                                    style="display: none;"></button>
+                            </form>
 
-                    </td>
+                        </td>
                 </tr>
                 @endforeach
-             
+
             </tbody>
         </table>
 
