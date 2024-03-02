@@ -214,8 +214,9 @@ class ColaboradoresController extends Controller
 
     public function pdf()
     {
-        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf');
-
+        $pdf = Pdf::loadView('report.empleados');
+        $pdf->set_paper('A3', 'landscape');
+      
        // Envía el PDF generado al navegador
        return $pdf->stream('documento.pdf');
     }

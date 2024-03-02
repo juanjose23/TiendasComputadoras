@@ -5,10 +5,9 @@ namespace App\Exports;
 use App\Models\Empleados;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithDrawings;
-use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 
-class ColaboradoresExport implements FromCollection, WithHeadings, WithDrawings
+
+class ColaboradoresExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
@@ -44,42 +43,10 @@ class ColaboradoresExport implements FromCollection, WithHeadings, WithDrawings
             'Identificación',
             'Código Inss',
             'Nacionalidad',
-            'Estado',
-            'Foto'
+            'Estado'
         ];
     }
 
-    public function drawings()
-    {
-        $drawings = [];
-        $row = 2; // Empezar desde la segunda fila
-    
-        Empleados::with(['personas', 'personas.persona_naturales'])->get()->each(function ($empleados) use (&$drawings, &$row) {
-            // Obtener la URL de la foto almacenada en la base de datos
-            $fotoUrl = $empleados->personas->foto;
-    
-            if ($fotoUrl) {
-                // Leer la imagen desde la URL almacenada en la base de datos
-                $imageContent = file_get_contents($fotoUrl);
-                $imageResource = imagecreatefromstring($imageContent);
-    
-                if ($imageResource === false) {
-                    throw new \Exception('The image URL cannot be converted into an image resource.');
-                }
-    
-                $drawing = new MemoryDrawing();
-                $drawing->setName('Foto');
-                $drawing->setDescription('Foto del empleado');
-                $drawing->setImageResource($imageResource);
-                $drawing->setHeight(100);
-                $drawing->setCoordinates("L$row"); // Insertar en la columna 'L'
-                $drawings[] = $drawing;
-            }
-    
-            $row++;
-        });
-    
-        return $drawings;
-    }
+  
     
 }

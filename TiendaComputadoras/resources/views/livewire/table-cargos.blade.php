@@ -27,13 +27,8 @@
                         <li><a href="{{ route('exportcargosexcel') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('exportcargopdf') }}"><i
-                                    class="bi bi-file-pdf text-danger"></i> Exportar
-                                a
-                                PDF
-                            </a>
-                        </li>
+                       
+                        
                     </ul>
                 </div>
             </div>

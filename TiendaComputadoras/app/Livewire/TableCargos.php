@@ -5,9 +5,6 @@ namespace App\Livewire;
 use App\Models\Cargos;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class TableCargos extends Component
 {
@@ -34,22 +31,4 @@ class TableCargos extends Component
         $this->gotoPage(1); // Reiniciar el paginado a la página 1
     }
 
-    public function exportToExcel()
-    {
-        $cargosData = Cargos::all()->map(function ($cargo) {
-            return [
-                'Nombre' => $cargo->nombre,
-                'Perfil' => $cargo->perfil,
-                'Descripción' => $cargo->descripcion,
-                'estado' => $cargo->estado == 1 ? 'Activo' : 'Inactivo',
-            ];
-        });
-        return $cargosData;
-
-        // Verifica si $cargosData contiene datos
-        if ($cargosData->isEmpty()) {
-            return 'No hay datos para exportar';
-        }
-        //return Excel::download($cargosData, 'cargos.xlsx');
-    }
 }

@@ -1,16 +1,9 @@
 <?php
-
 namespace App\Livewire;
-
 use App\Models\AsignacionCargos;
-use App\Models\Empleados AS e;
-use App\Models\Personas AS p;
-use app\Models\Cargos AS ps;
-USE app\Models\Persona_Naturales AS pn;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
+
 class Asignaciones extends Component
 {
     use WithPagination;

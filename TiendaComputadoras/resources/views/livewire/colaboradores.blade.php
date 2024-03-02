@@ -27,7 +27,7 @@
                         <li><a  class="dropdown-item" href="{{route('exportColaboradores')}}"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-file-pdf text-danger"></i>
+                        <li><a class="dropdown-item" href="{{route('exportColaboradorespdf')}}"><i class="bi bi-file-pdf text-danger"></i>
                                 Exportar
                                 a
                                 PDF</a></li>

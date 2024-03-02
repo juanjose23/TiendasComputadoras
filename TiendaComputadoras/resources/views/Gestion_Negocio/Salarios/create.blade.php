@@ -1,8 +1,8 @@
 @extends('layout.layout')
-@section('title', 'Asignaciones')
-@section('submodulo', 'Registrar asignación')
+@section('title', 'Salario')
+@section('submodulo', 'Registrar salario')
 @section('content')
-    <form action="{{ route('asignaciones.store') }}" method="POST">
+    <form action="{{ route('salarios.store') }}" method="POST">
         @csrf
         <div class="row">
             <div class="col-md-6">
@@ -10,7 +10,7 @@
                     <label for="empleado" class="form-label text-dark">Empleados:</label>
                     <select id="empleado" name="empleados" class="buscador form-select @error('empleados') is-invalid @enderror">
                         <option>Seleccionar Empleado</option>
-                        @foreach ($datos['empleados'] as $empleado)
+                        @foreach ($empleados as $empleado)
 
                             <option value="{{ $empleado->id }}" {{ old('empleados') == $empleado->id ? 'selected' : '' }}>
                                 Código empleado: {{ $empleado->codigo }} {{ $empleado->personas->nombre }}
@@ -26,17 +26,11 @@
           
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="cargos" class="form-label text-dark">Cargos:</label>
-                    <select id="cargos" name="cargos" class="buscador form-select @error('cargos') is-invalid @enderror">
-                        <option>Seleccionar Cargos</option>
-                        @foreach ($datos['cargos'] as $cargos)
-
-                            <option value="{{ $cargos->id }}" {{ old('cargos') == $cargos->id ? 'selected' : '' }}>
-                                Código: {{ $cargos->codigo }} {{ $cargos->nombre }}
-                                </option>
-                        @endforeach
-                    </select>
-                    @error('cargos')
+                   
+                    <label for="salario" class="form-label text-dark">Salario:</label>
+                    <input type="number" id="salario" name="salario" placeholder="Escriba el salario"
+                        class="form-control @error('salario') is-invalid @enderror" value="{{ old('salario') }}">
+                    @error('salario')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

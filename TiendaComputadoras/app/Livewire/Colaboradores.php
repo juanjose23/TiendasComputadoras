@@ -3,14 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Direcciones;
-use App\Models\Empleados;
-use App\Models\Departamentos;
-use App\Models\Estado_civiles;
-use App\Models\Pais;
-use App\Models\Genero;
 use App\Models\Personas;
-use App\Models\Persona_Naturales;
 use Livewire\WithPagination;
 class Colaboradores extends Component
 {
@@ -34,7 +27,7 @@ class Colaboradores extends Component
             ->orWhere('telefono', 'like', '%' . $buscar . '%')
             ->orWhere('correo', 'like', '%' . $buscar . '%')
             ->orWhere('nombre', 'like', '%' . $buscar . '%')
-            ->paginate($this->perPage);;
+            ->paginate($this->perPage);
 
         return view('livewire.colaboradores',compact('datos'));
     }

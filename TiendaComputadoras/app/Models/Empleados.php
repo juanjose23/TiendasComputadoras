@@ -21,6 +21,10 @@ class Empleados extends Model
     {
         return $this->hasMany('App\Models\AsingacionCargos');
     }
+    public function salarios()
+    {
+        return $this->hasMany('App\Models\Salarios');
+    }
     public static function generarCodigo()
     {
         // Obtener el ID máximo actual de la tabla empleados
