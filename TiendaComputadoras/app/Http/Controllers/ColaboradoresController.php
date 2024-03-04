@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreColaborador;
 use App\Http\Requests\UpdateColaborador;
+use App\Models\AsignacionCargos;
 use App\Models\Direcciones;
 use App\Models\Empleados;
 use App\Models\Departamentos;
@@ -15,7 +16,7 @@ use App\Models\Persona_Naturales;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Models\Salarios;
 
 
 class ColaboradoresController extends Controller
@@ -109,7 +110,18 @@ class ColaboradoresController extends Controller
         //
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
         ->find($colaboradores->id);
-        return view('Gestion_Negocio.Colaborador.show',compact('empleados'));
+        $salario = Salarios::where([
+            ['estado', 1],
+            ['empleados_id', $colaboradores->id]
+        ])->first();
+        $cargo = AsignacionCargos::with(['cargos'])->where([
+            ['estado', 1],
+            ['empleados_id', $colaboradores->id]
+        ])->get();
+
+        $historial=Salarios::Where('empleados_id',$colaboradores->id)->get();
+        $cargos=AsignacionCargos::with(['cargos'])->where('empleados_id',$colaboradores->id)->get();
+        return view('Gestion_Negocio.Colaborador.show',compact('empleados','salario','cargo','historial','cargos'));
     }
 
     /**
@@ -212,12 +224,25 @@ class ColaboradoresController extends Controller
          
     }
 
-    public function pdf()
+    public function pdf($colaboradores)
     {
-        $pdf = Pdf::loadView('report.empleados');
-        $pdf->set_paper('A3', 'landscape');
+        $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
+        ->find($colaboradores);
+        $salario = Salarios::where([
+            ['estado', 1],
+            ['empleados_id', $colaboradores]
+        ])->first();
+        $cargo = AsignacionCargos::with(['cargos'])->where([
+            ['estado', 1],
+            ['empleados_id', $colaboradores]
+        ])->get();
+
+        $historial=Salarios::Where('empleados_id',$colaboradores)->get();
+        $cargos=AsignacionCargos::with(['cargos'])->where('empleados_id',$colaboradores)->get();
+        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf',compact('empleados','salario','cargo','historial','cargos'));
+        $pdf->set_paper('A5');
       
        // Envía el PDF generado al navegador
-       return $pdf->stream('documento.pdf');
+       return $pdf->download('documento.pdf');
     }
 }

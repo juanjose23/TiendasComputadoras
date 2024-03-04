@@ -44,7 +44,6 @@
         </div>
     </div>
 
-    {{ $datos }}
 
     <div class="table-responsive">
         <table class="table mb-0">

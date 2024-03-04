@@ -1,8 +1,7 @@
 <div wire:poll.1s>
-    {{$buscar}}
     <div class="d-flex justify-content-between align-items-center flex-wrap">
         <div class="input-group mb-3" style="max-width: 300px;">
-                <input type="text" wire:model.live="buscar" class="form-control form-control rounded-start"
+            <input type="text" wire:model.live.debounce.300ms="Filtrar" class="form-control form-control rounded-start"
                 placeholder="Buscar...">
         </div>
 
@@ -11,8 +10,8 @@
             <!-- Botón para crear un cargo -->
             <div class="dropdown">
                 <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('salarios.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Asignar salario
+                    <a href="{{ route('asignaciones.create') }}" class="btn btn-success btn-icon">
+                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Salario
                     </a>
                 </div>
             </div>
@@ -25,15 +24,13 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ route('exportcargosexcel') }}" class="dropdown-item"><i
+                        <li><a class="dropdown-item" href="{{ route('exportsalarios') }}"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
-                                Exportar a Excel
-                            </a>
-                        </li>
+                                Exportar a Excel</a></li>
                     </ul>
                 </div>
             </div>
+
             <!-- Botón para seleccionar cantidad de registros a mostrar -->
             <div class="ms-2">
                 <select name="buscador" id="buscador" wire:model.live="perPage" class="form-select mt-2 mt-md-0">
@@ -55,7 +52,7 @@
                     <th scope="col" class="px-4 py-3">
                         <span class="sr-only">#</span>
                     </th>
-                    <th scope="col" class="px-4 py-3">Codigo</th>
+                    <th scope="col" class="px-4 py-3">Código</th>
                     <th scope="col" class="px-4 py-3">Nombre</th>
                     <th scope="col" class="px-4 py-3">Apellido</th>
                     <th scope="col" class="px-4 py-3">Salario</th>
@@ -64,71 +61,113 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    @foreach ($Salarios as $Salarios)
-                <tr>
-                    <th>{{ $Salarios->id }}</th>
-                    <td>{{ $Salarios->empleados->codigo }}</td>
-
-                    <td>{{ $Salarios->empleados->personas->nombre }}</td>
-                    <td>{{ $Salarios->empleados->personas->persona_naturales->apellido }}</td>
-                    <td>{{ $Salarios->salario }}</td>
-                    <td><span class="badge rounded-pill {{ $Salarios->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $Salarios->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
-
-                        <div class="mb-2">
-                            <a href="{{ route('salarios.edit', ['salarios' => $Salarios->empleados_id]) }}"
-                                class="btn btn-info d-block" role="button">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                        </div>
-                        <div class="mb-2">
-                            <a href="{{ route('salarios.show', ['salarios' => $Salarios->empleados_id]) }}"
-                                class="btn btn-info d-block" role="button">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                        </div>
+                @foreach ($datos as $colaborador)
+                    <tr>
 
 
+                        <td>{{ $loop->index }}</td>
+                        <td>{{ $colaborador->empleados->codigo }}</td>
 
-                    </td>
-                </tr>
+                        <td>{{ $colaborador->empleados->personas->nombre }}</td>
+                        <td>{{ $colaborador->empleados->personas->persona_naturales->apellido }}</td>
+                        <td>{{ $colaborador->salario }}</td>
+                        <td><span
+                                class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $colaborador->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
+
+                            <div class="d-flex">
+                                <div class="mr-2">
+                                    <a href="{{ route('salarios.edit', ['salarios' => $colaborador->empleados->id]) }}"
+                                        class="btn btn-info" role="button">
+                                        <i class="bi bi-pencil"></i>
+
+                                    </a>
+                                </div>
+
+                            </div>
+
+
+
+                            
+
+                        </td>
+                    </tr>
                 @endforeach
-                </tr>
+
             </tbody>
         </table>
-      
+
+        <div class="mt-4">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group me-2" role="group" aria-label="First group">
+                    <!-- Botón para la página anterior -->
+                    <button type="button" class="btn btn-primary" wire:click="previousPage"
+                        {{ $datos->onFirstPage() ? 'disabled' : '' }}>
+                        Previo
+                    </button>
+                </div>
+
+                <!-- Botones para cada página -->
+                @foreach ($datos->links() as $page => $url)
+                    @if (
+                        $loop->first ||
+                            $loop->last ||
+                            ($loop->index >= $datos->currentPage() - 2 && $loop->index <= $datos->currentPage() + 2))
+                        <div class="btn-group me-2" role="group" aria-label="Page {{ $page }}">
+                            <button type="button"
+                                class="btn btn-primary {{ $datos->currentPage() == $page ? 'active' : '' }}"
+                                wire:click="gotoPage({{ $page }})">
+                                {{ $page }}
+                            </button>
+                        </div>
+                    @elseif ($loop->index == $datos->currentPage() - 3 || $loop->index == $datos->currentPage() + 3)
+                        <span class="mx-2">...</span>
+                    @endif
+                @endforeach
+
+                <div class="btn-group" role="group" aria-label="Next group">
+                    <!-- Botón para la página siguiente -->
+                    <button type="button" class="btn btn-primary" wire:click="nextPage"
+                        {{ $datos->hasMorePages() ? '' : 'disabled' }}>
+                        Siguiente
+                    </button>
+                </div>
+            </div>
+
+        </div>
     </div>
+    <!-- JavaScript -->
+    <!-- JavaScript -->
+    <script>
+        function confirmAction(colaboradorId) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¿Quieres cambiar el estado de este colaborador?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, cambiar estado'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = document.getElementById('deleteForm' + colaboradorId);
+
+                    // Agregar un campo oculto al formulario para indicar la acción
+                    var actionInput = document.createElement('input');
+                    actionInput.type = 'hidden';
+                    actionInput.name = '_method';
+                    actionInput.value = 'DELETE';
+                    form.appendChild(actionInput);
+
+                    // Enviar el formulario
+                    form.submit();
+                }
+            });
+        }
+    </script>
+
+
 </div>
-<!-- JavaScript -->
-<!-- JavaScript -->
-<script>
-    function confirmAction(cargoId) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: '¿Quieres cambiar el estado de este cargo?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, cambiar estado'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                var form = document.getElementById('deleteForm' + cargoId);
-
-                // Agregar un campo oculto al formulario para indicar la acción
-                var actionInput = document.createElement('input');
-                actionInput.type = 'hidden';
-                actionInput.name = '_method';
-                actionInput.value = 'DELETE';
-                form.appendChild(actionInput);
-
-                // Enviar el formulario
-                form.submit();
-            }
-        });
-    }
-</script>
