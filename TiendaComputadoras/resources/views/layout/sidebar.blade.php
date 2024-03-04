@@ -16,7 +16,8 @@
 
                 </a>
                 <ul id="productos" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-projects'>Categorias </a></li>
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{route('categorias.index')}}'>Categorias </a></li>
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{route('subcategorias.index')}}'>SubCategorias </a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-clients'>Marcas </a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-orders'>Modelos</a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-pricing'>Colores </a></li>
@@ -66,7 +67,7 @@
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('cargos.index')}}'>Cargos</a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('colaboradores.index')}}'>Colaboradores</a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{route('asignaciones.index')}}'>Asignacion de cargos</a></li>
-                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-pricing'>Salarios </a></li>
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{route('salarios.index')}}'>Salarios </a></li>
 
                 </ul>
             </li>

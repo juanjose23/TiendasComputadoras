@@ -10,8 +10,8 @@
             <!-- Botón para crear un cargo -->
             <div class="dropdown">
                 <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('cargos.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Crear cargo
+                    <a href="{{ route('subcategorias.create') }}" class="btn btn-success btn-icon">
+                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Sub-categoría
                     </a>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('exportcargosexcel') }}" class="dropdown-item"><i
+                        <li><a href="{{ route('exportsubcategorias') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
 
@@ -54,9 +54,8 @@
                     <th scope="col" class="px-4 py-3">
                         <span class="sr-only">#</span>
                     </th>
-                    <th scope="col" class="px-4 py-3">Codigo</th>
-                    <th scope="col" class="px-4 py-3">Cargo</th>
-                    <th scope="col" class="px-4 py-3">Perfil</th>
+                    <th scope="col" class="px-4 py-3">Categoría</th>
+                    <th scope="col" class="px-4 py-3">Nombre</th>
                     <th scope="col" class="px-4 py-3">Descripción</th>
                     <th scope="col" class="px-4 py-3">Estado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
@@ -64,45 +63,48 @@
             </thead>
             <tbody>
                 <tr>
-                    @foreach ($Cargo as $cargo)
+                    @foreach ($subcategorias as $subcategoria)
                 <tr>
-                    <th>{{ $cargo->id }}</th>
-                    <td>{{ $cargo->codigo }}</td>
+                    <th>{{ $subcategoria->id }}</th>
 
-                    <td>{{ $cargo->nombre }}</td>
-                    <td>{{ $cargo->perfil }}</td>
-                    <td class="text-wrap">{{ wordwrap($cargo->descripcion, 50, "\n", true) }}</td>
-                    <td><span class="badge rounded-pill {{ $cargo->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $cargo->estado == 1 ? 'Activo' : 'Inactivo' }}
+                    <th>{{ $subcategoria->categorias->nombre }}</th>
+                    <td>{{ $subcategoria->nombre }}</td>
+
+                    <td class="text-wrap">{{ wordwrap($subcategoria->descripcion, 50, "\n", true) }}</td>
+                    <td><span class="badge rounded-pill {{ $subcategoria->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                            {{ $subcategoria->estado == 1 ? 'Activo' : 'Inactivo' }}
                         </span>
                     </td>
                     <td>
 
                         <div class="d-flex mb-1 align-items-center">
-
-                            <a href="{{ route('cargos.edit', ['cargos' => $cargo->id]) }}" class="btn btn-info d-block"
-                                role="button">
-                                <i class="bi bi-pencil"></i> 
-                            </a>
-
-                            <div class="m-1">
-                                <!-- Botón para activar/desactivar -->
-                                <button type="button"
-                                    class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} d-block"
-                                    role="button" onclick="confirmAction({{ $cargo->id }})">
-                                    <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
-                                   
+                           
+                        
+                            <!-- Botón para editar -->
+                            <div class=" me-1">
+                                <a href="{{ route('subcategorias.edit', ['subcategorias' => $subcategoria->id]) }}" class="btn btn-info btn-block" role="button">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </div>
+                        
+                            <!-- Botón para activar/desactivar -->
+                            <div class="flex me-1">
+                                <button type="button" class="btn btn-{{ $subcategoria->estado == 1 ? 'danger' : 'success' }} btn-block" role="button" onclick="confirmAction({{ $subcategoria->id }})">
+                                    <i class="bi bi-{{ $subcategoria->estado == 1 ? 'trash' : 'power' }}"></i>
                                 </button>
                             </div>
                         </div>
+                        
 
-                        <form id="deleteForm{{ $cargo->id }}"
-                            action="{{ route('cargos.destroy', ['cargos' => $cargo->id]) }}" method="POST">
+
+
+                        <form id="deleteForm{{ $subcategoria->id }}"
+                            action="{{ route('subcategorias.destroy', ['subcategorias' => $subcategoria->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
                             <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $cargo->id }}" type="submit" style="display: none;"></button>
+                            <button id="submitBtn{{ $subcategoria->id }}" type="submit" style="display: none;"></button>
                         </form>
 
                     </td>
@@ -117,25 +119,25 @@
                 <div class="btn-group me-2" role="group" aria-label="First group">
                     <!-- Botón para la página anterior -->
                     <button type="button" class="btn btn-primary" wire:click="previousPage"
-                        {{ $Cargo->onFirstPage() ? 'disabled' : '' }}>
+                        {{ $subcategorias->onFirstPage() ? 'disabled' : '' }}>
                         &laquo; Previo
                     </button>
                 </div>
 
                 <!-- Botones para cada página -->
-                @foreach ($Cargo->links() as $page => $url)
+                @foreach ($subcategorias->links() as $page => $url)
                     @if (
                         $loop->first ||
                             $loop->last ||
-                            ($loop->index >= $Cargo->currentPage() - 2 && $loop->index <= $Cargo->currentPage() + 2))
+                            ($loop->index >= $subcategorias->currentPage() - 2 && $loop->index <= $subcategorias->currentPage() + 2))
                         <div class="btn-group me-2" role="group" aria-label="Page {{ $page }}">
                             <button type="button"
-                                class="btn btn-primary {{ $Cargo->currentPage() == $page ? 'active' : '' }}"
+                                class="btn btn-primary {{ $subcategorias->currentPage() == $page ? 'active' : '' }}"
                                 wire:click="gotoPage({{ $page }})">
                                 {{ $page }}
                             </button>
                         </div>
-                    @elseif ($loop->index == $Cargo->currentPage() - 3 || $loop->index == $Cargo->currentPage() + 3)
+                    @elseif ($loop->index == $subcategorias->currentPage() - 3 || $loop->index == $subcategorias->currentPage() + 3)
                         <span class="mx-2">...</span>
                     @endif
                 @endforeach
@@ -143,7 +145,7 @@
                 <div class="btn-group" role="group" aria-label="Next group">
                     <!-- Botón para la página siguiente -->
                     <button type="button" class="btn btn-primary" wire:click="nextPage"
-                        {{ $Cargo->hasMorePages() ? '' : 'disabled' }}>
+                        {{ $subcategorias->hasMorePages() ? '' : 'disabled' }}>
                         Siguiente
                     </button>
                 </div>
@@ -158,7 +160,7 @@
     function confirmAction(cargoId) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: '¿Quieres cambiar el estado de este cargo?',
+            text: '¿Quieres cambiar el estado de esta subcategoria?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',

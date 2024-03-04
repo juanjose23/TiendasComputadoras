@@ -77,18 +77,18 @@
                         </td>
                         <td>
 
-                            <div class="d-flex">
-                                <div class="mr-2">
+                            <div class="d-flex mb-1 align-items-center">
+                             
                                     <a href="{{ route('asignaciones.edit', ['asignaciones' => $colaborador->empleados->id]) }}"
                                         class="btn btn-info" role="button">
                                         <i class="bi bi-pencil"></i>
 
                                     </a>
-                                </div>
+                               
 
-                                <div class="ml-3">
+                                <div class="m-1">
                                     <a href="{{ route('asignaciones.show', ['asignaciones' => $colaborador->empleados->id]) }}"
-                                        class="btn btn-info" role="button">
+                                        class="btn btn-secondary" role="button">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                 </div>

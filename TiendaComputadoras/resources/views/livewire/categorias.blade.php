@@ -10,8 +10,8 @@
             <!-- Botón para crear un cargo -->
             <div class="dropdown">
                 <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('cargos.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Crear cargo
+                    <a href="{{ route('categorias.create') }}" class="btn btn-success btn-icon">
+                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar categoría
                     </a>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('exportcargosexcel') }}" class="dropdown-item"><i
+                        <li><a href="{{ route('exportcategorias') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
 
@@ -54,9 +54,7 @@
                     <th scope="col" class="px-4 py-3">
                         <span class="sr-only">#</span>
                     </th>
-                    <th scope="col" class="px-4 py-3">Codigo</th>
-                    <th scope="col" class="px-4 py-3">Cargo</th>
-                    <th scope="col" class="px-4 py-3">Perfil</th>
+                    <th scope="col" class="px-4 py-3">Nombre</th>
                     <th scope="col" class="px-4 py-3">Descripción</th>
                     <th scope="col" class="px-4 py-3">Estado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
@@ -67,10 +65,10 @@
                     @foreach ($Cargo as $cargo)
                 <tr>
                     <th>{{ $cargo->id }}</th>
-                    <td>{{ $cargo->codigo }}</td>
+
 
                     <td>{{ $cargo->nombre }}</td>
-                    <td>{{ $cargo->perfil }}</td>
+
                     <td class="text-wrap">{{ wordwrap($cargo->descripcion, 50, "\n", true) }}</td>
                     <td><span class="badge rounded-pill {{ $cargo->estado == 1 ? 'bg-success' : 'bg-danger' }}">
                             {{ $cargo->estado == 1 ? 'Activo' : 'Inactivo' }}
@@ -79,25 +77,31 @@
                     <td>
 
                         <div class="d-flex mb-1 align-items-center">
-
-                            <a href="{{ route('cargos.edit', ['cargos' => $cargo->id]) }}" class="btn btn-info d-block"
-                                role="button">
-                                <i class="bi bi-pencil"></i> 
+                            <!-- Botón de información -->
+                            <a href="{{ route('categorias.show', ['categorias' => $cargo->id]) }}" class="btn btn-secondary me-1" role="button">
+                                <i class="bi bi-info-circle"></i>
                             </a>
-
-                            <div class="m-1">
-                                <!-- Botón para activar/desactivar -->
-                                <button type="button"
-                                    class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} d-block"
-                                    role="button" onclick="confirmAction({{ $cargo->id }})">
+                        
+                            <!-- Botón para editar -->
+                            <div class=" me-1">
+                                <a href="{{ route('categorias.edit', ['categorias' => $cargo->id]) }}" class="btn btn-info btn-block" role="button">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </div>
+                        
+                            <!-- Botón para activar/desactivar -->
+                            <div class="flex me-1">
+                                <button type="button" class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} btn-block" role="button" onclick="confirmAction({{ $cargo->id }})">
                                     <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
-                                   
                                 </button>
                             </div>
                         </div>
+                        
+
+
 
                         <form id="deleteForm{{ $cargo->id }}"
-                            action="{{ route('cargos.destroy', ['cargos' => $cargo->id]) }}" method="POST">
+                            action="{{ route('categorias.destroy', ['categorias' => $cargo->id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
@@ -158,7 +162,7 @@
     function confirmAction(cargoId) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: '¿Quieres cambiar el estado de este cargo?',
+            text: '¿Quieres cambiar el estado de este categoría?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',

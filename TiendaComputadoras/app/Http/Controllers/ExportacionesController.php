@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exports\AsignacionExport;
 use App\Exports\CargosExport;
+use App\Exports\CategoriasExport;
+use App\Exports\SubcategoriasExport;
 use App\Exports\ColaboradoresExport;
 use App\Exports\SalariosExport;
 use Illuminate\Http\Request;
@@ -53,7 +55,14 @@ class ExportacionesController extends Controller
     {
         return Excel::download(new SalariosExport, 'salarios.xlsx');
     }
-
+    public function exportcategorias()
+    {
+        return Excel::download(new CategoriasExport, 'categorias.xlsx');
+    }
+    public function exportsubcategorias()
+    {
+        return Excel::download(new SubcategoriasExport, 'subcategorias.xlsx');
+    }
     public function exportColaboradorespdf()
     {
         $empleados=Empleados::with(['personas','personas.persona_naturales'])->get();

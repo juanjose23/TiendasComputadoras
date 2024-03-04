@@ -24,10 +24,11 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a  class="dropdown-item" href="{{route('exportColaboradores')}}"><i
+                        <li><a class="dropdown-item" href="{{ route('exportColaboradores') }}"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
-                        <li><a class="dropdown-item" href="{{route('exportColaboradorespdf')}}"><i class="bi bi-file-pdf text-danger"></i>
+                        <li><a class="dropdown-item" href="{{ route('exportColaboradorespdf') }}"><i
+                                    class="bi bi-file-pdf text-danger"></i>
                                 Exportar
                                 a
                                 PDF</a></li>
@@ -87,15 +88,16 @@
                     </td>
                     <td>
 
-                        <div class="d-flex">
-                            <div class="mr-1">
-                                <a href="{{ route('colaboradores.edit', ['colaboradores' => $colaborador->empleados->id]) }}"
-                                    class="btn btn-info" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                
-                                </a>
-                            </div>
-                            <div class="mr-1">
+                        <div class="d-flex mb-1 align-items-center">
+
+
+                            <a href="{{ route('colaboradores.edit', ['colaboradores' => $colaborador->empleados->id]) }}"
+                                class="btn btn-info" role="button">
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+                            <div class="m-1">
                                 <!-- Botón para activar/desactivar -->
                                 <button type="button"
                                     class="btn btn-{{ $colaborador->empleados->estado == 1 ? 'danger' : 'success' }}"
@@ -104,12 +106,12 @@
                                         class="bi bi-{{ $colaborador->empleados->estado == 1 ? 'trash' : 'power' }}"></i>
                                 </button>
                             </div>
-                            <div>
-                                <a href="{{ route('colaboradores.show', ['colaboradores' => $colaborador->empleados->id]) }}"
-                                    class="btn btn-info" role="button">
-                                    <i class="bi bi-info-circle"></i>
-                                </a>
-                            </div>
+
+                            <a href="{{ route('colaboradores.show', ['colaboradores' => $colaborador->empleados->id]) }}"
+                                class="btn btn-secondary" role="button">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+
                         </div>
 
 
