@@ -12,6 +12,10 @@ class Pais extends Model
     {
         return $this->hasMany('App\Models\Departamentos');
     }
+    public function marcas()
+    {
+        return $this->hasMany('App\Models\Marcas');
+    }
     public function persona_natural()
     {
         return $this->HasOne('App\Models\Persona_Naturales');

@@ -109,7 +109,7 @@ class ColaboradoresController extends Controller
     {
         //
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
-        ->find($colaboradores->id);
+            ->find($colaboradores->id);
         $salario = Salarios::where([
             ['estado', 1],
             ['empleados_id', $colaboradores->id]
@@ -119,9 +119,9 @@ class ColaboradoresController extends Controller
             ['empleados_id', $colaboradores->id]
         ])->get();
 
-        $historial=Salarios::Where('empleados_id',$colaboradores->id)->get();
-        $cargos=AsignacionCargos::with(['cargos'])->where('empleados_id',$colaboradores->id)->get();
-        return view('Gestion_Negocio.Colaborador.show',compact('empleados','salario','cargo','historial','cargos'));
+        $historial = Salarios::Where('empleados_id', $colaboradores->id)->get();
+        $cargos = AsignacionCargos::with(['cargos'])->where('empleados_id', $colaboradores->id)->get();
+        return view('Gestion_Negocio.Colaborador.show', compact('empleados', 'salario', 'cargo', 'historial', 'cargos'));
     }
 
     /**
@@ -137,9 +137,9 @@ class ColaboradoresController extends Controller
             'estadosCiviles' => Estado_civiles::obtenerEstados(),
         ];
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
-        ->find($colaboradores->id);
-    
-       
+            ->find($colaboradores->id);
+
+
         return view('Gestion_Negocio.Colaborador.edit', compact('datos', 'empleados'));
     }
 
@@ -152,7 +152,7 @@ class ColaboradoresController extends Controller
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
             ->find($colaboradores->id);
 
-
+        $foto_anterior = $empleados->personas->foto;
         // Actualizar los valores de los atributos de la persona
         $empleados->personas->nombre = $request->nombre;
         $empleados->personas->correo = $request->correo;
@@ -164,14 +164,17 @@ class ColaboradoresController extends Controller
             $result = $request->file('foto')->storeOnCloudinary('empleados');
 
             // Eliminar la foto anterior de Cloudinary
-            if ($empleados->personas->foto_id) {
-                Cloudinary::destroy($empleados->personas->foto_id);
+            if ($empleados->personas->foto) {
+                
+             
+              Cloudinary::Destroy('empleados/'.$foto_anterior);
             }
-
+            $url = $result->getSecurePath();
+            $publicId  = $result->getPublicId();
             // Guardar la nueva URL de la foto
-            $empleados->personas->foto = $result->getSecurePath();
+            $empleados->personas->foto = $publicId;
         }
-        
+
         // Actualizar los valores de los atributos de la persona natural
         $empleados->personas->persona_naturales->apellido = $request->apellido;
         $empleados->personas->persona_naturales->fecha_nacimiento = $request->fecha;
@@ -185,9 +188,9 @@ class ColaboradoresController extends Controller
         $empleados->personas->direcciones[0]->punto_referencia = $request->punto;
         $empleados->personas->direcciones[0]->direccion = $request->direccion;
         //Actualizar los valores de los atributos de los empleados
-        $empleados->estado_civiles_id=$request->estado_civil;
-        $empleados->codigo_inss=$request->inss;
-        $empleados->estado=$request->estado;
+        $empleados->estado_civiles_id = $request->estado_civil;
+        $empleados->codigo_inss = $request->inss;
+        $empleados->estado = $request->estado;
 
         // Guardar los cambios en la base de datos
         $empleados->personas->save();
@@ -210,24 +213,23 @@ class ColaboradoresController extends Controller
     public function destroy($colaboradores)
     {
         //
-         // Encuentra el cargo por su ID
-         $empleados = Empleados::findOrFail($colaboradores);
+        // Encuentra el cargo por su ID
+        $empleados = Empleados::findOrFail($colaboradores);
 
-         // Cambia el estado del cargo
-         $empleados->estado = $empleados->estado == 1 ? 2 : 1;
-         $empleados->save();
- 
-         // Redirige de vuelta a la página de índice con un mensaje flash
-         Session::flash('success', 'El estado del colaborador ha sido cambiado exitosamente.');
- 
-         return redirect()->route('colaboradores.index');
-         
+        // Cambia el estado del cargo
+        $empleados->estado = $empleados->estado == 1 ? 2 : 1;
+        $empleados->save();
+
+        // Redirige de vuelta a la página de índice con un mensaje flash
+        Session::flash('success', 'El estado del colaborador ha sido cambiado exitosamente.');
+
+        return redirect()->route('colaboradores.index');
     }
 
     public function pdf($colaboradores)
     {
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
-        ->find($colaboradores);
+            ->find($colaboradores);
         $salario = Salarios::where([
             ['estado', 1],
             ['empleados_id', $colaboradores]
@@ -237,12 +239,12 @@ class ColaboradoresController extends Controller
             ['empleados_id', $colaboradores]
         ])->get();
 
-        $historial=Salarios::Where('empleados_id',$colaboradores)->get();
-        $cargos=AsignacionCargos::with(['cargos'])->where('empleados_id',$colaboradores)->get();
-        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf',compact('empleados','salario','cargo','historial','cargos'));
+        $historial = Salarios::Where('empleados_id', $colaboradores)->get();
+        $cargos = AsignacionCargos::with(['cargos'])->where('empleados_id', $colaboradores)->get();
+        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf', compact('empleados', 'salario', 'cargo', 'historial', 'cargos'));
         $pdf->set_paper('A5');
-      
-       // Envía el PDF generado al navegador
-       return $pdf->download('documento.pdf');
+
+        // Envía el PDF generado al navegador
+        return $pdf->download('documento.pdf');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
 use App\Http\Controllers\SalariosController;
 use App\Http\Controllers\ExportacionesController;
+use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\SubcategoriasController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,8 @@ Route::resource('salarios', SalariosController::class)->parameters(['salarios' =
 //Controller de Catalogos
 Route::resource('categorias', CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias');
 Route::resource('subcategorias', SubcategoriasController::class)->parameters(['subcategorias' => 'subcategorias'])->names('subcategorias');
+Route::resource('marcas', MarcasController::class)->parameters(['marcas' => 'marcas'])->names('marcas');
+
 //Rutas para exportacion y reportes
 Route::get('/exportcargosexcel', [ExportacionesController::class, 'exportcargosexcel'])->name('exportcargosexcel');
 Route::get('/exportcargopdf', [ExportacionesController::class, 'exportcargopdf'])->name('exportcargopdf');
