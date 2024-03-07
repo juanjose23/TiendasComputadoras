@@ -76,7 +76,7 @@
 
             <div class="col-md-12">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                    <a href="{{ route('subcategorias.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
+                    <a href="{{ route('marcas.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
                     <button type="submit" class="btn btn-primary mb-2">Registrar</button>
                 </div>
 

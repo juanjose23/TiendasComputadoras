@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMarcas;
+use App\Http\Requests\UpdateMarcas;
 use App\Models\Marcas;
 use App\Models\Imagen;
 use App\Models\Pais;
@@ -80,21 +81,70 @@ class MarcasController extends Controller
     public function edit(Marcas $marcas)
     {
         //
+        $imagen = $marcas->imagenes;
+        $paises = Pais::where('estado', 1)->get();
+        return view('Gestion_Catalogos.Marcas.edit', compact('paises','imagen','marcas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Marcas $marcas)
+    public function update(UpdateMarcas $request, Marcas $marcas)
     {
-        //
-    }
+        // Encuentra la marca existente
+        $marcas = Marcas::findOrFail($marcas->id);
+        //return $marcas->imagenes;
+        // Verificar si se ha enviado un archivo de imagen
+        if ($request->hasFile('logo')) {
+            // Subir la nueva imagen a Cloudinary y obtener el resultado
+            $imagenes = $marcas->imagenes;
 
+            foreach ($imagenes as $imagen) {
+                $public_id = $imagen['public_id'];
+                Cloudinary::destroy($public_id);
+                Imagen::destroy($imagen['id']);
+                
+            }
+            $result = $request->file('logo')->storeOnCloudinary('marcas');
+    
+            // Crear una nueva entrada de imagen en la base de datos
+            $imagen = new Imagen();
+            $imagen->url = $result->getSecurePath();
+            $imagen->public_id = $result->getPublicId();
+            $imagen->imagenable_id = $marcas->id;
+            $imagen->imagenable_type = get_class($marcas);
+            $imagen->save();
+        }
+    
+        // Actualizar los campos de la marca con los datos del formulario
+        $marcas->nombre = $request->nombre;
+        $marcas->paises_id = $request->pais;
+        $marcas->sitio_web = $request->sitio;
+        $marcas->descripcion = $request->descripcion;
+        $marcas->estado = $request->estado;
+        $marcas->save();
+    
+        // Mostrar mensaje solo si hay cambios
+        Session::flash('success', 'El proceso se ha completado exitosamente.');
+    
+        return redirect()->route('marcas.index');
+    }
+    
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Marcas $marcas)
+    public function destroy($marcas)
     {
         //
+          // Encuentra el cargo por su ID
+          $marca = Marcas::findOrFail($marcas);
+
+          // Cambia el estado del cargo
+          $marca->estado = $marca->estado == 1 ? 0 : 1;
+          $marca->save();
+          // Redirige de vuelta a la página de índice con un mensaje flash
+          Session::flash('success', 'El estado del marcas ha sido cambiado exitosamente.');
+  
+          return redirect()->route('marcas.index');
     }
 }

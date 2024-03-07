@@ -43,4 +43,5 @@ Route::get('/exportasignaciones', [ExportacionesController::class, 'exportasigna
 Route::get('/exportsalarios', [ExportacionesController::class, 'exportsalarios'])->name('exportsalarios');
 Route::get('/exportcategorias', [ExportacionesController::class, 'exportcategorias'])->name('exportcategorias');
 Route::get('/exportsubcategorias', [ExportacionesController::class, 'exportsubcategorias'])->name('exportsubcategorias');
+Route::get('/exportmarcas', [ExportacionesController::class, 'exportmarcas'])->name('exportmarcas');
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf');

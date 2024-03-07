@@ -24,7 +24,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('exportcategorias') }}" class="dropdown-item"><i
+                        <li><a href="{{ route('exportmarcas') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
 
@@ -66,7 +66,7 @@
                 <tr>
                     @foreach ($Marcas as $marca)
                 <tr>
-                    <th>{{ $marca->id }}</th>
+                    <td>{{ $marca->id }}</td>
 
 
                     <td>
@@ -74,7 +74,8 @@
 
                         @if ($marca->imagenes->isNotEmpty())
                             @foreach ($marca->imagenes as $imagen)
-                                <img src="{{ $imagen->url }}" class="img-thumbnail" alt="{{ $marca->nombre }}">
+                                <img src="{{ $imagen->url }}" width="36" height="36" class="rounded-circle me-2"
+                                    alt="Charles Hall" alt="{{ $marca->nombre }}">
                             @endforeach
                         @endif
                         <span>{{ $marca->nombre }}</span>
@@ -92,12 +93,12 @@
                     <td>
 
                         <div class="d-flex mb-1 align-items-center">
-                            <!-- Botón de información -->
+                            <!--
                             <a href="{{ route('marcas.show', ['marcas' => $marca->id]) }}"
                                 class="btn btn-secondary me-1" role="button">
                                 <i class="bi bi-info-circle"></i>
                             </a>
-
+ Botón de información -->
                             <!-- Botón para editar -->
                             <div class=" me-1">
                                 <a href="{{ route('marcas.edit', ['marcas' => $marca->id]) }}"

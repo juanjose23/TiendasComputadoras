@@ -8,6 +8,7 @@ use App\Exports\CategoriasExport;
 use App\Exports\SubcategoriasExport;
 use App\Exports\ColaboradoresExport;
 use App\Exports\SalariosExport;
+use App\Exports\MarcasExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Empleados;
@@ -58,6 +59,10 @@ class ExportacionesController extends Controller
     public function exportcategorias()
     {
         return Excel::download(new CategoriasExport, 'categorias.xlsx');
+    }
+    public function exportmarcas()
+    {
+        return Excel::download(new MarcasExport, 'marcas.xlsx');
     }
     public function exportsubcategorias()
     {
