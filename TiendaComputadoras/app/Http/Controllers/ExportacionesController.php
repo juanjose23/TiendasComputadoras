@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\AsignacionExport;
 use App\Exports\CargosExport;
 use App\Exports\CategoriasExport;
+use App\Exports\ModelosExport;
 use App\Exports\SubcategoriasExport;
 use App\Exports\ColaboradoresExport;
+use App\Exports\ColoresExport;
 use App\Exports\SalariosExport;
 use App\Exports\MarcasExport;
 use Illuminate\Http\Request;
@@ -63,6 +65,14 @@ class ExportacionesController extends Controller
     public function exportmarcas()
     {
         return Excel::download(new MarcasExport, 'marcas.xlsx');
+    }
+    public function exportmodelos()
+    {
+        return Excel::download(new ModelosExport, 'modelos.xlsx');
+    }
+    public function exportcolores()
+    {
+        return Excel::download(new ColoresExport, 'colores.xlsx');
     }
     public function exportsubcategorias()
     {

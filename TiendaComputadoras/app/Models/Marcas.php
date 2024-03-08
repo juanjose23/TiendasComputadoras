@@ -16,4 +16,8 @@ class Marcas extends Model
     {
         return $this->belongsTo('App\Models\Pais');
     }
+    public function modelos()
+    {
+        return $this->hasMany('App\Models\Modelos');
+    }
 }

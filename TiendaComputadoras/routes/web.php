@@ -4,9 +4,11 @@ use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\CargosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
+use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\SalariosController;
 use App\Http\Controllers\ExportacionesController;
 use App\Http\Controllers\MarcasController;
+use App\Http\Controllers\ModelosController;
 use App\Http\Controllers\SubcategoriasController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +35,8 @@ Route::resource('salarios', SalariosController::class)->parameters(['salarios' =
 Route::resource('categorias', CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias');
 Route::resource('subcategorias', SubcategoriasController::class)->parameters(['subcategorias' => 'subcategorias'])->names('subcategorias');
 Route::resource('marcas', MarcasController::class)->parameters(['marcas' => 'marcas'])->names('marcas');
-
+Route::resource('modelos', ModelosController::class)->parameters(['modelos' => 'modelos'])->names('modelos');
+Route::resource('colores', ColoresController::class)->parameters(['colores' => 'colores'])->names('colores');
 //Rutas para exportacion y reportes
 Route::get('/exportcargosexcel', [ExportacionesController::class, 'exportcargosexcel'])->name('exportcargosexcel');
 Route::get('/exportcargopdf', [ExportacionesController::class, 'exportcargopdf'])->name('exportcargopdf');
@@ -44,4 +47,6 @@ Route::get('/exportsalarios', [ExportacionesController::class, 'exportsalarios']
 Route::get('/exportcategorias', [ExportacionesController::class, 'exportcategorias'])->name('exportcategorias');
 Route::get('/exportsubcategorias', [ExportacionesController::class, 'exportsubcategorias'])->name('exportsubcategorias');
 Route::get('/exportmarcas', [ExportacionesController::class, 'exportmarcas'])->name('exportmarcas');
+Route::get('/exportmodelos', [ExportacionesController::class, 'exportmodelos'])->name('exportmodelos');
+Route::get('/exportcolores', [ExportacionesController::class, 'exportcolores'])->name('exportcolores');
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf');
