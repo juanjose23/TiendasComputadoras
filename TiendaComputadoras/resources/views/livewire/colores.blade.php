@@ -55,7 +55,8 @@
                         <span class="sr-only">#</span>
                     </th>
                     <th scope="col" class="px-4 py-3">Nombre</th>
-                    <th scope="col" class="px-4 py-3">Codigo</th>
+                    <th scope="col" class="px-4 py-3">Código</th>
+                    <th scope="col" class="px-4 py-3">muestra</th>
                     <th scope="col" class="px-4 py-3">Estado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
                 </tr>
@@ -75,6 +76,12 @@
                     </td>
                   
                     <td>{{ $color->codigo }}</td>
+                    <td>
+                        <span class="badge rounded-pill " >
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color:{{$color->codigo}}"></div>
+
+                    </span>
+                </td>
                     <td><span class="badge rounded-pill {{ $color->estado == 1 ? 'bg-success' : 'bg-danger' }}">
                             {{ $color->estado == 1 ? 'Activo' : 'Inactivo' }}
                         </span>
