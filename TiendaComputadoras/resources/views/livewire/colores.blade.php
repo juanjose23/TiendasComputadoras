@@ -62,7 +62,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+          
                     @foreach ($Colores as $color)
                 <tr>
                     <td>{{ $color->id }}</td>
@@ -128,7 +128,7 @@
                     </td>
                 </tr>
                 @endforeach
-                </tr>
+             
             </tbody>
         </table>
 

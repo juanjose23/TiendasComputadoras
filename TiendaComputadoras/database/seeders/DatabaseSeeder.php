@@ -16,5 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call(MunicipiosSeeder::class);
         $this->call(GeneroSeeder::class);
         $this->call(Estado_CivilesSeeder::class);
+        $this->call(ColoresSeeder::class);
+        $this->call(MarcasSeeder::class);
+        $this->call(ModelosSeeder::class);
+        $this->call(CategoriaSeeder::class);
+        $this->call(SubcategoriasSeeder::class);
     }
 }

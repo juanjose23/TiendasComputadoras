@@ -62,12 +62,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+           
                     @foreach ($subcategorias as $subcategoria)
                 <tr>
-                    <th>{{ $subcategoria->id }}</th>
+                    <td>{{ $subcategoria->id }}</td>
 
-                    <th>{{ $subcategoria->categorias->nombre }}</th>
+                    <td>{{ $subcategoria->categorias->nombre }}</td>
                     <td>{{ $subcategoria->nombre }}</td>
 
                     <td class="text-wrap">{{ wordwrap($subcategoria->descripcion, 50, "\n", true) }}</td>
@@ -110,7 +110,7 @@
                     </td>
                 </tr>
                 @endforeach
-                </tr>
+             
             </tbody>
         </table>
 

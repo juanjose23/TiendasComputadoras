@@ -63,7 +63,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+               
                     @foreach ($Marcas as $marca)
                 <tr>
                     <td>{{ $marca->id }}</td>
@@ -132,7 +132,7 @@
                     </td>
                 </tr>
                 @endforeach
-                </tr>
+               
             </tbody>
         </table>
 

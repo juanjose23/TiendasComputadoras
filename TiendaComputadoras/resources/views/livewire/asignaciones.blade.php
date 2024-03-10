@@ -61,9 +61,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+             
 
                     @foreach ($datos as $colaborador)
+                    <tr>
                         <td>{{ $loop->index }}</td>
                         <td>{{ $colaborador->empleados->codigo }}</td>
 

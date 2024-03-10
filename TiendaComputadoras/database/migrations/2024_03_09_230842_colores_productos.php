@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('marcas', function (Blueprint $table) {
+        //
+        Schema::create('colores_productos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->text('descripcion')->nullable();
-            $table->unsignedBigInteger('paises_id')->nullable();
-            $table->foreign('paises_id')->references('id')->on('pais')->onDelete('set null');
-            $table->string('sitio_web')->nullable();
+            $table->unsignedBigInteger('productos_id');
+            $table->foreign('productos_id')->references('id')->on('productos');
+            $table->unsignedBigInteger('colores_id');
+            $table->foreign('colores_id')->references('id')->on('colores');
             $table->integer('estado');
             $table->timestamps();
         });
@@ -28,6 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('marcas');
+        //
+        Schema::dropIfExists('colores_productos');
     }
 };

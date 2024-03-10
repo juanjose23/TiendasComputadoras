@@ -61,10 +61,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+             
                     @foreach ($Cargo as $cargo)
                 <tr>
-                    <th>{{ $cargo->id }}</th>
+                    <td>{{ $cargo->id }}</td>
 
 
                     <td>{{ $cargo->nombre }}</td>
@@ -112,7 +112,7 @@
                     </td>
                 </tr>
                 @endforeach
-                </tr>
+          
             </tbody>
         </table>
 

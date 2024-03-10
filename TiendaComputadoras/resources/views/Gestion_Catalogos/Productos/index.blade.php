@@ -3,6 +3,6 @@
 @section('submodulo','Productos')
 @section('lista','Lista de Productos')
 @section('content')
-<livewire:subcategorias/>
+<livewire:producto/>
 
 @endsection

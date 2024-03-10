@@ -69,7 +69,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+               
                     @foreach ($datos as $colaborador)
                 <tr>
                     <td>{{ $colaborador->empleados->id }}</td>
@@ -130,7 +130,7 @@
                     </td>
                 </tr>
                 @endforeach
-                </tr>
+        
             </tbody>
         </table>
 

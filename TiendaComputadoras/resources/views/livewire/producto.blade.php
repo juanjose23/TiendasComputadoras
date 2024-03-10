@@ -10,8 +10,8 @@
             <!-- Botón para crear un cargo -->
             <div class="dropdown">
                 <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('cargos.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Crear cargo
+                    <a href="{{ route('productos.create') }}" class="btn btn-success btn-icon">
+                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar producto
                     </a>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('exportcargosexcel') }}" class="dropdown-item"><i
+                        <li><a href="{{ route('exportsubcategorias') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
 
@@ -54,62 +54,77 @@
                     <th scope="col" class="px-4 py-3">
                         <span class="sr-only">#</span>
                     </th>
-                    <th scope="col" class="px-4 py-3">Codigo</th>
-                    <th scope="col" class="px-4 py-3">Cargo</th>
-                    <th scope="col" class="px-4 py-3">Perfil</th>
+
+                    <th scope="col" class="px-4 py-3">Categoría</th>
+                    <th scope="col" class="px-4 py-3">SubCategoría</th>
+                    <th scope="col" class="px-4 py-3">Marca</th>
+                    <th scope="col" class="px-4 py-3">Modelos</th>
+                    <th scope="col" class="px-4 py-3">Nombre</th>
                     <th scope="col" class="px-4 py-3">Descripción</th>
+                    <th scope="col" class="px-4 py-3">Fecha Lanzamiento</th>
                     <th scope="col" class="px-4 py-3">Estado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
                 </tr>
             </thead>
             <tbody>
+                
+                    @foreach ($productos as $producto)
+                <tr>
+                    <td>{{ $producto->id }}</td>
 
-                @foreach ($Cargo as $cargo)
-                    <tr>
-                        <td>{{ $cargo->id }}</td>
-                        <td>{{ $cargo->codigo }}</td>
+                    <td>{{ $producto->subcategorias->categorias->nombre }}</td>
+                    <td>{{ $producto->subcategorias->nombre }}</td>
+                    <td>{{ $producto->modelos->marcas->nombre }}</td>
+                    <td>{{ $producto->modelos->nombre }}</td>
+                    <td>{{ $producto->nombre }}</td>
 
-                        <td>{{ $cargo->nombre }}</td>
-                        <td>{{ $cargo->perfil }}</td>
-                        <td class="text-wrap">{{ wordwrap($cargo->descripcion, 50, "\n", true) }}</td>
-                        <td><span class="badge rounded-pill {{ $cargo->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                {{ $cargo->estado == 1 ? 'Activo' : 'Inactivo' }}
-                            </span>
-                        </td>
-                        <td>
+                    <td class="text-wrap">{{ wordwrap($producto->descripcion, 50, "\n", true) }}</td>
+                    <td>{{ \Carbon\Carbon::parse($producto->fecha_lanzamiento)->format('d/m/Y') }}</td>
 
-                            <div class="d-flex mb-1 align-items-center">
+                    <td><span class="badge rounded-pill {{ $producto->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                            {{ $producto->estado == 1 ? 'Activo' : 'Inactivo' }}
+                        </span>
+                    </td>
+                    <td>
 
-                                <a href="{{ route('cargos.edit', ['cargos' => $cargo->id]) }}"
-                                    class="btn btn-info d-block" role="button">
+                        <div class="d-flex mb-1 align-items-center">
+                        
+                                <!-- Botón de información -->
+                                <a href="{{ route('productos.show', ['productos' => $producto->id]) }}" class="btn btn-secondary me-1" role="button">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                        
+                            <!-- Botón para editar -->
+                            <div class=" me-1">
+                                <a href="{{ route('productos.edit', ['productos' => $producto->id]) }}" class="btn btn-info btn-block" role="button">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-
-                                <div class="m-1">
-                                    <!-- Botón para activar/desactivar -->
-                                    <button type="button"
-                                        class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} d-block"
-                                        role="button" onclick="confirmAction({{ $cargo->id }})">
-                                        <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
-
-                                    </button>
-                                </div>
                             </div>
+                        
+                            <!-- Botón para activar/desactivar -->
+                            <div class="flex me-1">
+                                <button type="button" class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block" role="button" onclick="confirmAction({{ $producto->id }})">
+                                    <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
 
-                            <form id="deleteForm{{ $cargo->id }}"
-                                action="{{ route('cargos.destroy', ['cargos' => $cargo->id]) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
 
-                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                <button id="submitBtn{{ $cargo->id }}" type="submit"
-                                    style="display: none;"></button>
-                            </form>
 
-                        </td>
-                    </tr>
+                        <form id="deleteForm{{ $producto->id }}"
+                            action="{{ route('productos.destroy', ['productos' => $producto->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                            <button id="submitBtn{{ $producto->id }}" type="submit" style="display: none;"></button>
+                        </form>
+
+                    </td>
+                </tr>
                 @endforeach
-
+                
             </tbody>
         </table>
 
@@ -118,25 +133,25 @@
                 <div class="btn-group me-2" role="group" aria-label="First group">
                     <!-- Botón para la página anterior -->
                     <button type="button" class="btn btn-primary" wire:click="previousPage"
-                        {{ $Cargo->onFirstPage() ? 'disabled' : '' }}>
+                        {{ $productos->onFirstPage() ? 'disabled' : '' }}>
                         &laquo; Previo
                     </button>
                 </div>
 
                 <!-- Botones para cada página -->
-                @foreach ($Cargo->links() as $page => $url)
+                @foreach ($productos->links() as $page => $url)
                     @if (
                         $loop->first ||
                             $loop->last ||
-                            ($loop->index >= $Cargo->currentPage() - 2 && $loop->index <= $Cargo->currentPage() + 2))
+                            ($loop->index >= $productos->currentPage() - 2 && $loop->index <= $productos->currentPage() + 2))
                         <div class="btn-group me-2" role="group" aria-label="Page {{ $page }}">
                             <button type="button"
-                                class="btn btn-primary {{ $Cargo->currentPage() == $page ? 'active' : '' }}"
+                                class="btn btn-primary {{ $productos->currentPage() == $page ? 'active' : '' }}"
                                 wire:click="gotoPage({{ $page }})">
                                 {{ $page }}
                             </button>
                         </div>
-                    @elseif ($loop->index == $Cargo->currentPage() - 3 || $loop->index == $Cargo->currentPage() + 3)
+                    @elseif ($loop->index == $productos->currentPage() - 3 || $loop->index == $productos->currentPage() + 3)
                         <span class="mx-2">...</span>
                     @endif
                 @endforeach
@@ -144,7 +159,7 @@
                 <div class="btn-group" role="group" aria-label="Next group">
                     <!-- Botón para la página siguiente -->
                     <button type="button" class="btn btn-primary" wire:click="nextPage"
-                        {{ $Cargo->hasMorePages() ? '' : 'disabled' }}>
+                        {{ $productos->hasMorePages() ? '' : 'disabled' }}>
                         Siguiente
                     </button>
                 </div>
@@ -156,10 +171,10 @@
 <!-- JavaScript -->
 <!-- JavaScript -->
 <script>
-    function confirmAction(cargoId) {
+    function confirmAction(productoId) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: '¿Quieres cambiar el estado de este cargo?',
+            text: '¿Quieres cambiar el estado de este producto?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -167,7 +182,7 @@
             confirmButtonText: 'Sí, cambiar estado'
         }).then((result) => {
             if (result.isConfirmed) {
-                var form = document.getElementById('deleteForm' + cargoId);
+                var form = document.getElementById('deleteForm' + productoId);
 
                 // Agregar un campo oculto al formulario para indicar la acción
                 var actionInput = document.createElement('input');

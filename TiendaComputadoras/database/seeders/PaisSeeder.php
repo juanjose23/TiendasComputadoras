@@ -221,7 +221,8 @@ class PaisSeeder extends Seeder
             ['nombre' => 'Perú', 'codigo' => 'PE', 'estado' => 1],
             ['nombre' => 'Surinam', 'codigo' => 'SR', 'estado' => 1],
             ['nombre' => 'Uruguay', 'codigo' => 'UY', 'estado' => 1],
-            ['nombre' => 'Venezuela', 'codigo' => 'VE', 'estado' => 1]
+            ['nombre' => 'Venezuela', 'codigo' => 'VE', 'estado' => 1],
+            ['nombre' => 'Taiwán', 'codigo' => 'TW', 'estado' => 1]
         ];
         foreach ($paises as $pais) {
             Pais::create($pais);
