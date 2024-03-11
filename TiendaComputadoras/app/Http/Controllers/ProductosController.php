@@ -7,12 +7,13 @@ use App\Http\Requests\UpdateProductos;
 use App\Models\Colores;
 use App\Models\Colores_productos;
 use App\Models\Detalle_productos;
+use App\Models\Imagen;
 use App\Models\Modelos;
 use App\Models\Productos;
 use App\Models\Subcategorias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class ProductosController extends Controller
 {
     /**
@@ -81,10 +82,16 @@ class ProductosController extends Controller
     public function show(Productos  $productos)
     {
         //
-        $productos = Productos::with(['modelos', 'modelos.marcas', 'subcategorias', 'subcategorias.categorias', 'detalles','coloresproductos','imagenes'])
-        ->findOrFail($productos->id);
-        //return $productos;
-        return view('Gestion_Catalogos.Productos.show', compact( 'productos'));
+        $productos = Productos::with(['modelos', 'modelos.marcas', 'subcategorias', 'subcategorias.categorias', 'detalles', 'coloresproductos', 'imagenes'])
+            ->findOrFail($productos->id);
+        $productoscolores = Colores_productos::with(['colores'])->where('productos_id', $productos->id)->get();
+        $imagenes = Imagen::where('imagenable_type', 'App\Models\Productos')
+            ->where('imagenable_id', $productos->id)
+            ->get();
+
+
+        // return $productoscolores;
+        return view('Gestion_Catalogos.Productos.show', compact('productos', 'productoscolores', 'imagenes'));
     }
 
     /**
@@ -151,45 +158,38 @@ class ProductosController extends Controller
         Session::flash('success', 'El estado del producto ha sido cambiado exitosamente.');
         return redirect()->route('productos.index');
     }
-    /**
-     * Tratamiento de variacion de colores del producto
-     */
-    public function colores()
+    public function multimedia($productos)
     {
+        $producto = Productos::with(['modelos', 'modelos.marcas'])->find($productos);
 
+        return view('Gestion_Catalogos.Productos.image.create', compact('producto'));
     }
-
-    public function storecolores()
+    public function guardarmultimedia(Request $request)
     {
+        $producto = Productos::findOrFail($request->producto);
+        if ($request->hasFile('foto')) {
+            // Subir la imagen a Cloudinary y obtener el resultado
+            $result = $request->file('foto')->storeOnCloudinary('productos');
 
+            // Crear una nueva entrada de imagen en la base de datos
+            $imagen = new Imagen();
+            $imagen->url = $result->getSecurePath();
+            $imagen->public_id = $result->getPublicId();
+            $imagen->imagenable_id = $producto->id;
+            $imagen->imagenable_type = get_class($producto);
+            $imagen->save();
+            // Verificar si la imagen se guardó correctamente en la base de datos
+            Session::flash('success', 'Se ha registrado correctamente la operación');
+            return redirect()->route('productos.show', $producto->id);
+        }
     }
-
-    public function editcolores()
+    public function destroyimg($id)
     {
-
-    }
-
-    public function destroycolores()
-    {
-
-    }
-    public function imagenes()
-    {
-
-    }
-
-    public function storeimagenes()
-    {
-
-    }
-
-    public function editimagenes()
-    {
-
-    }
-
-    public function destroyimagenes()
-    {
-        
+        // Lógica para eliminar la imagen asociada al producto con el ID proporcionado
+        $logo =   Imagen::find($id);
+        $public_id = $logo->public_id;
+        Cloudinary::destroy($public_id);
+        Imagen::destroy($logo->id);
+        return redirect()->route('productos.show', $logo->imagenable_id);
     }
 }

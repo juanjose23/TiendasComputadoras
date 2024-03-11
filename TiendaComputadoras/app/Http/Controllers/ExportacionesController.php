@@ -11,6 +11,7 @@ use App\Exports\ColaboradoresExport;
 use App\Exports\ColoresExport;
 use App\Exports\SalariosExport;
 use App\Exports\MarcasExport;
+use App\Exports\ProductosExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Empleados;
@@ -73,6 +74,10 @@ class ExportacionesController extends Controller
     public function exportcolores()
     {
         return Excel::download(new ColoresExport, 'colores.xlsx');
+    }
+    public function exportproductos()
+    {
+        return Excel::download(new ProductosExport, 'productos.xlsx');
     }
     public function exportsubcategorias()
     {

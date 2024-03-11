@@ -5,11 +5,14 @@ use App\Http\Controllers\CargosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
 use App\Http\Controllers\ColoresController;
+use App\Http\Controllers\Coloresproductos;
 use App\Http\Controllers\SalariosController;
 use App\Http\Controllers\ExportacionesController;
 use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\ModelosController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ColoresproductosController;
+use App\Http\Controllers\ImgController;
 use App\Http\Controllers\SubcategoriasController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +42,14 @@ Route::resource('marcas', MarcasController::class)->parameters(['marcas' => 'mar
 Route::resource('modelos', ModelosController::class)->parameters(['modelos' => 'modelos'])->names('modelos');
 Route::resource('colores', ColoresController::class)->parameters(['colores' => 'colores'])->names('colores');
 Route::resource('productos',ProductosController::class)->parameters(['productos' => 'productos'])->names('productos');
+Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos');
+Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia');
+Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia');
+Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg');
+//Controller del modulo de usuarios
+
+//Controller para multimedia
+Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img');
 //Rutas para exportacion y reportes
 Route::get('/exportcargosexcel', [ExportacionesController::class, 'exportcargosexcel'])->name('exportcargosexcel');
 Route::get('/exportcargopdf', [ExportacionesController::class, 'exportcargopdf'])->name('exportcargopdf');
@@ -51,4 +62,5 @@ Route::get('/exportsubcategorias', [ExportacionesController::class, 'exportsubca
 Route::get('/exportmarcas', [ExportacionesController::class, 'exportmarcas'])->name('exportmarcas');
 Route::get('/exportmodelos', [ExportacionesController::class, 'exportmodelos'])->name('exportmodelos');
 Route::get('/exportcolores', [ExportacionesController::class, 'exportcolores'])->name('exportcolores');
+Route::get('/exportproductos', [ExportacionesController::class, 'exportproductos'])->name('exportproductos');
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf');

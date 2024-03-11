@@ -24,11 +24,11 @@
                             href='{{ route('subcategorias.index') }}'>SubCategorias </a></li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50'
                             href='{{ route('marcas.index') }}'>Marcas </a></li>
-                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-orders'>Modelos</a>
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('modelos.index') }}'>Modelos</a>
                     </li>
-                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-pricing'>Colores </a>
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('colores.index') }}'>Colores </a>
                     </li>
-                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-chat'>Productos</a>
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('productos.index') }}'>Productos</a>
                     </li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-blank'>Precios
                             productos</a></li>
