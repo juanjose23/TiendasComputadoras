@@ -29,6 +29,8 @@ class Productos extends Model
     {
         return $this->morphMany('App\Models\Imagen', 'imagenable');
     }
+
+  
     /**
      * Genera un SKU único para el producto.
      *

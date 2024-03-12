@@ -11,8 +11,8 @@ use App\Http\Controllers\ExportacionesController;
 use App\Http\Controllers\MarcasController;
 use App\Http\Controllers\ModelosController;
 use App\Http\Controllers\ProductosController;
-use App\Http\Controllers\ColoresproductosController;
 use App\Http\Controllers\ImgController;
+use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\SubcategoriasController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +46,7 @@ Route::resource('coloresproductos',Coloresproductos::class)->parameters(['colore
 Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia');
 Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia');
 Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg');
+Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios');
 //Controller del modulo de usuarios
 
 //Controller para multimedia
