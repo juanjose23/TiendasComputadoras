@@ -33,14 +33,24 @@ class Coloresproductos extends Controller
 
     public function store(Request $request)
     {
+        // Validar los campos de la solicitud
+        $request->validate([
+            'producto' => 'required|exists:productos,id',
+            'color' => 'required|exists:colores,id',
+            'estado' => 'required|in:0,1',
+        ]);
+    
+       
         $color = new Colores_productos();
-        $color->productos_id=$request->producto;
-        $color->colores_id=$request->color;
-        $color->estado=$request->estado;
+        $color->productos_id = $request->producto;
+        $color->colores_id = $request->color;
+        $color->estado = $request->estado;
         $color->save();
-        Session::flash('success', 'Se ha registrado la variante correctamente exitosamente.');
-        return redirect()->route('productos.show', $color->productos_id);
+    
+        
+        return redirect()->route('productos.show', $color->productos_id)->with('success', 'Se ha registrado la variante correctamente exitosamente.');
     }
+    
 
     public function destroy($colores_productos)
     {

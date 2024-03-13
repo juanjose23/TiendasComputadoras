@@ -35,7 +35,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="estado" class="form-label text-dark">Estado</label>
-                    <select id="estado" name="estado" class="form-select @error('estado') is-invalid @enderror">
+                    <select id="estado" name="estado" class="form-select @error('estado') is-invalid @enderror" required>
                         <option selected disabled>Elegir estado</option>
                         <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Activo</option>
                         <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Inactivo</option>

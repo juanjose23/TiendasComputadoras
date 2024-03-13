@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePrecios;
 use App\Models\Colores;
 use App\Models\Colores_productos;
 use Illuminate\Http\Request;
@@ -31,9 +32,31 @@ class PreciosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePrecios $request)
     {
         //
+        if ($request->has('terminos')) {
+            $precios = new Precios();
+            $precios->precio = $request->precio;
+            $Id = Colores_productos::BuscarIdproducto($request->producto);
+            $coloresProductos = Colores_productos::where('productos_id', $Id)->get();
+            foreach ($coloresProductos as $colorProducto) {
+                $precio = new Precios();
+                $precio->productos_id = $colorProducto->id;
+                $precio->precio = $request->precio;
+                $precio->estado = $request->estado;
+                $precio->save();
+            }
+        } else {
+            $precios = new Precios();
+            $precios->precio = $request->precio;
+            $precios->precio = $request->precio;
+            $precios->estado = $request->estado;
+        }
+
+
+
+        return redirect()->route('precios.index');
     }
 
     /**

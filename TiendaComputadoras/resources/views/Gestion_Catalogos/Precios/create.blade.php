@@ -2,10 +2,10 @@
 @section('title', 'Productos')
 @section('submodulo', 'Registrar Precios')
 @section('content')
-    <form action="{{ route('modelos.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('precios.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label for="producto" class="form-label text-dark">Productos</label>
                     <select id="producto" name="producto"
@@ -19,7 +19,7 @@
                                     <option value="{{ $producto['id'] }}"
                                         {{ old('producto') == $producto['id'] ? 'selected' : '' }}>
                                         Producto:{{ $producto['nombre'] }} Marca:{{ $producto['marca'] }} Modelo:
-                                        {{ $producto['modelo'] }}</option>
+                                        {{ $producto['modelo'] }} Color: {{$producto['color']}}</option>
                                 @endforeach
                             </optgroup>
                         @endforeach
@@ -31,7 +31,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="precio" class="form-label text-dark">Precio:</label>
                     <input type="number" id="precio" name="precio" placeholder="Escribe el precio"
@@ -55,20 +55,20 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group text-center">
+                    <div class="mt-4"></div>
                     <label for="terminos" class="form-check text-dark">
-                        <input type="radio" id="terminos" name="terminos" class="form-check-input" value="1" {{old('terminos')=='true'? 'selected':''}} required>
-                        <span class="form-check-label">
-                            ¿Establecer este precio para todas la variantes de colores del productos?
+                        <input type="radio" id="terminos" name="terminos" class="form-check-input" value="1" {{ old('terminos') == 'true' ? 'selected' : '' }} >
+                        <span class="form-check-label text-dark">
+                            ¿Establecer este precio para todas las variantes de colores del producto?
                         </span>
                     </label>
                     @error('terminos')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-
                 </div>
             </div>
-
+            
 
             <div class="col-md-12">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
