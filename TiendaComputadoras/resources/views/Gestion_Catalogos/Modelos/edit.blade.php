@@ -20,7 +20,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="marca" class="form-label text-dark">Marcas</label>
-                    <select id="marca" name="marca" class="form-select buscador @error('marca') is-invalid @enderror">
+                    <select style="width: 100%" id="marca" name="marca" class="form-select buscador @error('marca') is-invalid @enderror">
                         <option selected disabled>Elegir marca</option>
                         @foreach ($marcas as $marca)
                             <option value="{{ $marca->id }}"

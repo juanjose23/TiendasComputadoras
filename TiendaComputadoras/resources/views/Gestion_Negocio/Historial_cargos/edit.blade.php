@@ -18,7 +18,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="cargos" class="form-label text-dark">Cargos:</label>
-                    <select id="cargos" name="cargos"
+                    <select style="width: 100%" id="cargos" name="cargos"
                         class="buscador form-select @error('cargos') is-invalid @enderror">
                         <option>Seleccionar Cargos</option>
                         @foreach ($cargos as $cargos)

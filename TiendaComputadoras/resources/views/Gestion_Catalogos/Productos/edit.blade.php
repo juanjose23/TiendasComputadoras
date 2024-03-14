@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label for="subcategoria" class="form-label text-dark">Categorias</label>
                     <select id="subcategoria" name="subcategoria"
-                        class="form-select buscador @error('subcategoria') is-invalid @enderror">
+                        class="form-select buscador @error('subcategoria') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Categoria</option>
                         @foreach ($subcategorias as $categorias => $sub)
                             <optgroup label="{{ $categorias }}">
@@ -55,7 +55,7 @@
                 <div class="form-group">
                     <label for="modelo" class="form-label text-dark">Marca / modelo</label>
                     <select id="modelo" name="modelo"
-                        class="buscador form-select @error('modelo') is-invalid @enderror">
+                        class="buscador form-select @error('modelo') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Modelo</option>
                         @foreach ($modelos as $model => $modelos)
                             <optgroup label="{{ $model }}">

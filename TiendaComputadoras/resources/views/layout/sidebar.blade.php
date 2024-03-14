@@ -30,7 +30,7 @@
                     </li>
                     <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('productos.index') }}'>Productos</a>
                     </li>
-                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='/pages-blank'>Precios
+                    <li class="sidebar-item"><a class='sidebar-link text-white-50' href='{{ route('precios.index') }}'>Precios
                             productos</a></li>
                 </ul>
             </li>

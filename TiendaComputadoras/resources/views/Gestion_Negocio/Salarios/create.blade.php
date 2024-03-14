@@ -8,7 +8,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="empleado" class="form-label text-dark">Empleados:</label>
-                    <select id="empleado" name="empleados" class="buscador form-select @error('empleados') is-invalid @enderror">
+                    <select style="width: 100%" id="empleado" name="empleados" class="buscador form-select @error('empleados') is-invalid @enderror">
                         <option>Seleccionar Empleado</option>
                         @foreach ($empleados as $empleado)
 

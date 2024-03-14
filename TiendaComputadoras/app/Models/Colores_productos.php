@@ -66,6 +66,7 @@ class Colores_productos extends Model
             $subcategoriaNombre = $producto->productos->subcategorias->categorias->nombre;
             $resultados[$subcategoriaNombre][$producto->productos->subcategorias->nombre][] = [
                 'id' => $producto->id,
+                'codigo'=>$producto->productos->codigo,
                 'nombre' => $producto->productos->nombre,
                 'marca' => $producto->productos->modelos->marcas->nombre,
                 'modelo' => $producto->productos->modelos->nombre,

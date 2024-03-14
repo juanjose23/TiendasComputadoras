@@ -18,7 +18,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="categoria" class="form-label text-dark">Categoria</label>
-                    <select id="categoria" name="categoria" class="form-select buscador @error('categoria') is-invalid @enderror">
+                    <select style="width: 100%" id="categoria" name="categoria" class="form-select buscador @error('categoria') is-invalid @enderror">
                         <option selected disabled>Elegir categoria</option>
                         @foreach ($categorias as $categoria)
                             <option value="{{ $categoria->id }}" {{ old('categoria') == $categoria->id ? 'selected' : '' }}>

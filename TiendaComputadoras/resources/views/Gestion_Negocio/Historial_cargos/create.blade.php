@@ -8,7 +8,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="empleado" class="form-label text-dark">Empleados:</label>
-                    <select id="empleado" name="empleados" class="buscador form-select @error('empleados') is-invalid @enderror">
+                    <select style="width: 100%" id="empleado" name="empleados" class="buscador form-select @error('empleados') is-invalid @enderror">
                         <option>Seleccionar Empleado</option>
                         @foreach ($datos['empleados'] as $empleado)
 
@@ -27,7 +27,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="cargos" class="form-label text-dark">Cargos:</label>
-                    <select id="cargos" name="cargos" class="buscador form-select @error('cargos') is-invalid @enderror">
+                    <select style="width: 100%" id="cargos" name="cargos" class="buscador form-select @error('cargos') is-invalid @enderror">
                         <option>Seleccionar Cargos</option>
                         @foreach ($datos['cargos'] as $cargos)
 

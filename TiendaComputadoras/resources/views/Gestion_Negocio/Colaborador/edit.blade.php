@@ -111,7 +111,7 @@
             <div class="col-md-4 col-lg-4">
                 <div class="form-group">
                     <label for="pais" class="form-label text-dark">País</label>
-                    <select id="pais" name="pais" class="form-control buscador @error('pais') is-invalid @enderror">
+                    <select style="width: 100%" id="pais" name="pais" class="form-control buscador @error('pais') is-invalid @enderror">
                         <option disabled>Elegir país</option>
                         @foreach ($datos['paises'] as $pais)
                             <option value="{{ $pais->id }}"
@@ -128,7 +128,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="genero" class="form-label text-dark">Género</label>
-                    <select id="genero" name="genero"
+                    <select  style="width: 100%"id="genero" name="genero"
                         class="form-select buscador @error('genero') is-invalid @enderror">
                         <option disabled>Elegir género</option>
                         @foreach ($datos['generos'] as $genero)
@@ -148,7 +148,7 @@
             <div class="col-lg-4 col-md-4">
                 <div class="form-group">
                     <label for="estado_civil" class="form-label text-dark">Estado Civil</label>
-                    <select id="estado_civil" name="estado_civil"
+                    <select style="width: 100%" id="estado_civil" name="estado_civil"
                         class=" form-select @error('estado_civil') is-invalid @enderror">
                         <option disabled>Elegir estado civil</option>
                         @foreach ($datos['estadosCiviles'] as $estadoCivil)
@@ -216,7 +216,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="departamentos" class="form-label text-dark">Localización:</label>
-                    <select id="departamentos" name="departamentos"
+                    <select  style="width: 100%"id="departamentos" name="departamentos"
                         class="buscador form-select @error('departamentos') is-invalid @enderror">
                         <option disabled>Selecciona un departamento</option>
                         @foreach ($datos['departamentos'] as $departamento => $municipios)
