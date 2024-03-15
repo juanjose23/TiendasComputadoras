@@ -75,6 +75,7 @@
             $('.buscador').select2({
                 width: 'resolve' // o puedes usar un valor numérico si prefieres un ancho fijo
             });
+          
         });
     </script>
 </body>

@@ -14,8 +14,8 @@ return new class extends Migration
         //
         Schema::create('precios', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('productos_id');
-            $table->foreign('productos_id')->references('id')->on('colores_productos');
+            $table->unsignedBigInteger('productoscolores_id');
+            $table->foreign('productoscolores_id')->references('id')->on('colores_productos');
             $table->decimal('precio',10,2);
             $table->integer('estado');
             $table->timestamps();
@@ -28,5 +28,6 @@ return new class extends Migration
     public function down(): void
     {
         //
+        Schema::dropIfExists('precios');
     }
 };

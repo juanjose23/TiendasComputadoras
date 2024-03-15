@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Precios extends Model
 {
     use HasFactory;
-    public function productos()
+    public function productoscolores()
     {
-        return $this->belongsTo('App\Models\Productos');
+        return $this->belongsTo('App\Models\Colores_productos');
     }
 }

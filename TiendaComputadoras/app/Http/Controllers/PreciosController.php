@@ -7,6 +7,7 @@ use App\Models\Colores;
 use App\Models\Colores_productos;
 use Illuminate\Http\Request;
 use App\Models\Precios;
+use Illuminate\Support\Facades\Session;
 
 class PreciosController extends Controller
 {
@@ -16,6 +17,20 @@ class PreciosController extends Controller
     public function index()
     {
         //
+       /* $productos = Precios::with([
+            'productoscolores',
+            'productoscolores.colores',
+            'productoscolores.productos',
+            'productoscolores.productos.modelos',
+            'productoscolores.productos.modelos.marcas',
+            'productoscolores.productos.subcategorias',
+            'productoscolores.productos.subcategorias.categorias',
+            'productoscolores.productos.detalles'
+        ])->get();
+        
+        return $productos;*/
+        
+         return view('Gestion_Catalogos.Precios.index');
     }
 
     /**
@@ -34,31 +49,44 @@ class PreciosController extends Controller
      */
     public function store(StorePrecios $request)
     {
-        //
+        // Verificar si se aceptaron los términos
         if ($request->has('terminos')) {
-            $precios = new Precios();
-            $precios->precio = $request->precio;
-            $Id = Colores_productos::BuscarIdproducto($request->producto);
-            $coloresProductos = Colores_productos::where('productos_id', $Id)->get();
+            // Obtener el ID del producto
+            $idProducto = Colores_productos::BuscarIdproducto($request->producto);
+
+            $coloresOmitir = $request->input('colores-omitir');
+
+            // Verificar si hay valores para colores-omitir y convertirlo en un array vacío si es null
+            if ($coloresOmitir === null) {
+                $coloresOmitir = [];
+            }
+
+            // Buscar todos los colores relacionados con el producto excluyendo aquellos que se deben omitir
+            $coloresProductos = Colores_productos::where('productos_id', $idProducto)
+                ->whereNotIn('id', $coloresOmitir)
+                ->get();
+
+            // Guardar el precio para cada color
             foreach ($coloresProductos as $colorProducto) {
-                $precio = new Precios();
-                $precio->productos_id = $colorProducto->id;
-                $precio->precio = $request->precio;
-                $precio->estado = $request->estado;
-                $precio->save();
+                var_dump($colorProducto);
+                $this->guardarPrecio($colorProducto->id, $request->precio, $request->estado);
             }
         } else {
-            $precios = new Precios();
-            $precios->precio = $request->precio;
-            $precios->precio = $request->precio;
-            $precios->estado = $request->estado;
+            // Si no se aceptaron los términos, guardar solo un precio sin asociarlo a un color específico
+            $this->guardarPrecio($request->producto, $request->precio, $request->estado);
         }
-
-
-
+        Session::flash('success','Se ha registrado el precio de manera éxitosa');
         return redirect()->route('precios.index');
     }
-
+    protected function guardarPrecio($productoId, $precio, $estado)
+    {
+        $nuevoPrecio = new Precios();
+        $nuevoPrecio->productoscolores_id = $productoId; 
+        $nuevoPrecio->precio = $precio;
+        $nuevoPrecio->estado = $estado;
+        // Guardar el precio
+        $nuevoPrecio->save();
+    }
     /**
      * Display the specified resource.
      */

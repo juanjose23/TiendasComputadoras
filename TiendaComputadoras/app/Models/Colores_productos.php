@@ -32,7 +32,7 @@ class Colores_productos extends Model
         $productos = Colores_productos::where('estado', 1)
             ->with(['colores', 'productos', 'productos.modelos', 'productos.modelos.marcas', 'productos.subcategorias'])
             ->whereNotIn('id', function ($query) {
-                $query->select('productos_id')->from('precios');
+                $query->select('productoscolores_id')->from('precios');
             })
             ->get()
             ->sortBy([

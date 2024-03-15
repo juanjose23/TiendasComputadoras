@@ -18,8 +18,8 @@
                                 @foreach ($producto as $producto)
                                     <option value="{{ $producto['id'] }}"
                                         {{ old('producto') == $producto['id'] ? 'selected' : '' }}
-                                        data-modelo="{{ $producto['modelo'] }}" data-codigo="{{ $producto['codigo'] }}"
-                                        data-color="{{ $producto['color'] }}">
+                                        data-id="{{ $producto['id'] }}" data-modelo="{{ $producto['modelo'] }}"
+                                        data-codigo="{{ $producto['codigo'] }}" data-color="{{ $producto['color'] }}">
                                         Producto: {{ $producto['nombre'] }} Marca: {{ $producto['marca'] }} Modelo:
                                         {{ $producto['modelo'] }} Color: {{ $producto['color'] }}
                                     </option>
@@ -76,8 +76,10 @@
 
             <div class="col-md-6" id="omitir-color" style="display: none;">
                 <div class="form-group">
-                    <label for="colores-omitir"  class="form-label text-dark">¿Qué colores desea omitir de este precio?</label>
-                    <select id="colores-omitir" name="colores-omitir[]"  class="form-select buscador">
+                    <label for="colores-omitir" class="form-label text-dark">¿Qué colores desea omitir de este
+                        precio?</label>
+                    <select id="colores-omitir" name="colores-omitir[]" class="form-select buscador " multiple="multiple"
+                        style="width: 100%">
 
                     </select>
                 </div>
@@ -96,50 +98,50 @@
 @endsection
 
 <script>
+    // Este bloque contiene el manejo de eventos específico
+
     document.addEventListener('DOMContentLoaded', function() {
-        var productoSelect = document.getElementById('producto');
-        var coloresOmitirDiv = document.getElementById('omitir-color');
-        var terminosRadio = document.getElementById('terminos');
+        var productoSelect = $('#producto');
+        var coloresOmitirDiv = $('#omitir-color');
+        var terminosRadio = $('#terminos');
+        var coloresOmitirSelect = $('#colores-omitir');
 
-        productoSelect.addEventListener('change', function() {
-            // Reiniciar el estado del checkbox cuando se cambia la opción del select
-            terminosRadio.checked = false;
-
+        productoSelect.on('change', function() {
+            $('#terminos').prop('checked', false);
+            coloresOmitirDiv.css('display', 'none');
         });
 
-        terminosRadio.addEventListener('change', function() {
-            if (this.checked) {
-                coloresOmitirDiv.style.display = 'block';
-                cargarColoresDisponibles(productoSelect.value);
+        terminosRadio.on('change', function() {
+            if ($(this).is(':checked')) {
+                coloresOmitirDiv.css('display', 'block');
+                cargarColoresDisponibles(productoSelect.val());
             } else {
-                coloresOmitirDiv.style.display = 'none';
+                coloresOmitirDiv.css('display', 'none');
             }
         });
 
         function cargarColoresDisponibles(productoId) {
-            var coloresOmitirSelect = document.getElementById('colores-omitir');
-            coloresOmitirSelect.innerHTML = '';
+            coloresOmitirSelect.empty();
 
             var productoCodigo = obtenerCodigoProducto(productoId);
-            var opcionesProductos = productoSelect.options;
+            var opcionesProductos = productoSelect.find('option');
 
-            for (var i = 0; i < opcionesProductos.length; i++) {
-                var opcion = opcionesProductos[i];
-                var codigo = opcion.getAttribute('data-codigo');
-                var color = opcion.getAttribute('data-color');
-                var modelo = opcion.getAttribute('data-modelo');
+            opcionesProductos.each(function() {
+                var codigo = $(this).data('codigo');
+                var color = $(this).data('color');
+                var modelo = $(this).data('modelo');
+                var id = $(this).data('id');
                 if (codigo === productoCodigo) {
-                    var option = document.createElement('option');
-                    option.value = color + ' ' + 'Modelo de producto ' + modelo;
-                    option.textContent = color + ' ' + 'Modelo de producto ' + modelo;
-                    coloresOmitirSelect.appendChild(option);
+                    var option = $('<option></option>').val(id).text(color + ' ' +
+                        'Modelo de producto ' + modelo);
+                    coloresOmitirSelect.append(option);
                 }
-            }
+            });
         }
 
         function obtenerCodigoProducto(productoId) {
-            var selectedOption = productoSelect.querySelector('option[value="' + productoId + '"]');
-            return selectedOption ? selectedOption.getAttribute('data-codigo') : null;
+            var selectedOption = productoSelect.find('option[value="' + productoId + '"]');
+            return selectedOption ? selectedOption.data('codigo') : null;
         }
     });
 </script>
