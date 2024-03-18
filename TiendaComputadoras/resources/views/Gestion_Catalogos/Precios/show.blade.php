@@ -8,7 +8,26 @@
             <div class="col-12">
                 <div class="">
                     <div class="card-header">
-                        <h5 class="card-title mb-0 text-black">Lista de Precios</h5>
+                        <h5 class="card-title mb-0 text-black">Especificaciones del Producto</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><strong>Producto:</strong> {{ $precio->productoscolores->productos->nombre }}</li>
+                            <li><strong>Código:</strong> {{ $precio->productoscolores->productos->codigo }}</li>
+                            <li><strong>Categoría / Subcategoría:</strong>
+                                {{ $precio->productoscolores->productos->subcategorias->categorias->nombre }} /
+                                {{ $precio->productoscolores->productos->subcategorias->nombre }}</li>
+                            <li><strong>Marca / Modelo:</strong>
+                                {{ $precio->productoscolores->productos->modelos->marcas->nombre }} /
+                                {{ $precio->productoscolores->productos->modelos->nombre }}</li>
+                            <li><strong>Dimensiones:</strong>
+                                {{ $precio->productoscolores->productos->detalles->dimencion }}</li>
+                            <li><strong>Peso:</strong> {{ $precio->productoscolores->productos->detalles->peso }}</li>
+                            <li><strong>Material:</strong> {{ $precio->productoscolores->productos->detalles->material }}
+                            </li>
+                            <li><strong>Color:</strong> {{ $precio->productoscolores->colores->nombre }}</li>
+                            <!-- Agrega más especificaciones según sea necesario -->
+                        </ul>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -18,7 +37,7 @@
                                         <th scope="col" class="px-4 py-3">
                                             <span class="sr-only">#</span>
                                         </th>
-                                     
+
                                         <th scope="col" class="px-4 py-3">Precio</th>
                                         <th scope="col" class="px-4 py-3">Fecha de registro</th>
                                         <th scope="col" class="px-4 py-3">Fecha de Actualizacion</th>
@@ -27,43 +46,43 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($historial as $colaborador)
-                                    <tr>
-                                        <td>{{$loop->index}}</td>
-                                    
-                                        <td>{{$colaborador->precio}}</td>
-                                        <td>{{$colaborador->created_at}}</td>
-                                        <td>{{$colaborador->updated_at}}</td>
-                                        <td><span
-                                            class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $colaborador->estado == 1 ? 'Activo' : 'Inactivo' }}
-                                        </span></td>
-                                        <td>
-                                            <div class="mr-1">
-                                                @if($colaborador->estado == 1 )
-                                                <!-- Botón para activar/desactivar -->
-                                                <button type="button"
-                                                    class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }}"
-                                                    role="button" onclick="confirmAction({{ $colaborador->id }})">
-                                                    <i
-                                                        class="bi bi-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
-                                                </button>
-                                                @endif
-                                                
-                                            </div>
-                                            <form id="deleteForm{{ $colaborador->id }}"
-                                                action="{{ route('precios.destroy', ['precios' => $colaborador->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                    
-                                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                                <button id="submitBtn{{ $colaborador->id }}" type="submit"
-                                                    style="display: none;"></button>
-                                            </form>
-                    
-                                        </td>
-                                    </tr>
+                                    @foreach ($historial as $colaborador)
+                                        <tr>
+                                            <td>{{ $loop->index }}</td>
+
+                                            <td>{{ $colaborador->precio }}</td>
+                                            <td>{{ $colaborador->created_at }}</td>
+                                            <td>{{ $colaborador->updated_at }}</td>
+                                            <td><span
+                                                    class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                                    {{ $colaborador->estado == 1 ? 'Activo' : 'Inactivo' }}
+                                                </span></td>
+                                            <td>
+                                                <div class="mr-1">
+                                                    @if ($colaborador->estado == 1)
+                                                        <!-- Botón para activar/desactivar -->
+                                                        <button type="button"
+                                                            class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }}"
+                                                            role="button" onclick="confirmAction({{ $colaborador->id }})">
+                                                            <i
+                                                                class="bi bi-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                        </button>
+                                                    @endif
+
+                                                </div>
+                                                <form id="deleteForm{{ $colaborador->id }}"
+                                                    action="{{ route('precios.destroy', ['precios' => $colaborador->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                                    <button id="submitBtn{{ $colaborador->id }}" type="submit"
+                                                        style="display: none;"></button>
+                                                </form>
+
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -73,7 +92,7 @@
             </div>
         </div>
     </div>
-@endsection 
+@endsection
 <script>
     function confirmAction(colaboradorId) {
         Swal.fire({
@@ -100,4 +119,4 @@
             }
         });
     }
-</script> 
+</script>

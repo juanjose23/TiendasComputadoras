@@ -64,4 +64,5 @@ Route::get('/exportmarcas', [ExportacionesController::class, 'exportmarcas'])->n
 Route::get('/exportmodelos', [ExportacionesController::class, 'exportmodelos'])->name('exportmodelos');
 Route::get('/exportcolores', [ExportacionesController::class, 'exportcolores'])->name('exportcolores');
 Route::get('/exportproductos', [ExportacionesController::class, 'exportproductos'])->name('exportproductos');
+Route::get('/exportprecios', [ExportacionesController::class, 'exportprecios'])->name('exportprecios');
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf');

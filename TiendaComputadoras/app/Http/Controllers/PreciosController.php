@@ -109,6 +109,16 @@ class PreciosController extends Controller
 
         return  view('Gestion_Catalogos.Precios.show', compact('precio', 'historial'));
     }
+    public function destroy(Precios $precios)
+    {
+         //Cambiar estado del precio anterior
+         $precio = Precios::findOrFail($precios->id);
+         $precio->estado = 2;
+         $precio->save();
+
+         Session::flash('success', 'Se ha registrado el cambio de estado de manera exitosa.');
+         return redirect()->route('precios.index');
+    }
     protected function guardarPrecio($productoId, $precio, $estado)
     {
         $nuevoPrecio = new Precios();

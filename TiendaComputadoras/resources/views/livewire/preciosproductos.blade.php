@@ -24,7 +24,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ route('exportproductos') }}" class="dropdown-item"><i
+                        <li><a href="{{ route('exportprecios') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
 
@@ -80,7 +80,7 @@
 
                         <td class="text-wrap">
                             {{ wordwrap($producto->productoscolores->colores->nombre, 50, "\n", true) }}</td>
-                        <td>{{ $producto->precio}}
+                        <td>{{ $producto->precio }}
                         </td>
 
                         <td><span class="badge rounded-pill {{ $producto->estado == 1 ? 'bg-success' : 'bg-danger' }}">
@@ -107,11 +107,13 @@
 
                                 <!-- Botón para activar/desactivar -->
                                 <div class="flex me-1">
-                                    <button type="button"
-                                        class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block"
-                                        role="button" onclick="confirmAction({{ $producto->id }})">
-                                        <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
-                                    </button>
+                                    @if ($producto->estado == 1)
+                                        <button type="button"
+                                            class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                            role="button" onclick="confirmAction({{ $producto->id }})">
+                                            <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
@@ -119,7 +121,7 @@
 
 
                             <form id="deleteForm{{ $producto->id }}"
-                                action="{{ route('productos.destroy', ['productos' => $producto->id]) }}"
+                                action="{{ route('precios.destroy', ['precios' => $producto->id]) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

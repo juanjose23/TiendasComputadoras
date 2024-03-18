@@ -102,77 +102,7 @@
             </div>
         </div>
     </form>
- <div class="container-fluid p-0">
-        <h3 class="h3 mb-3"></h3>
-        <div class="row">
-            <div class="col-12">
-                <div class="">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0 text-black">Lista de Salarios</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="px-4 py-3">
-                                            <span class="sr-only">#</span>
-                                        </th>
-                                     
-                                        <th scope="col" class="px-4 py-3">Salario</th>
-                                        <th scope="col" class="px-4 py-3">Fecha de registro</th>
-                                        <th scope="col" class="px-4 py-3">Fecha de Actualizacion</th>
-                                        <th scope="col" class="px-4 py-3">Estado</th>
-                                        <th scope="col" class="px-4 py-3">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($salarios as $colaborador)
-                                    <tr>
-                                        <td>{{$loop->index}}</td>
-                                    
-                                        <td>{{$colaborador->salario}}</td>
-                                        <td>{{$colaborador->created_at}}</td>
-                                        <td>{{$colaborador->updated_at}}</td>
-                                        <td><span
-                                            class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $colaborador->estado == 1 ? 'Activo' : 'Inactivo' }}
-                                        </span></td>
-                                        <td>
-                                            <div class="mr-1">
-                                                @if($colaborador->estado == 1 )
-                                                <!-- Botón para activar/desactivar -->
-                                                <button type="button"
-                                                    class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }}"
-                                                    role="button" onclick="confirmAction({{ $colaborador->id }})">
-                                                    <i
-                                                        class="bi bi-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
-                                                </button>
-                                                @endif
-                                                
-                                            </div>
-                                            <form id="deleteForm{{ $colaborador->id }}"
-                                                action="{{ route('salarios.destroy', ['salarios' => $colaborador->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                    
-                                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                                <button id="submitBtn{{ $colaborador->id }}" type="submit"
-                                                    style="display: none;"></button>
-                                            </form>
-                    
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 @endsection
 
 <script>

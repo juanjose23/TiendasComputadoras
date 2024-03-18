@@ -22,7 +22,7 @@ class Preciosproductos extends Component
             'productoscolores.productos.subcategorias',
             'productoscolores.productos.subcategorias.categorias',
             'productoscolores.productos.detalles'
-        ])->where('estado',1)->where(function ($query) {
+        ])->where(function ($query) {
             $query->where('precio', 'like', '%' . $this->buscar . '%')
                 ->orWhereHas('productoscolores.colores', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
