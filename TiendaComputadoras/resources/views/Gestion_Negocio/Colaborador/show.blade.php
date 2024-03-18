@@ -7,8 +7,10 @@
             <div class="col-md-4 col-xl-4">
                 <div class="card-body mb-3">
                     <div class="text-center">
-                        <img src="{{ $empleados->personas->foto }}" alt="{{ $empleados->personas->nombre }}"
+                        @foreach ($imagenes as $imagen)
+                        <img src="{{$imagen->url}}" alt="{{ $empleados->personas->nombre }}"
                             class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                            @endforeach
                         <h5 class="card-title mb-0">{{ $empleados->personas->nombre }}
                             {{ $empleados->personas->persona_naturales->apellido }}</h5>
                         <div class="text-muted mb-2"></div>
@@ -93,7 +95,7 @@
 
                         <div class="flex-grow-1">
 
-                            <strong>Salario Actual:{{ $salario->salario }}</strong>
+                            <strong>Salario Actual:{{ $salario}}</strong>
                             <br />
 
                             <hr />

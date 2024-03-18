@@ -162,7 +162,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="foto" class="form-label text-dark">Foto:</label>
-                    <input type="file" id="foto" name="foto" placeholder="Escribe tu correo"
+                    <input type="file" id="foto" name="foto" 
                         class="form-control @error('foto') is-invalid @enderror" value="{{ old('foto') }}">
                     @error('foto')
                         <div class="invalid-feedback">{{ $message }}</div>

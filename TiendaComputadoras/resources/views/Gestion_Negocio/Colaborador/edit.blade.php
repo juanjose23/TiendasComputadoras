@@ -2,7 +2,7 @@
 @section('title', 'Empleados')
 @section('submodulo', 'Actualizar Colaborador')
 @section('content')
-    <form action="{{ route('colaboradores.update',$empleados->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('colaboradores.update', $empleados->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -111,7 +111,8 @@
             <div class="col-md-4 col-lg-4">
                 <div class="form-group">
                     <label for="pais" class="form-label text-dark">País</label>
-                    <select style="width: 100%" id="pais" name="pais" class="form-control buscador @error('pais') is-invalid @enderror">
+                    <select style="width: 100%" id="pais" name="pais"
+                        class="form-control buscador @error('pais') is-invalid @enderror">
                         <option disabled>Elegir país</option>
                         @foreach ($datos['paises'] as $pais)
                             <option value="{{ $pais->id }}"
@@ -128,7 +129,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="genero" class="form-label text-dark">Género</label>
-                    <select  style="width: 100%"id="genero" name="genero"
+                    <select style="width: 100%"id="genero" name="genero"
                         class="form-select buscador @error('genero') is-invalid @enderror">
                         <option disabled>Elegir género</option>
                         @foreach ($datos['generos'] as $genero)
@@ -185,8 +186,10 @@
                 <div class="form-group">
                     <div class=" d-flex align-items-center">
                         <div class="rounded-circle overflow-hidden mx-3 my-auto" style="width: 50px; height: 50px;">
-                            <img src="{{ $empleados->personas->foto }}" alt="Vista previa de la imagen"
-                                class="w-100 h-100">
+                            @foreach ($imagenes as $imagen)
+                                <img src="{{ $imagen->url }}" alt="Vista previa de la imagen"
+                                    class="w-100 h-100">
+                            @endforeach
                         </div>
                     </div>
 
@@ -196,7 +199,7 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                   
+
 
                     <label for="foto" class="form-label text-dark">Foto:</label>
                     <!-- Input para seleccionar el archivo -->
@@ -216,14 +219,14 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="departamentos" class="form-label text-dark">Localización:</label>
-                    <select  style="width: 100%"id="departamentos" name="departamentos"
+                    <select style="width: 100%"id="departamentos" name="departamentos"
                         class="buscador form-select @error('departamentos') is-invalid @enderror">
                         <option disabled>Selecciona un departamento</option>
                         @foreach ($datos['departamentos'] as $departamento => $municipios)
                             <optgroup label="{{ $departamento }}">
                                 @foreach ($municipios as $municipio)
                                     <option value="{{ $municipio['id'] }}"
-                                        {{ old('departamentos',$empleados->personas->direcciones[0]->municipios_id) == $municipio['id'] ? 'selected' : '' }}>
+                                        {{ old('departamentos', $empleados->personas->direcciones[0]->municipios_id) == $municipio['id'] ? 'selected' : '' }}>
                                         {{ $municipio['nombre'] }}
                                     </option>
                                 @endforeach
@@ -239,7 +242,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="punto" class="form-label text-dark">Punto Referencia:</label>
-                    <textarea id="punto" name="punto" rows="3" class="form-control @error('punto') is-invalid @enderror">{{ old('punto',$empleados->personas->direcciones[0]->punto_referencia) }}</textarea>
+                    <textarea id="punto" name="punto" rows="3" class="form-control @error('punto') is-invalid @enderror">{{ old('punto', $empleados->personas->direcciones[0]->punto_referencia) }}</textarea>
                     @error('punto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -249,7 +252,7 @@
                 <div class="form-group">
                     <label for="direccion" class="form-label text-dark">Dirección:</label>
                     <textarea id="direccion" name="direccion" rows="3"
-                        class="form-control @error('direccion') is-invalid @enderror">{{ old('direccion',$empleados->personas->direcciones[0]->direccion) }}</textarea>
+                        class="form-control @error('direccion') is-invalid @enderror">{{ old('direccion', $empleados->personas->direcciones[0]->direccion) }}</textarea>
                     @error('direccion')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

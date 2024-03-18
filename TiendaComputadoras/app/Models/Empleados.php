@@ -25,14 +25,22 @@ class Empleados extends Model
     {
         return $this->hasMany('App\Models\Salarios');
     }
+    /**
+     * Define la relación "imagen" de uno a uno para el modelo.
+     */
+    public function imagenes()
+    {
+        return $this->morphOne('App\Models\Imagen', 'imagenable');
+    }
+
     public static function generarCodigo()
     {
         // Obtener el ID máximo actual de la tabla empleados
         $ultimoId = self::max('id');
-        
+
         // Generar el nuevo código sumando 1 al ID máximo obtenido
         $nuevoCodigo = 'EMP-' . str_pad($ultimoId + 1, 3, '0', STR_PAD_LEFT);
-        
+
         return $nuevoCodigo;
     }
 }

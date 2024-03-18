@@ -11,7 +11,7 @@ class UpdatePrecios extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,20 @@ class UpdatePrecios extends FormRequest
     public function rules(): array
     {
         return [
-            //
+         
+            'precio' => 'required|numeric|min:0.01',
+            'estado' => 'required|in:0,1',
+        ];
+    }
+    public function messages()
+    {
+        return [
+          
+            'precio.required' => 'El campo Precio es obligatorio.',
+            'precio.numeric' => 'El campo Precio debe ser un número.',
+            'precio.min' => 'El campo Precio debe ser mayor que cero.',
+            'estado.required' => 'El campo Estado es obligatorio.',
+            'estado.in' => 'El valor del campo Estado no es válido.',
         ];
     }
 }

@@ -63,14 +63,12 @@
                     <div class="mt-4"></div>
                     <label for="terminos" class="form-check text-dark">
                         <input type="checkbox" id="terminos" name="terminos" class="form-check-input" value="1"
-                            {{ old('terminos') == '1' ? 'checked' : '' }}>
+                          >
                         <span class="form-check-label text-dark">
                             ¿Establecer este precio para todas las variantes de colores del producto?
                         </span>
                     </label>
-                    @error('terminos')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                 
                 </div>
             </div>
 
@@ -78,10 +76,11 @@
                 <div class="form-group">
                     <label for="colores-omitir" class="form-label text-dark">¿Qué colores desea omitir de este
                         precio?</label>
-                    <select id="colores-omitir" name="colores-omitir[]" class="form-select buscador " multiple="multiple"
+                    <select id="colores-omitir" name="colores-omitir[]" class="form-select buscador is-invalid" multiple="multiple"
                         style="width: 100%">
-
+                     
                     </select>
+                    <div class="text-warning ">Todos los productos van a cambiar su precios menos el que sean omitidos</div>
                 </div>
             </div>
 
@@ -98,13 +97,19 @@
 @endsection
 
 <script>
-    // Este bloque contiene el manejo de eventos específico
-
     document.addEventListener('DOMContentLoaded', function() {
+        var coloresOmitirSelect = $('#colores-omitir');
+
+        // Mantener los valores seleccionados después de una validación
+        var valoresSeleccionados = {!! json_encode(old('colores-omitir', [])) !!};
+        console.log('Colores seleccionado');
+        console.log(valoresSeleccionados);
+        coloresOmitirSelect.val(valoresSeleccionados).trigger('change');
+
+        // El resto del código para cargar las opciones se mantiene igual
         var productoSelect = $('#producto');
         var coloresOmitirDiv = $('#omitir-color');
         var terminosRadio = $('#terminos');
-        var coloresOmitirSelect = $('#colores-omitir');
 
         productoSelect.on('change', function() {
             $('#terminos').prop('checked', false);

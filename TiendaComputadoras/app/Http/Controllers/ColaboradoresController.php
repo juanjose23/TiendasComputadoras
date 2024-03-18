@@ -13,6 +13,7 @@ use App\Models\Pais;
 use App\Models\Genero;
 use App\Models\Personas;
 use App\Models\Persona_Naturales;
+use App\Models\Imagen;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -58,16 +59,23 @@ class ColaboradoresController extends Controller
         $persona->nombre = $request->nombre;
         $persona->correo = $request->correo;
         $persona->telefono = $request->telefono;
-        // Subir y guardar la foto en Cloudinary si se ha proporcionado
-        if ($request->hasFile('foto')) {
-            $foto = $request->foto;
-            $result = $request->file('foto')->storeOnCloudinary('empleados');
-            $persona->foto = $result->getSecurePath();
-        }
+
 
         // Guardar la persona en la base de datos
         $persona->save();
         $ultimoId = $persona->id;
+        // Subir y guardar la foto en Cloudinary si se ha proporcionado
+        if ($request->hasFile('foto')) {
+            $result = $request->file('foto')->storeOnCloudinary('empleados');
+
+            // Crear una nueva entrada de imagen en la base de datos
+            $imagen = new Imagen();
+            $imagen->url = $result->getSecurePath();
+            $imagen->public_id = $result->getPublicId();
+            $imagen->imagenable_id = $ultimoId;
+            $imagen->imagenable_type = get_class($persona);
+            $imagen->save();
+        }
         // Crear una nueva instancia del modelo PersonaNatural
         $personaNatural = new Persona_Naturales();
         // Establecer los valores de los atributos de PersonaNatural
@@ -110,18 +118,17 @@ class ColaboradoresController extends Controller
         //
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
             ->find($colaboradores->id);
-        $salario = Salarios::where([
-            ['estado', 1],
-            ['empleados_id', $colaboradores->id]
-        ])->first();
-        $cargo = AsignacionCargos::with(['cargos'])->where([
-            ['estado', 1],
-            ['empleados_id', $colaboradores->id]
-        ])->get();
+        $salario = Salarios::ObtenerSalarioColaborador($colaboradores->id);
+        $cargo = AsignacionCargos::obtenerAsignacionesCargos($colaboradores->id);
 
-        $historial = Salarios::Where('empleados_id', $colaboradores->id)->get();
+        $historial = Salarios::obtenerHistorialSalarios($colaboradores->id);
+        $imagenes = Imagen::where('imagenable_type', 'App\Models\Empleados')
+            ->where('imagenable_id', $colaboradores->id)
+            ->get();
+
+
         $cargos = AsignacionCargos::with(['cargos'])->where('empleados_id', $colaboradores->id)->get();
-        return view('Gestion_Negocio.Colaborador.show', compact('empleados', 'salario', 'cargo', 'historial', 'cargos'));
+        return view('Gestion_Negocio.Colaborador.show', compact('empleados', 'salario', 'cargo', 'historial', 'cargos', 'imagenes'));
     }
 
     /**
@@ -135,12 +142,15 @@ class ColaboradoresController extends Controller
             'paises' => Pais::obtenerPaises(),
             'generos' => Genero::obtenerGenero(),
             'estadosCiviles' => Estado_civiles::obtenerEstados(),
+
         ];
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
             ->find($colaboradores->id);
 
-
-        return view('Gestion_Negocio.Colaborador.edit', compact('datos', 'empleados'));
+        $imagenes = Imagen::where('imagenable_type', 'App\Models\Empleados')
+            ->where('imagenable_id', $colaboradores->id)
+            ->get();
+        return view('Gestion_Negocio.Colaborador.edit', compact('datos', 'empleados', 'imagenes'));
     }
 
     /**
@@ -152,27 +162,34 @@ class ColaboradoresController extends Controller
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
             ->find($colaboradores->id);
 
-        $foto_anterior = $empleados->personas->foto;
+
         // Actualizar los valores de los atributos de la persona
         $empleados->personas->nombre = $request->nombre;
         $empleados->personas->correo = $request->correo;
         $empleados->personas->telefono = $request->telefono;
 
-        // Subir y guardar la nueva foto en Cloudinary si se ha proporcionado
+        // Verificar si se ha enviado un archivo de imagen
         if ($request->hasFile('foto')) {
-            $foto = $request->foto;
-            $result = $request->file('foto')->storeOnCloudinary('empleados');
+            // Subir la nueva imagen a Cloudinary y obtener el resultado
+            $imagenes = $empleados->imagenes;
 
-            // Eliminar la foto anterior de Cloudinary
-            if ($empleados->personas->foto) {
-                
-             
-              Cloudinary::Destroy('empleados/'.$foto_anterior);
+            if ($imagenes) {
+                $public_id = $imagenes['public_id'];
+                Cloudinary::destroy($public_id);
+                Imagen::destroy($imagenes['id']);
             }
-            $url = $result->getSecurePath();
-            $publicId  = $result->getPublicId();
-            // Guardar la nueva URL de la foto
-            $empleados->personas->foto = $publicId;
+          
+
+            $result = $request->file('foto')->storeOnCloudinary('empleados');
+           
+            // Crear una nueva entrada de imagen en la base de datos
+            $imagen = new Imagen();
+            $imagen->url = $result->getSecurePath();
+            $imagen->public_id = $result->getPublicId();
+            $imagen->imagenable_id = $empleados->id;
+            $imagen->imagenable_type = get_class($empleados);
+            $imagen->save();
+            //return $result->getSecurePath();
         }
 
         // Actualizar los valores de los atributos de la persona natural
@@ -230,21 +247,18 @@ class ColaboradoresController extends Controller
     {
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
             ->find($colaboradores);
-        $salario = Salarios::where([
-            ['estado', 1],
-            ['empleados_id', $colaboradores]
-        ])->first();
-        $cargo = AsignacionCargos::with(['cargos'])->where([
-            ['estado', 1],
-            ['empleados_id', $colaboradores]
-        ])->get();
+        $salario = Salarios::ObtenerSalarioColaborador($colaboradores->id);
+        $cargo = AsignacionCargos::obtenerAsignacionesCargos($colaboradores->id);
 
-        $historial = Salarios::Where('empleados_id', $colaboradores)->get();
-        $cargos = AsignacionCargos::with(['cargos'])->where('empleados_id', $colaboradores)->get();
-        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf', compact('empleados', 'salario', 'cargo', 'historial', 'cargos'));
+        $historial = Salarios::obtenerHistorialSalarios($colaboradores->id);
+        $imagenes = Imagen::where('imagenable_type', 'App\Models\Empleados')
+            ->where('imagenable_id', $colaboradores->id)
+            ->get();
+            $cargos = AsignacionCargos::with(['cargos'])->where('empleados_id', $colaboradores->id)->get();
+        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf', compact('empleados', 'salario', 'cargo', 'historial', 'cargos','imagenes'));
         $pdf->set_paper('A5');
 
         // Envía el PDF generado al navegador
-        return $pdf->download('documento.pdf');
+        return $pdf->download('empleado'+''+$empleados->codigo+'.pdf');
     }
 }

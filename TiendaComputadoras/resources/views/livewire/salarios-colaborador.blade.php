@@ -10,7 +10,7 @@
             <!-- Botón para crear un cargo -->
             <div class="dropdown">
                 <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('asignaciones.create') }}" class="btn btn-success btn-icon">
+                    <a href="{{ route('salarios.create') }}" class="btn btn-success btn-icon">
                         <i class="bi bi-file-earmark-plus-fill"></i> Registrar Salario
                     </a>
                 </div>

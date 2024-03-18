@@ -92,14 +92,14 @@
                             <div class="d-flex mb-1 align-items-center">
 
                                 <!-- Botón de información -->
-                                <a href="{{ route('productos.show', ['productos' => $producto->id]) }}"
+                                <a href="{{ route('precios.show', ['precios' => $producto->id]) }}"
                                     class="btn btn-secondary me-1" role="button">
                                     <i class="bi bi-info-circle"></i>
                                 </a>
 
                                 <!-- Botón para editar -->
                                 <div class=" me-1">
-                                    <a href="{{ route('productos.edit', ['productos' => $producto->id]) }}"
+                                    <a href="{{ route('precios.edit', ['precios' => $producto->id]) }}"
                                         class="btn btn-info btn-block" role="button">
                                         <i class="bi bi-pencil"></i>
                                     </a>

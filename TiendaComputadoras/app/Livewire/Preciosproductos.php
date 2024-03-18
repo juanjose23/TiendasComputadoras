@@ -22,7 +22,7 @@ class Preciosproductos extends Component
             'productoscolores.productos.subcategorias',
             'productoscolores.productos.subcategorias.categorias',
             'productoscolores.productos.detalles'
-        ])->where(function ($query) {
+        ])->where('estado',1)->where(function ($query) {
             $query->where('precio', 'like', '%' . $this->buscar . '%')
                 ->orWhereHas('productoscolores.colores', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
@@ -32,8 +32,9 @@ class Preciosproductos extends Component
                 })
                 ->orWhereHas('productoscolores.productos', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('descripcion', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('fecha_lanzamiento', 'like', '%' . $this->buscar . '%');
+                    $query->where('codigo', 'like', '%' . $this->buscar . '%');
+                    $query->Where('descripcion', 'like', '%' . $this->buscar . '%');
+                    $query->Where('fecha_lanzamiento', 'like', '%' . $this->buscar . '%');
                 })
                 ->orWhereHas('productoscolores.productos.subcategorias', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');

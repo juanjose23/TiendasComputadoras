@@ -18,29 +18,30 @@ use App\Models\Empleados;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Salarios;
 use App\Models\AsignacionCargos;
+use App\Models\Imagen;
+
 class ExportacionesController extends Controller
 {
     //
     public function pdf($colaboradores)
     {
         $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'personas.direcciones'])
-        ->find($colaboradores);
-        $salario = Salarios::where([
-            ['estado', 1],
-            ['empleados_id', $colaboradores]
-        ])->first();
-        $cargo = AsignacionCargos::with(['cargos'])->where([
-            ['estado', 1],
-            ['empleados_id', $colaboradores]
-        ])->get();
+            ->find($colaboradores);
+        $salario = Salarios::ObtenerSalarioColaborador($colaboradores);
+        $cargo = AsignacionCargos::obtenerAsignacionesCargos($colaboradores);
 
-        $historial=Salarios::Where('empleados_id',$colaboradores)->get();
-        $cargos=AsignacionCargos::with(['cargos'])->where('empleados_id',$colaboradores)->get();
-        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf',compact('empleados','salario','cargo','historial','cargos'));
+        $historial = Salarios::obtenerHistorialSalarios($colaboradores);
+
+        $imagenes = Imagen::where('imagenable_type', 'App\Models\Empleados')
+            ->where('imagenable_id', $colaboradores)
+            ->get();
+        $cargos = AsignacionCargos::with(['cargos'])->where('empleados_id', $colaboradores)->get();
+        $pdf = Pdf::loadView('Gestion_Negocio.Colaborador.pdf', compact('empleados', 'salario', 'cargo', 'historial', 'cargos', 'imagenes'));
         $pdf->set_paper('A5');
-      
-       // Envía el PDF generado al navegador
-       return $pdf->download('documento.pdf');
+
+        // Envía el PDF generado al navegador
+        return $pdf->download('empleado' . $empleados->codigo . '.pdf');
+
     }
     public function exportcargosexcel()
     {
@@ -85,13 +86,13 @@ class ExportacionesController extends Controller
     }
     public function exportColaboradorespdf()
     {
-        $empleados=Empleados::with(['personas','personas.persona_naturales'])->get();
-        $total=Empleados::count();
-        $pdf = Pdf::loadView('report.empleados',['empleados' => $empleados,'total' => $total]);
+        $empleados = Empleados::with(['personas', 'personas.persona_naturales', 'imagenes'])->get();
+        //  return $empleados;
+        $total = Empleados::count();
+        $pdf = Pdf::loadView('report.empleados', ['empleados' => $empleados, 'total' => $total]);
         $pdf->set_paper('A3', 'landscape');
-      
-       // Envía el PDF generado al navegador
-       return $pdf->download('documento.pdf');
-    }
 
+        // Envía el PDF generado al navegador
+        return $pdf->download('documento.pdf');
+    }
 }

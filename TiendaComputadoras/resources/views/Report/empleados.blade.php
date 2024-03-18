@@ -68,7 +68,8 @@
                         </td>
                         <th scope="row"
                             class="flex items-center px-2 py-2 text-gray-900 whitespace-nowrap dark:text-white">
-                            <img class="w-10 h-10 rounded-full" src="{{ $empleados->personas->foto }}" alt="Jese image">
+                            <img class="w-10 h-10 rounded-full" src="{{ $empleados->imagenes->url ?? 'No tiene foto' }}" alt="Imagen del colaborador">
+                        
                             <div class="ps-3">
                                 <div class="text-base font-semibold">{{ $empleados->personas->nombre }}</div>
 
