@@ -21,5 +21,13 @@ class DatabaseSeeder extends Seeder
         $this->call(ModelosSeeder::class);
         $this->call(CategoriaSeeder::class);
         $this->call(SubcategoriasSeeder::class);
+        $this->call(PersonasSeeder::class);
+        $this->call(personanaturalseeder::class);
+        $this->call(empleadosseeder::class);
+        $this->call(modulos::class);
+        $this->call(submodulos::class);
+        $this->call(permisos::class);
+        $this->call(permisosmodulos::class);
+
     }
 }

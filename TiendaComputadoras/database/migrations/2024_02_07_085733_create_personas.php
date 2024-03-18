@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nombre',120);
             $table->string('correo',50)->unique()->nullable();
             $table->string('telefono',50)->unique()->nullable();
-            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
