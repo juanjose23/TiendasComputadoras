@@ -9,7 +9,7 @@
                     <div class="text-center">
                         @foreach ($imagenes as $imagen)
                         <img src="{{$imagen->url}}" alt="{{ $empleados->personas->nombre }}"
-                            class="img-fluid rounded-circle mb-2" width="128" height="128" />
+                            class="img-fluid rounded-circle mb-2" width="100" height="128" />
                             @endforeach
                         <h5 class="card-title mb-0">{{ $empleados->personas->nombre }}
                             {{ $empleados->personas->persona_naturales->apellido }}</h5>
