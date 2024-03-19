@@ -13,6 +13,7 @@ use App\Http\Controllers\ModelosController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ImgController;
 use App\Http\Controllers\PreciosController;
+use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SubcategoriasController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destro
 Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios');
 //Controller del modulo de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles');
+Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios');
 //Controller para multimedia
 Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img');
 //Rutas para exportacion y reportes

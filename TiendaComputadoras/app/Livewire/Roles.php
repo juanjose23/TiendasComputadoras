@@ -27,4 +27,4 @@ class Roles extends Component
         $this->perPage = $perPage;
         $this->gotoPage(1); // Reiniciar el paginado a la página 1
     }
-}
+} 

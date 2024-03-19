@@ -9,4 +9,9 @@ class RolesModel extends Model
 {
     protected $table = 'roles';
     use HasFactory;
+
+    public function privilegios()
+    {
+        return $this->hasMany('App\Models\Privilegios');
+    }
 }
