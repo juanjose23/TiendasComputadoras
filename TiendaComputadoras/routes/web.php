@@ -13,6 +13,7 @@ use App\Http\Controllers\ModelosController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ImgController;
 use App\Http\Controllers\PreciosController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SubcategoriasController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,7 +49,7 @@ Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedi
 Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg');
 Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios');
 //Controller del modulo de usuarios
-
+Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles');
 //Controller para multimedia
 Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img');
 //Rutas para exportacion y reportes
@@ -66,3 +67,4 @@ Route::get('/exportcolores', [ExportacionesController::class, 'exportcolores'])-
 Route::get('/exportproductos', [ExportacionesController::class, 'exportproductos'])->name('exportproductos');
 Route::get('/exportprecios', [ExportacionesController::class, 'exportprecios'])->name('exportprecios');
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf');
+Route::get('/exportroles', [ExportacionesController::class, 'exportroles'])->name('exportroles');

@@ -6,6 +6,7 @@ use App\Exports\AsignacionExport;
 use App\Exports\CargosExport;
 use App\Exports\CategoriasExport;
 use App\Exports\ModelosExport;
+use App\Exports\RolesExport;
 use App\Exports\SubcategoriasExport;
 use App\Exports\ColaboradoresExport;
 use App\Exports\ColoresExport;
@@ -99,5 +100,10 @@ class ExportacionesController extends Controller
 
         // Envía el PDF generado al navegador
         return $pdf->download('documento.pdf');
+    }
+    //Usuarios
+    public function exportroles()
+    {
+        return Excel::download(new RolesExport, 'roles.xlsx');
     }
 }
