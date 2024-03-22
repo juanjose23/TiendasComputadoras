@@ -35,6 +35,7 @@ class submodulos extends Model
              // Almacenar la cantidad de submódulos para cada módulo
              $resultados[] = [
                  'nombre' => $nombreModulo,
+                 'id'=>$modulo->id,
                  'cantidad_submodulos' => $cantidadSubmodulos,
                  'submodulos' => $modulo->submodulos->toArray()
              ];

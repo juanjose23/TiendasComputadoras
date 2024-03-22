@@ -14,4 +14,21 @@ class RolesModel extends Model
     {
         return $this->hasMany('App\Models\Privilegios');
     }
+    /**
+     * Obtiene los roles que no tienen privilegios asociados.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function obtenerRolesSinPrivilegios()
+    {
+
+        $roles = RolesModel::where('estado', 1)
+            ->whereNotIn('id', [1]) // Excluir el rol con ID 1 
+            ->whereNotIn('id', function ($query) {
+                // Subconsulta para excluir roles con privilegios asociados
+                $query->select('roles_id')->from('privilegiosroles');
+            })->get();
+
+        return $roles;
+    }
 }
