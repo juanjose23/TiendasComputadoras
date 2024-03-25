@@ -1,7 +1,7 @@
-<div>
+<div >
     <div class="d-flex justify-content-between align-items-center flex-wrap">
         <div class="input-group mb-3" style="max-width: 300px;">
-            <input type="text" wire:model.live.debounce.300ms="Filtrar" class="form-control form-control rounded-start"
+            <input type="text" wire:model.live.debounce.300ms="buscar" class="form-control form-control rounded-start"
                 placeholder="Buscar...">
         </div>
 
@@ -10,8 +10,8 @@
             <!-- Botón para crear un cargo -->
             <div class="dropdown">
                 <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('salarios.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Salario
+                    <a href="{{ route('privilegios.create') }}" class="btn btn-success btn-icon">
+                        <i class="bi bi-file-earmark-plus-fill"></i> Asignar privielgios 
                     </a>
                 </div>
             </div>
@@ -24,9 +24,11 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('exportsalarios') }}"><i
+                        <li><a href="{{ route('exportroles') }}" class="dropdown-item"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
+
+
                     </ul>
                 </div>
             </div>
@@ -52,46 +54,34 @@
                     <th scope="col" class="px-4 py-3">
                         <span class="sr-only">#</span>
                     </th>
-                    <th scope="col" class="px-4 py-3">Código</th>
-                    <th scope="col" class="px-4 py-3">Nombre</th>
-                    <th scope="col" class="px-4 py-3">Apellido</th>
-                    <th scope="col" class="px-4 py-3">Salario</th>
-                    <th scope="col" class="px-4 py-3">Estado</th>
+                    <th scope="col" class="px-4 py-3">Rol</th>
+                    <th scope="col" class="px-4 py-3">N° de privilegios</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($datos as $colaborador)
+
+                @foreach ($roles as $rol)
                     <tr>
-
-
                         <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ $colaborador->empleados->codigo }}</td>
-
-                        <td>{{ $colaborador->empleados->personas->nombre }}</td>
-                        <td>{{ $colaborador->empleados->personas->persona_naturales->apellido }}</td>
-                        <td>{{ $colaborador->salario }}</td>
-                        <td><span
-                                class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                {{ $colaborador->estado == 1 ? 'Activo' : 'Inactivo' }}
-                            </span>
-                        </td>
+                        <td>{{ $rol->roles->nombre }}</td>
+                        <td class="text-center">{{ wordwrap($rol->cantidad, 50, "\n", true) }}</td>
                         <td>
+                            <div class="d-flex mb-1 align-items-center">
+                                <a href="{{ route('privilegios.edit', ['privilegios' => $rol->roles->id]) }}"
+                                    class="btn btn-info" role="button">
+                                    <i class="bi bi-pencil"></i>
 
-                            <div class="d-flex">
-                                <div class="mr-2">
-                                    <a href="{{ route('salarios.edit', ['salarios' => $colaborador->empleados->id]) }}"
-                                        class="btn btn-info" role="button">
-                                        <i class="bi bi-pencil"></i>
+                                </a>
+                           
 
-                                    </a>
-                                </div>
-
+                            <div class="m-1">
+                                <a href="{{ route('privilegios.show', ['privilegios' => $rol->roles->id]) }}"
+                                    class="btn btn-secondary" role="button">
+                                    <i class="bi bi-eye"></i>
+                                </a>
                             </div>
-
-
-
-                            
+                            </div>
 
                         </td>
                     </tr>
@@ -105,25 +95,25 @@
                 <div class="btn-group me-2" role="group" aria-label="First group">
                     <!-- Botón para la página anterior -->
                     <button type="button" class="btn btn-primary" wire:click="previousPage"
-                        {{ $datos->onFirstPage() ? 'disabled' : '' }}>
-                        Previo
+                        {{ $roles->onFirstPage() ? 'disabled' : '' }}>
+                        &laquo; Previo
                     </button>
                 </div>
 
                 <!-- Botones para cada página -->
-                @foreach ($datos->links() as $page => $url)
+                @foreach ($roles->links() as $page => $url)
                     @if (
                         $loop->first ||
                             $loop->last ||
-                            ($loop->index >= $datos->currentPage() - 2 && $loop->index <= $datos->currentPage() + 2))
+                            ($loop->index >= $roles->currentPage() - 2 && $loop->index <= $roles->currentPage() + 2))
                         <div class="btn-group me-2" role="group" aria-label="Page {{ $page }}">
                             <button type="button"
-                                class="btn btn-primary {{ $datos->currentPage() == $page ? 'active' : '' }}"
+                                class="btn btn-primary {{ $roles->currentPage() == $page ? 'active' : '' }}"
                                 wire:click="gotoPage({{ $page }})">
                                 {{ $page }}
                             </button>
                         </div>
-                    @elseif ($loop->index == $datos->currentPage() - 3 || $loop->index == $datos->currentPage() + 3)
+                    @elseif ($loop->index == $roles->currentPage() - 3 || $loop->index == $roles->currentPage() + 3)
                         <span class="mx-2">...</span>
                     @endif
                 @endforeach
@@ -131,43 +121,12 @@
                 <div class="btn-group" role="group" aria-label="Next group">
                     <!-- Botón para la página siguiente -->
                     <button type="button" class="btn btn-primary" wire:click="nextPage"
-                        {{ $datos->hasMorePages() ? '' : 'disabled' }}>
+                        {{ $roles->hasMorePages() ? '' : 'disabled' }}>
                         Siguiente
                     </button>
                 </div>
             </div>
-
         </div>
+
     </div>
-    <!-- JavaScript -->
-    <!-- JavaScript -->
-    <script>
-        function confirmAction(colaboradorId) {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: '¿Quieres cambiar el estado de este colaborador?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sí, cambiar estado'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var form = document.getElementById('deleteForm' + colaboradorId);
-
-                    // Agregar un campo oculto al formulario para indicar la acción
-                    var actionInput = document.createElement('input');
-                    actionInput.type = 'hidden';
-                    actionInput.name = '_method';
-                    actionInput.value = 'DELETE';
-                    form.appendChild(actionInput);
-
-                    // Enviar el formulario
-                    form.submit();
-                }
-            });
-        }
-    </script>
-
-
 </div>

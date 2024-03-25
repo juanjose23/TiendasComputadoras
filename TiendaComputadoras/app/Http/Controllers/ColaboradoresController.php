@@ -65,34 +65,7 @@ class ColaboradoresController extends Controller
         $persona->save();
         $ultimoId = $persona->id;
         // Subir y guardar la foto en Cloudinary si se ha proporcionado
-        if ($request->hasFile('foto')) {
-            $result = $request->file('foto')->storeOnCloudinary('empleados', [
-                'transformation' => [
-                    [
-                        'width' => 200,
-                        'height' => 200,
-                        'crop' => 'fill', // Esto llenará la imagen en lugar de cortarla
-                        'gravity' => 'auto' // Esto centrará la imagen si la relación de aspecto cambia
-                    ]
-                ]
-            ]);
-            
-            // Crear una nueva entrada de imagen en la base de datos
-            $imagen = new Imagen();
-            $imagen->url = $result->getSecurePath();
-            $imagen->public_id = $result->getPublicId();
-            $imagen->imagenable_id = $ultimoId;
-            $imagen->imagenable_type = get_class($persona);
-            
-
-            // Crear una nueva entrada de imagen en la base de datos
-            $imagen = new Imagen();
-            $imagen->url = $result->getSecurePath();
-            $imagen->public_id = $result->getPublicId();
-            $imagen->imagenable_id = $ultimoId;
-            $imagen->imagenable_type = get_class($persona);
-            $imagen->save();
-        }
+        
         // Crear una nueva instancia del modelo PersonaNatural
         $personaNatural = new Persona_Naturales();
         // Establecer los valores de los atributos de PersonaNatural
@@ -115,6 +88,34 @@ class ColaboradoresController extends Controller
 
         // Guardar el empleado en la base de datos
         $empleado->save();
+        if ($request->hasFile('foto')) {
+            $result = $request->file('foto')->storeOnCloudinary('empleados', [
+                'transformation' => [
+                    [
+                        'width' => 200,
+                        'height' => 200,
+                        'crop' => 'fill', // Esto llenará la imagen en lugar de cortarla
+                        'gravity' => 'auto' // Esto centrará la imagen si la relación de aspecto cambia
+                    ]
+                ]
+            ]);
+            
+            // Crear una nueva entrada de imagen en la base de datos
+            $imagen = new Imagen();
+            $imagen->url = $result->getSecurePath();
+            $imagen->public_id = $result->getPublicId();
+            $imagen->imagenable_id = $ultimoId;
+            $imagen->imagenable_type = get_class($empleado);
+            
+
+            // Crear una nueva entrada de imagen en la base de datos
+            $imagen = new Imagen();
+            $imagen->url = $result->getSecurePath();
+            $imagen->public_id = $result->getPublicId();
+            $imagen->imagenable_id = $ultimoId;
+            $imagen->imagenable_type = get_class($empleado);
+            $imagen->save();
+        }
         $direcciones = new Direcciones();
         $direcciones->municipios_id = $request->departamentos;
         $direcciones->personas_id = $ultimoId;

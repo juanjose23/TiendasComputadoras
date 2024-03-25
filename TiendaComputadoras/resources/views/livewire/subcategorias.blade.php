@@ -1,4 +1,4 @@
-<div wire:poll.1s>
+<div>
     <div class="d-flex justify-content-between align-items-center flex-wrap">
         <div class="input-group mb-3" style="max-width: 300px;">
             <input type="text" wire:model.live.debounce.300ms="buscar" class="form-control form-control rounded-start"
@@ -65,7 +65,7 @@
            
                     @foreach ($subcategorias as $subcategoria)
                 <tr>
-                    <td>{{ $subcategoria->id }}</td>
+                    <td>{{ $loop->index + 1 }}</td>
 
                     <td>{{ $subcategoria->categorias->nombre }}</td>
                     <td>{{ $subcategoria->nombre }}</td>

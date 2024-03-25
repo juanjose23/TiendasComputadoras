@@ -4,28 +4,29 @@
 @section('content')
     <form id="crear" name="crear" method="POST" action="{{ route('privilegios.store') }}" autocomplete="off">
         @csrf
-        <div class="form-group row @error('rol') is-invalid @enderror">
-            <div class="col-md-4">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <label for="rol" class="form-label">Rol:</label>
+                    <select id="rol" name="rol" class="form-select buscador @error('rol') is-invalid @enderror"
+                        style="width: 100%">
+                        <option value="" selected>Seleccionar rol</option>
 
-                <label for="rol" class="form-label">Rol:</label>
-                <select id="rol" name="rol" class="form-select buscador @error('rol') is-invalid @enderror"
-                    style="width: 100%">
-                    <option value="" selected>Seleccionar rol</option>
-
-                    @foreach ($Roles as $rol)
-                        <option value="{{ $rol->id }}" {{ old('rol') == $rol->id ? 'selected' : '' }}>
-                            {{ $rol->nombre }}</option>
-                    @endforeach
-                </select>
-                @error('rol')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-
-
+                        @foreach ($Roles as $rol)
+                            <option value="{{ $rol->id }}" {{ old('rol') == $rol->id ? 'selected' : '' }}>
+                                {{ $rol->nombre }}</option>
+                        @endforeach
+                    </select>
+                    @error('rol')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary">Asignar privilegios</button>
+                </div>
 
-            <div class="col-md-4 col-sm-12 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary">Asignar privilegios</button>
             </div>
         </div>
         <div class="mt-4"></div>
@@ -40,7 +41,8 @@
                                 @foreach ($modulo['submodulos'] as $submodulo)
                                     <div style="margin-left: 20px; margin-bottom: 10px;">
                                         <input type="checkbox" name="submodulos[{{ $modulo['id'] }}][]"
-                                            value="{{ $submodulo['id'] }}" class="flat   @error("submodulos.$modulo[id]") is-invalid @enderror"
+                                            value="{{ $submodulo['id'] }}"
+                                            class="flat   @error("submodulos.$modulo[id]") is-invalid @enderror"
                                             @if (old("submodulos.$modulo[id]") && in_array($submodulo['id'], old("submodulos.$modulo[id]"))) checked @endif>
                                         <span>{{ $submodulo['nombre'] }}</span>
                                     </div>
