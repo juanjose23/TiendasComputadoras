@@ -14,4 +14,9 @@ class permisosmodulos extends Model
     public function permisosp(){
         return $this->belongsTo('App\Models\permisos');
     }
+
+    public function permisosRoles()
+    {
+        return $this->hasMany('App\Models\permisosroles');
+    }
 }

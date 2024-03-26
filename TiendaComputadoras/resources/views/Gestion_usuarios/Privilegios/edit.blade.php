@@ -6,6 +6,12 @@
         @csrf
         <div class="row">
             <div class="col-md-6">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
+                    <a href="{{ route('privilegios.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary mb-2">Actualizar</button>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
 
                     <label for="rol" class="form-label">Rol:</label>
@@ -13,12 +19,7 @@
                     <input type="text" name="rol" value="{{ $rol->id }}" hidden>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                    <a href="{{ route('privilegios.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
-                    <button type="submit" class="btn btn-primary mb-2">Actualizar</button>
-                </div>
-            </div>
+           
             <div class="mt-4"></div>
 
             <div class="col-md-12 col-sm-12">

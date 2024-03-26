@@ -1,39 +1,30 @@
 @extends('layout.layout')
 @section('title', 'Privilegios')
-@section('submodulo', 'Registrar privilegios de roles')
+@section('submodulo', 'Asignar nuevos privilegios')
 @section('content')
-    <form id="crear" name="crear" method="POST" action="{{ route('privilegios.store') }}" autocomplete="off">
+    <form id="crear" name="crear" method="POST" action="{{ route('permisos.store') }}" autocomplete="off">
         @csrf
         <div class="row">
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label for="rol" class="form-label">Rol:</label>
-                    <select id="rol" name="rol" class="form-select buscador @error('rol') is-invalid @enderror"
-                        style="width: 100%">
-                        <option value="" selected>Seleccionar rol</option>
 
-                        @foreach ($Roles as $rol)
-                            <option value="{{ $rol->id }}" {{ old('rol') == $rol->id ? 'selected' : '' }}>
-                                {{ $rol->nombre }}</option>
-                        @endforeach
-                    </select>
-                    @error('rol')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+            <div class="col-md-12">
+                <div class="form-group">
+
+                    <label for="rol" class="form-label">Rol:</label>
+                    <input type="text" class="form-control" value="{{ $rol->nombre }}" disabled>
+                    <input type="text" name="rol" value="{{ $rol->id }}" hidden>
                 </div>
             </div>
-           
-        </div>
-        <div class="mt-4"></div>
-        <div class="row">
+
+            <div class="mt-4"></div>
+
             <div class="col-md-12 col-sm-12">
                 <div class="form-group">
 
                     <div class="row">
-                        @foreach ($modulos as $modulo)
+                        @foreach ($permisos as $modulo)
                             <div class="col-md-4">
                                 <h5>{{ $modulo['nombre'] }}</h5>
-                                @foreach ($modulo['submodulos'] as $submodulo)
+                                @foreach ($modulo['permisos'] as $submodulo)
                                     <div style="margin-left: 20px; margin-bottom: 10px;">
                                         <input type="checkbox" name="submodulos[{{ $modulo['id'] }}][]"
                                             value="{{ $submodulo['id'] }}"
@@ -55,10 +46,10 @@
                 </div>
 
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                    <a href="{{ route('privilegios.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
-                    <button type="submit" class="btn btn-primary mb-2">Asignar</button>
+                    <a href="{{ route('permisos.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary mb-2">Actualizar</button>
                 </div>
             </div>
         </div>

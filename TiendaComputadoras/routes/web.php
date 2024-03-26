@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\Coloresproductos;
+use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\SalariosController;
 use App\Http\Controllers\ExportacionesController;
 use App\Http\Controllers\MarcasController;
@@ -52,6 +53,7 @@ Route::resource('precios',PreciosController::class)->parameters(['precios' => 'p
 //Controller del modulo de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles');
 Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios');
+Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos');
 //Controller para multimedia
 Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img');
 //Rutas para exportacion y reportes

@@ -58,7 +58,7 @@ class PrivilegiosController extends Controller
     public function destroy($privilegios)
     {
         try {
-            // Buscar el privilegio por su ID
+           
             $privilegio = Privilegios::findOrFail($privilegios); 
             $privilegio->delete();
     
