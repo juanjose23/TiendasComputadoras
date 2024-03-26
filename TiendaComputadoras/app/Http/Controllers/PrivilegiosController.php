@@ -50,11 +50,22 @@ class PrivilegiosController extends Controller
     public function show($privilegios)
     {
         $rol=RolesModel::findOrFail($privilegios);
-        $privilegio=Privilegios::with(['submodulos','submodulos.modulos'])->where('roles_id',$privilegios)->get();
-        return $privilegio;
+        $privielgio= new Privilegios();
+        $modulos=$privielgio->ObtenerPrivilegiosRol($privilegios);
+        return view('Gestion_usuarios.Privilegios.show',compact('modulos','rol'));
+      
     }
-    public function destroy($privilegio)
+    public function destroy($privilegios)
     {
+        try {
+            // Buscar el privilegio por su ID
+            $privilegio = Privilegios::findOrFail($privilegios); 
+            $privilegio->delete();
+    
+            return redirect()->back()->with('success', 'Privilegio eliminado correctamente');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar el privilegio: ' . $e->getMessage());
+        }
     }
 
 }

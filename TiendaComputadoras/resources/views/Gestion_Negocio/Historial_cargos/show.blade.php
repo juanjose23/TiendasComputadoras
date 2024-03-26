@@ -23,7 +23,7 @@
             <tbody>
                 @foreach ($asignacion as $colaborador)
                     <tr>
-                        <td>{{ $loop->index }}</td>
+                        <td>{{ $loop->index +1 }}</td>
                         <td>{{ $colaborador->cargos->codigo }}</td>
                         <td>{{ $colaborador->cargos->nombre }}</td>
                         <td>{{ $colaborador->created_at }}</td>
