@@ -17,6 +17,7 @@ use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SubcategoriasController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,7 @@ Route::resource('precios',PreciosController::class)->parameters(['precios' => 'p
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles');
 Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios');
 Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos');
+Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios');
 //Controller para multimedia
 Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img');
 //Rutas para exportacion y reportes
@@ -72,3 +74,4 @@ Route::get('/exportproductos', [ExportacionesController::class, 'exportproductos
 Route::get('/exportprecios', [ExportacionesController::class, 'exportprecios'])->name('exportprecios');
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf');
 Route::get('/exportroles', [ExportacionesController::class, 'exportroles'])->name('exportroles');
+Route::get('/exportusuarios', [ExportacionesController::class, 'exportusuarios'])->name('exportusuarios');

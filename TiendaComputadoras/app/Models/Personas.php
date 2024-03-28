@@ -24,4 +24,10 @@ class Personas extends Model
     {
         return $this->HasOne('App\Models\Empleados');
     }
+    public function users()
+    {
+        return $this->hasOne('App\Models\User');
+    }
+
+    
 }

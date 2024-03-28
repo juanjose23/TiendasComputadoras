@@ -33,6 +33,11 @@ class Empleados extends Model
         return $this->morphOne('App\Models\Imagen', 'imagenable');
     }
 
+    /**
+     * Genera un nuevo código para empleados basado en el último ID en la tabla.
+     *
+     * @return string
+     */
     public static function generarCodigo()
     {
         // Obtener el ID máximo actual de la tabla empleados
@@ -42,5 +47,24 @@ class Empleados extends Model
         $nuevoCodigo = 'EMP-' . str_pad($ultimoId + 1, 3, '0', STR_PAD_LEFT);
 
         return $nuevoCodigo;
+    }
+
+
+    /**
+     * Obtener empleados que no están asociados como usuarios.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection 
+     */
+    public function empleadosSinUsuarios()
+    {
+       
+        $empleados = Empleados::with(['personas', 'personas.persona_naturales'])
+            ->where('estado', 1) // Filtrar por estado activo
+            ->whereNotIn('personas_id', function ($query) {
+                // Subconsulta para excluir empleados que ya son usuarios
+                $query->select('personas_id')->from('users')->where('personas_id');
+            })->get();
+
+        return $empleados;
     }
 }

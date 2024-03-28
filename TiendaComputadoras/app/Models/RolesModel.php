@@ -19,6 +19,11 @@ class RolesModel extends Model
     {
         return $this->hasMany('App\Models\permisosroles');
     }
+
+    public function usuarios()
+    {
+        return $this->hasMany('App\Models\RolesUsuarios');
+    }
     /**
      * Obtiene los roles que no tienen privilegios asociados.
      *
@@ -53,4 +58,5 @@ class RolesModel extends Model
 
         return $roles;
     }
+   
 }

@@ -14,6 +14,7 @@ use App\Exports\SalariosExport;
 use App\Exports\MarcasExport;
 use App\Exports\PreciosExport;
 use App\Exports\ProductosExport;
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Empleados;
@@ -105,5 +106,9 @@ class ExportacionesController extends Controller
     public function exportroles()
     {
         return Excel::download(new RolesExport, 'roles.xlsx');
+    }
+    public function exportusuarios()
+    {
+        return Excel::download(new UsersExport, 'usuario.xlsx');
     }
 }
