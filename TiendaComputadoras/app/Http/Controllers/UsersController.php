@@ -24,8 +24,10 @@ class UsersController extends Controller
     public function create()
     {
         $colaborador = new Empleados();
+        $rol = new RolesModel();
         $empleados = $colaborador->empleadosSinUsuarios();
-        $roles = RolesModel::where('estado', 1)->whereNotIn('id', [1])->get();
+        $roles = $rol->SelectRoles();
+
         return view('Gestion_usuarios.usuarios.create', compact('empleados', 'roles'));
     }
 
@@ -90,8 +92,20 @@ class UsersController extends Controller
         $userRol->save();
         return redirect()->back()->with('success', 'Nuevo rol asignado correctamente');
     }
-    public function destroy()
+    public function destroy($usuarios)
     {
+        $usuario = User::findOrFail($usuarios);
+
+        // Cambia el estado del cargo
+        $usuario->estado = $usuario->estado == 1 ? 0 : ($usuario->estado == 2 ? 1 : 2);
+
+        $usuario->save();
+
+
+        // Redirige de vuelta a la página de índice con un mensaje flash
+        Session::flash('success', 'El estado del usuario ha sido cambiado exitosamente.');
+
+        return redirect()->route('usuarios.index');
     }
 
 

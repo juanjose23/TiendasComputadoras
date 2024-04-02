@@ -62,7 +62,7 @@ Route::resource('precios',PreciosController::class)->parameters(['precios' => 'p
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('auth');
 Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios')->middleware('auth');
 Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos')->middleware('auth');
-Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios')->middleware('auth');
+Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios')/*->middleware('auth')*/;
 Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyroles'])->name('usuarios.destroyroles')->middleware('auth');
 
 

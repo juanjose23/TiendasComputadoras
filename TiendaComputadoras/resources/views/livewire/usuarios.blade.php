@@ -71,11 +71,12 @@
                         <td>{{ $colaborador->personas->nombre }}</td>
                         <td>{{ $colaborador->personas->persona_naturales->apellido }}</td>
                         <td>{{ $colaborador->usuario }}</td>
-                        <td><span
-                                class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                {{ $colaborador->estado == 2 ? 'Verificar' : 'Inactivo' }}
+                        <td>
+                            <span class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : ($colaborador->estado == 2 ? 'bg-warning' : 'bg-danger') }}">
+                                {{ $colaborador->estado == 1 ? 'Activo' : ($colaborador->estado == 2 ? 'Verificar' : 'Inactivo') }}
                             </span>
                         </td>
+                        
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
@@ -163,7 +164,7 @@
         function confirmAction(colaboradorId) {
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: '¿Quieres cambiar el estado de este colaborador?',
+                text: '¿Quieres cambiar el estado de este usuario?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

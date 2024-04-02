@@ -59,6 +59,24 @@ class RolesModel extends Model
     }
 
     /**
+     * Selecciona los roles disponibles, excluyendo aquellos con un ID de 1 en la tabla de roles
+     * y aquellos asociados a la tabla rolesusuarios con un roles_id de 2.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|\App\Models\RolesModel[]
+     */
+    public function SelectRoles()
+    {
+        $roles = RolesModel::where('estado', 1)->whereNotIn('id', [1])
+            ->whereNotIn('id', function ($query) {
+                $query->select('roles_id')
+                    ->from('rolesusuarios')
+                    ->where('roles_id', 2);
+            })
+            ->get();
+        return $roles;
+    }
+
+    /**
      * Obtener los roles disponibles para asignar a un usuario.
      *
      * @param int $id El ID del usuario para el cual se buscan roles disponibles.
@@ -68,6 +86,11 @@ class RolesModel extends Model
     {
         // Consultar los roles disponibles
         $roles = RolesModel::where('estado', 1)->whereNotIn('id', [1])
+            ->whereNotIn('id', function ($query) {
+                $query->select('roles_id')
+                    ->from('rolesusuarios')
+                    ->where('roles_id', 2);
+            })
             // Filtrar los roles que no están asignados al usuario
             ->whereNotIn('id', function ($query) use ($id) {
                 $query->select('roles_id')
@@ -79,6 +102,4 @@ class RolesModel extends Model
         // Devolver los roles disponibles
         return $roles;
     }
-
-
 }
