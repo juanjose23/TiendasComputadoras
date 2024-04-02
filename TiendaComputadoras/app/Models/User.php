@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Faker\Provider\ar_EG\Person;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +19,17 @@ application. Let's break down what each part is doing: */
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
-     */
+     *//* The `user` variable in the `validarLogin`
+     method is being used to store the result of
+     the `ValidarUsuario` method called on the
+     `` object. This method is likely
+     used to validate the user based on the
+     provided username or user ID from the
+     request. The result of this validation is
+     then used in the subsequent line where the
+     password is validated using the
+     `ValidarContrasena` method. */
+     
     protected $fillable = [
 
         'usuario',
@@ -52,7 +63,7 @@ application. Let's break down what each part is doing: */
 
     public function rolesusuarios()
     {
-        return $this->hasMany('App\Models\RolesUsuarios','users_id');
+        return $this->hasMany('App\Models\RolesUsuarios', 'users_id');
     }
 
     /**
@@ -105,5 +116,108 @@ application. Let's break down what each part is doing: */
         }
 
         return $contraseña;
+    }
+
+
+    /**
+     * Valida si el usuario existe en la base de datos y retorna su ID y el ID de la persona asociada.
+     *
+     * @param string $usuario El nombre de usuario a validar.
+     * @return array|null Un array con el ID del usuario y el ID de la persona asociada si el usuario existe, o null si no existe.
+     */
+    public function ValidarUsuario($usuario)
+    {
+        $user = User::where('usuario', $usuario)
+            ->where('estado', 1)
+            ->first();
+
+
+        if ($user !== null) {
+            return ['id' => $user->id, 'personas_id' => $user->personas_id];
+        }
+        return null;
+    }
+
+    /**
+     * Valida si la contraseña proporcionada es correcta para el usuario especificado.
+     *
+     * @param int $Id El ID del usuario.
+     * @param string $contrasena La contraseña a validar.
+     * @return bool True si la contraseña es válida para el usuario, False en caso contrario.
+     */
+    public function ValidarContrasena($Id, $contrasena)
+    {
+        $user = User::find($Id);
+        if ($user !== null) {
+            return password_verify($contrasena, $user->password);
+        }
+        return false;
+    }
+
+    /**
+     * Obtener información detallada de un usuario.
+     *
+     * @param int $PersonaId El ID de la persona de la que se desea obtener la información.
+     * @return array La información detallada del usuario.
+     */
+    public function ObtenerInformacionUsuario($PersonaId)
+    {
+        // Obtener la información básica de la persona
+        $persona = Personas::findOrFail($PersonaId);
+
+        // Verificar si la persona es natural o jurídica
+        $personaNatural = Persona_Naturales::where('personas_id', $PersonaId)->first();
+        $personaJuridica = Persona_Juridicas::where('personas_id', $PersonaId)->first();
+
+        $apellido_razon_social = '';
+
+        // Si existe registro en Persona_Naturales, la persona es natural
+        if ($personaNatural) {
+
+            $apellido_razon_social = $personaNatural->apellido;
+        }
+        // Si existe registro en Persona_Juridicas, la persona es jurídica
+        elseif ($personaJuridica) {
+            $nombre = $personaJuridica->razon_social;
+        }
+
+        // Retornar la información recopilada
+        return [
+            'id' => $PersonaId,
+            'nombre' => $persona->nombre,
+            'apellido_razon_social' => $apellido_razon_social,
+
+        ];
+    }
+
+    /**
+     * Obtener IdCliente y foto
+     */
+    public function ObtenerCodigoCliente($Id)
+    {
+    }
+
+    /**
+     * Obtener el código y la foto de un empleado.
+     *
+     * @param int $Id El ID de la persona asociada al empleado.
+     * @return array La información del empleado.
+     */
+    public function ObtenerCodigoEmpleados($Id)
+    {
+
+        $empleados = Empleados::where('personas_id', $Id)->first();
+
+
+        $imagen = Imagen::where('imagenable_type', 'App\Models\Empleados')
+            ->where('imagenable_id', $empleados->id)
+            ->first();
+
+        // Retornar la información recopilada
+        return [
+            'id' => $empleados->id,
+            'codigo' => $empleados->codigo,
+            'foto' => $imagen ? $imagen->ruta : null, // Verificar si se encontró la imagen
+        ];
     }
 }

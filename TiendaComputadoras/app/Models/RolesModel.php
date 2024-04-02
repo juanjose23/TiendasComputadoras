@@ -79,4 +79,6 @@ class RolesModel extends Model
         // Devolver los roles disponibles
         return $roles;
     }
+
+
 }

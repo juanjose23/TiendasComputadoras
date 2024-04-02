@@ -18,4 +18,6 @@ class RolesUsuarios extends Model
     {
         return $this->belongsToMany('App\Models\User');
     }
+
+    
 }
