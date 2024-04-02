@@ -51,11 +51,16 @@ Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedi
 Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia');
 Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg');
 Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios');
+
+
 //Controller del modulo de usuarios
 Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles');
 Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios');
 Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos');
 Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios');
+Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyroles'])->name('usuarios.destroyroles');
+
+
 //Controller para multimedia
 Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img');
 //Rutas para exportacion y reportes

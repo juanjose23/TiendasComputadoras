@@ -9,6 +9,8 @@ use App\Models\Imagen;
 use App\Models\Pais;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Cloudinary\Transformation\Resize;
+
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 
@@ -51,7 +53,14 @@ class MarcasController extends Controller
         // Verificar si se ha enviado un archivo de imagen
         if ($request->hasFile('logo')) {
             // Subir la imagen a Cloudinary y obtener el resultado
-            $result = $request->file('logo')->storeOnCloudinary('marcas');
+            $result = $request->file('logo')->storeOnCloudinary('marcas', [
+                'transform' => [
+                    // Resize options here
+                    'width' => 100, // Resize to 200px width
+                    'height' => 100, // Resize to 100px height
+                    'crop' => 'fill' // Maintain aspect ratio (optional)
+                ]
+            ]);
 
             // Crear una nueva entrada de imagen en la base de datos
             $imagen = new Imagen();

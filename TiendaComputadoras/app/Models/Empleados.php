@@ -57,14 +57,14 @@ class Empleados extends Model
      */
     public function empleadosSinUsuarios()
     {
-       
         $empleados = Empleados::with(['personas', 'personas.persona_naturales'])
             ->where('estado', 1) // Filtrar por estado activo
             ->whereNotIn('personas_id', function ($query) {
-                // Subconsulta para excluir empleados que ya son usuarios
-                $query->select('personas_id')->from('users')->where('personas_id');
+                // Subconsulta para obtener los IDs de las personas que son usuarios
+                $query->select('personas_id')->from('users');
             })->get();
-
+    
         return $empleados;
     }
+    
 }

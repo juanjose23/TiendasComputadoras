@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUsers extends FormRequest
+class UpdateUser extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,15 @@ class StoreUsers extends FormRequest
     public function rules(): array
     {
         return [
-            'empleados' => 'required|exists:empleados,id', // Verifica que el empleado seleccionado exista en la tabla 'empleados'
+            //
             'roles' => 'required|exists:roles,id', // Verifica que el rol seleccionado exista en la tabla 'roles'
-            'estado' => 'required|in:2,0', // Verifica que el estado seleccionado sea 1 o 0
+            'estado' => 'required|in:1,0', // Verifica que el estado seleccionado sea 1 o 0
         ];
     }
-
     public function messages(): array
     {
         return [
-            'empleados.required' => 'Por favor selecciona un empleado.',
-            'empleados.exists' => 'El empleado seleccionado no es válido.',
+            
             'roles.required' => 'Por favor selecciona un rol.',
             'roles.exists' => 'El rol seleccionado no es válido.',
             'estado.required' => 'Por favor selecciona un estado.',

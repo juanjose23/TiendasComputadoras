@@ -16,22 +16,7 @@
                 </div>
             </div>
 
-            <!-- Botón de exportación -->
-            <div class="btn-group ms-2 mb-2 mb-md-0">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle btn-icon" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="bi bi-box-arrow-up-right"></i> Exportaciones
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ route('exportroles') }}" class="dropdown-item"><i
-                                    class="bi bi-file-earmark-spreadsheet text-success"></i>
-                                Exportar a Excel</a></li>
-
-
-                    </ul>
-                </div>
-            </div>
+           
 
             <!-- Botón para seleccionar cantidad de registros a mostrar -->
             <div class="ms-2">

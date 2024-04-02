@@ -48,7 +48,7 @@
                     <select id="estado" name="estado"
                         class="form-select buscador  @error('estado') is-invalid @enderror">
                         <option selected disabled>Elegir estado</option>
-                        <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Activo</option>
+                        <option value="2" {{ old('estado') == '1' ? 'selected' : '' }}>Verificar</option>
                         <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Inactivo</option>
                     </select>
                     @error('estado')
@@ -67,3 +67,20 @@
     </form>
 
 @endsection
+@if(session('pdf_sent'))
+    <script>
+        // Adjunta un evento a la descarga del PDF
+        window.onload = function() {
+            var pdfUrl = "{{ route('usuarios.index') }}"; // URL de la ruta usuarios.index
+
+            // Espera a que la descarga del PDF esté completa
+            window.onload = function() {
+                // Redirige al usuario a la ruta usuarios.index después de la descarga del PDF
+                window.location.href = pdfUrl;
+            };
+        };
+    </script>
+@endif
+
+
+

@@ -19,10 +19,9 @@ class RolesModel extends Model
     {
         return $this->hasMany('App\Models\permisosroles');
     }
-
-    public function usuarios()
+    public function rolesusuarios()
     {
-        return $this->hasMany('App\Models\RolesUsuarios');
+        return $this->hasMany(RolesUsuarios::class, 'roles_id');
     }
     /**
      * Obtiene los roles que no tienen privilegios asociados.
@@ -58,5 +57,26 @@ class RolesModel extends Model
 
         return $roles;
     }
-   
+
+    /**
+     * Obtener los roles disponibles para asignar a un usuario.
+     *
+     * @param int $id El ID del usuario para el cual se buscan roles disponibles.
+     * @return \Illuminate\Database\Eloquent\Collection Colección de roles disponibles.
+     */
+    public function obtenerRolesDisponiblesParaUsuario($id)
+    {
+        // Consultar los roles disponibles
+        $roles = RolesModel::where('estado', 1)->whereNotIn('id', [1])
+            // Filtrar los roles que no están asignados al usuario
+            ->whereNotIn('id', function ($query) use ($id) {
+                $query->select('roles_id')
+                    ->from('rolesusuarios')
+                    ->where('users_id', $id);
+            })
+            ->get();
+
+        // Devolver los roles disponibles
+        return $roles;
+    }
 }
