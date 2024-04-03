@@ -72,6 +72,18 @@
                     @enderror
                 </div>
             </div>
+           
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="fecha" class="form-label text-dark">Fecha de lanzamiento</label>
+                    <input type="date" id="fecha" name="fecha" placeholder="fecha de lanzamiento"
+                        class="form-control @error('fecha') is-invalid @enderror" value="{{ old('fecha') }}">
+                    @error('fecha')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <!-- Campos de productos_detalles -->
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="color" class="form-label text-dark">Color</label>
@@ -90,84 +102,48 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="fecha" class="form-label text-dark">Fecha de lanzamiento</label>
-                    <input type="date" id="fecha" name="fecha" placeholder="fecha de lanzamiento"
-                        class="form-control @error('fecha') is-invalid @enderror" value="{{ old('fecha') }}">
-                    @error('fecha')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <!-- Campos de productos_detalles -->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="dimensiones" class="form-label text-dark">Dimensiones</label>
-                    <input type="text" id="dimensiones" name="dimensiones" placeholder="Dimensiones"
-                        class="form-control @error('dimensiones') is-invalid @enderror" value="{{ old('dimensiones') }}">
-                    @error('dimensiones')
+                    <label for="corte" class="form-label text-dark">Cortes</label>
+                    <select id="corte"style="width: 100%" name="corte" class="form-select buscador @error('corte') is-invalid @enderror">
+                        <option selected disabled>Seleccionar Corte</option>
+                        @foreach ($cortes as $corte)
+                            <option value="{{ $corte->id }}" {{ old('corte') == $corte->id ? 'selected' : '' }}>
+                                {{ $corte->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('cortes')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="peso" class="form-label text-dark">Peso</label>
-                    <input type="number" step="0.01" id="peso" name="peso" placeholder="Peso"
-                        class="form-control @error('peso') is-invalid @enderror" value="{{ old('peso') }}">
-                    @error('peso')
+                    <label for="talla" class="form-label text-dark">Tallas</label>
+                    <select id="talla"style="width: 100%" name="talla" class="form-select buscador @error('talla') is-invalid @enderror">
+                        <option selected disabled>Seleccionar Talla</option>
+                        @foreach ($tallas as $talla)
+                            <option value="{{ $talla->id }}" {{ old('talla') == $talla->id ? 'selected' : '' }}>
+                                {{ $talla->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('talla')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="material" class="form-label text-dark">Material</label>
-                    <input type="text" id="material" name="material" placeholder="Material"
-                        class="form-control @error('material') is-invalid @enderror" value="{{ old('material') }}">
-                    @error('material')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="instrucciones_cuidado" class="form-label text-dark">Instrucciones de Cuidado</label>
-                    <textarea id="instrucciones_cuidado" name="instrucciones_cuidado" rows="3"
-                        class="form-control @error('instrucciones_cuidado') is-invalid @enderror">{{ old('instrucciones_cuidado') }}</textarea>
-                    @error('instrucciones_cuidado')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="instrucciones_montaje" class="form-label text-dark">Instrucciones de Montaje</label>
-                    <textarea id="instrucciones_montaje" name="instrucciones_montaje" rows="3"
-                        class="form-control @error('instrucciones_montaje') is-invalid @enderror">{{ old('instrucciones_montaje') }}</textarea>
-                    @error('instrucciones_montaje')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="caracteristicas_especiales" class="form-label text-dark">Características
-                        Especiales</label>
-                    <textarea id="caracteristicas_especiales" name="caracteristicas_especiales" rows="3"
-                        class="form-control @error('caracteristicas_especiales') is-invalid @enderror">{{ old('caracteristicas_especiales') }}</textarea>
-                    @error('caracteristicas_especiales')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="compatibilidad" class="form-label text-dark">Compatibilidad</label>
-                    <textarea id="compatibilidad" name="compatibilidad" rows="3"
-                        class="form-control @error('compatibilidad') is-invalid @enderror">{{ old('compatibilidad') }}</textarea>
-                    @error('compatibilidad')
+                    <label for="genero" class="form-label text-dark">Genero</label>
+                    <select id="genero"style="width: 100%" name="genero" class="form-select buscador @error('genero') is-invalid @enderror">
+                        <option selected disabled>Seleccionar Talla</option>
+                        @foreach ($generos as $genero)
+                            <option value="{{ $genero->id }}" {{ old('genero') == $genero->id ? 'selected' : '' }}>
+                                {{ $genero->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('generos')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

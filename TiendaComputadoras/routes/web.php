@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\Coloresproductos;
+use App\Http\Controllers\CortesController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\SalariosController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SubcategoriasController;
+use App\Http\Controllers\TallasController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +52,8 @@ Route::resource('subcategorias', SubcategoriasController::class)->parameters(['s
 Route::resource('marcas', MarcasController::class)->parameters(['marcas' => 'marcas'])->names('marcas')->middleware('checkRole:3');
 Route::resource('modelos', ModelosController::class)->parameters(['modelos' => 'modelos'])->names('modelos')->middleware('checkRole:4');
 Route::resource('colores', ColoresController::class)->parameters(['colores' => 'colores'])->names('colores')->middleware('checkRole:5');
+Route::resource('tallas', TallasController::class)->parameters(['tallas'=>'tallas'])->names('tallas')/*->middleware('')*/;
+Route::resource('cortes',CortesController::class)->parameters(['cortes'=> 'cortes'])->names('cortes')/*->middleware('')*/;
 Route::resource('productos',ProductosController::class)->parameters(['productos' => 'productos'])->names('productos')->middleware('checkRole:6');
 Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos')->middleware('checkRole:6');
 Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia')->middleware('checkRole:6');
@@ -80,6 +84,8 @@ Route::get('/exportsubcategorias', [ExportacionesController::class, 'exportsubca
 Route::get('/exportmarcas', [ExportacionesController::class, 'exportmarcas'])->name('exportmarcas')->middleware('auth');
 Route::get('/exportmodelos', [ExportacionesController::class, 'exportmodelos'])->name('exportmodelos')->middleware('auth');
 Route::get('/exportcolores', [ExportacionesController::class, 'exportcolores'])->name('exportcolores')->middleware('auth');
+Route::get('/exporttallas', [ExportacionesController::class, 'exporttallas'])->name('exporttallas');
+Route::get('/exportcortes', [ExportacionesController::class,'exportcortes'])->name('exportcortes')/*->middleware('auth')*/;
 Route::get('/exportproductos', [ExportacionesController::class, 'exportproductos'])->name('exportproductos')->middleware('auth');
 Route::get('/exportprecios', [ExportacionesController::class, 'exportprecios'])->name('exportprecios')->middleware('auth');
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf')->middleware('auth');

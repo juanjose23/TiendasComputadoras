@@ -10,10 +10,12 @@ use App\Exports\RolesExport;
 use App\Exports\SubcategoriasExport;
 use App\Exports\ColaboradoresExport;
 use App\Exports\ColoresExport;
+use App\Exports\CortesExport;
 use App\Exports\SalariosExport;
 use App\Exports\MarcasExport;
 use App\Exports\PreciosExport;
 use App\Exports\ProductosExport;
+use App\Exports\TallasExport;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -78,6 +80,14 @@ class ExportacionesController extends Controller
     public function exportcolores()
     {
         return Excel::download(new ColoresExport, 'colores.xlsx');
+    }
+    public function exporttallas()
+    {
+        return Excel::download(new TallasExport, 'tallas.xlsx');
+    }
+    public function exportcortes()
+    {
+        return Excel::download(new CortesExport, 'cortes.xlsx');
     }
     public function exportprecios()
     {

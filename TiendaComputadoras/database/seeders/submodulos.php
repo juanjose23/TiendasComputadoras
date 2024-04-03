@@ -52,6 +52,20 @@ class submodulos extends Seeder
             ],
             [
                 'modulos_id'=>1,
+                'nombre' => 'Tallas',
+                'descripcion' => '',
+                'enlace'=>'colores.index',
+                'estado' => 1
+            ],
+            [
+                'modulos_id'=>1,
+                'nombre' => 'Cortes',
+                'descripcion' => '',
+                'enlace'=>'colores.index',
+                'estado' => 1
+            ],
+            [
+                'modulos_id'=>1,
                 'nombre' => 'Productos',
                 'descripcion' => '',
                 'enlace'=>'productos.index',

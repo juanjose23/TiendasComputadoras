@@ -1,6 +1,9 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Models\RolesUsuarios;
+use App\Models\Tallas;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use Illuminate\Database\Seeder;
@@ -21,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ModelosSeeder::class);
         $this->call(CategoriaSeeder::class);
         $this->call(SubcategoriasSeeder::class);
+        $this->call(TallasSeeders::class);
+        $this->call(CortesSeeders::class);
         $this->call(PersonasSeeder::class);
         $this->call(personanaturalseeder::class);
         $this->call(empleadosseeder::class);
@@ -33,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesSeeder::class);
         $this->call(PrivilegiosSeeders::class);
         $this->call(PermisosRolesSeeders::class);
-
+        $this->call(UsuariosSeeders::class);
+        $this->call(RolesUsuariosSeeders::class);
     }
 }

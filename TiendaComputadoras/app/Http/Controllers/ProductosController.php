@@ -6,14 +6,19 @@ use App\Http\Requests\StoreProductos;
 use App\Http\Requests\UpdateProductos;
 use App\Models\Colores;
 use App\Models\Colores_productos;
+use App\Models\Cortes;
+use App\Models\Cortesproductos;
 use App\Models\Detalle_productos;
+use App\Models\Genero;
 use App\Models\Imagen;
 use App\Models\Modelos;
 use App\Models\Productos;
 use App\Models\Subcategorias;
+use App\Models\Tallas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 class ProductosController extends Controller
 {
     /**
@@ -34,7 +39,10 @@ class ProductosController extends Controller
         $subcategorias = Subcategorias::ObtenerCategoriasConSubcategorias();
         $modelos = Modelos::ObtenerMarcasConModelos();
         $colores = Colores::where('estado', 1)->get();
-        return view('Gestion_Catalogos.Productos.create', compact('modelos', 'colores', 'subcategorias'));
+        $cortes = Cortes::where('estado', 1)->get();
+        $tallas = Tallas::where('estado', 1)->get();
+        $generos = Genero::where('estado', 1)->get();
+        return view('Gestion_Catalogos.Productos.create', compact('modelos', 'colores', 'subcategorias', 'generos', 'cortes', 'tallas'));
     }
 
     /**
@@ -54,17 +62,7 @@ class ProductosController extends Controller
         $producto->save();
         //ID producto
         $Idproducto = $producto->id;
-        //Detalles del productos
-        $detalle = new Detalle_productos();
-        $detalle->productos_id = $Idproducto;
-        $detalle->dimensiones = $request->dimensiones;
-        $detalle->peso = $request->peso;
-        $detalle->material = $request->material;
-        $detalle->instrucciones_cuidado = $request->instrucciones_cuidado;
-        $detalle->instrucciones_montaje = $request->instrucciones_montaje;
-        $detalle->caracteristicas_especiales = $request->caracteristicas_especiales;
-        $detalle->compatibilidad = $request->compatibilidad;
-        $detalle->save();
+
 
         //Tabla colores-productos
         $color = new Colores_productos();
@@ -72,6 +70,33 @@ class ProductosController extends Controller
         $color->colores_id = $request->color;
         $color->estado = 1;
         $color->save();
+        $Idcolor = $color->id;
+
+        //Tabla cortes-productos
+        $corte = new Cortesproductos();
+        $corte->productos_id = $Idproducto;
+        $corte->cortes_id = $request->corte;
+        $corte->estado = 1;
+        $corte->save();
+        $Idcorte = $corte->id;
+
+        //Tabla -productos
+        $talla = new Colores_productos();
+        $talla->productos_id = $Idproducto;
+        $talla->tallas_id = $request->talla;
+        $talla->estado = 1;
+        $talla->save();
+        $Idtalla = $talla->id;
+
+        //Detalles del productos
+        $detalle = new Detalle_productos();
+        $detalle->productos_id = $Idproducto;
+        $detalle->colores_id = $Idcolor;
+        $detalle->tallas_id = $Idtalla;
+        $detalle->generos_id = $request->generos;
+        $detalle->cortes_id = $Idcorte;
+
+        $detalle->save();
         Session::flash('success', 'Se ha registrado la óperacion con éxito');
         return redirect()->route('productos.index');
     }
