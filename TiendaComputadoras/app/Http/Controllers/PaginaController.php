@@ -6,6 +6,8 @@ use App\Models\Privilegios;
 use App\Models\RolesUsuarios;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PaginaController extends Controller
 {
@@ -32,6 +34,8 @@ class PaginaController extends Controller
         $userId = $user['id'];
         $personasId = $user['personas_id'];
         $validarcontraseña = $usuarios->ValidarContrasena($userId, $request->contraseña);
+        $InformacionPersonal = $usuarios->ObtenerInformacionUsuario($personasId);
+        $informacionDetallada = $usuarios->ObtenerCodigoCliente($personasId) ?? $usuarios->ObtenerCodigoEmpleados($personasId);
 
         if (!$validarcontraseña) {
             return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
@@ -42,10 +46,22 @@ class PaginaController extends Controller
             ->where('estado', 1)
             ->exists();
 
+
         $redirectRoute = $validarRol ? 'cargos.index' : '/';
-        
         $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!'; // Puedes personalizar el mensaje según el caso
 
+        //Agregar ala session 
+        // Iniciar sesión manualmente
+        Auth::loginUsingId($userId);
+
+        // Crear las sesiones
+        session(['personas_id' => $personasId]);
+        session(['IdUser' => $userId]);
+        session(['nombre' => $InformacionPersonal['nombre']]);
+        session(['Apellido' => $InformacionPersonal['apellido_razon_social']]);
+        session(['Foto' => $informacionDetallada['foto']]);
+        session(['Codigo' => $informacionDetallada['codigo']]);
+        session(['id' => $informacionDetallada['id']]);
         return redirect()->route($redirectRoute)->with('success', $redirectMessage);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RolesModel extends Model
+class RolesModel extends Model 
 {
     protected $table = 'roles';
     use HasFactory;
@@ -66,7 +66,7 @@ class RolesModel extends Model
      */
     public function SelectRoles()
     {
-        $roles = RolesModel::where('estado', 1)->whereNotIn('id', [1])
+        $roles = RolesModel::where('estado', 1)
             ->whereNotIn('id', function ($query) {
                 $query->select('roles_id')
                     ->from('rolesusuarios')

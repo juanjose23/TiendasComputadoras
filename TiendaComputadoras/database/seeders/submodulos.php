@@ -220,6 +220,13 @@ class submodulos extends Seeder
             ],
             [
                 'modulos_id'=>7,
+                'nombre' => 'Usuarios',
+                'descripcion' => '',
+                'enlace'=>'usuarios.index',
+                'estado' => 1
+            ],
+            [
+                'modulos_id'=>7,
                 'nombre' => 'Privilegios',
                 'descripcion' => '',
                 'enlace'=>'',

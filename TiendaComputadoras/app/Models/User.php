@@ -7,6 +7,7 @@ use Faker\Provider\ar_EG\Person;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -29,7 +30,7 @@ application. Let's break down what each part is doing: */
      then used in the subsequent line where the
      password is validated using the
      `ValidarContrasena` method. */
-     
+
     protected $fillable = [
 
         'usuario',
@@ -195,6 +196,7 @@ application. Let's break down what each part is doing: */
      */
     public function ObtenerCodigoCliente($Id)
     {
+        return null;
     }
 
     /**
@@ -205,19 +207,41 @@ application. Let's break down what each part is doing: */
      */
     public function ObtenerCodigoEmpleados($Id)
     {
-
+        // Buscar el empleado con el ID de persona proporcionado
         $empleados = Empleados::where('personas_id', $Id)->first();
 
+        // Verificar si se encontró el empleado
+        if ($empleados) {
 
-        $imagen = Imagen::where('imagenable_type', 'App\Models\Empleados')
-            ->where('imagenable_id', $empleados->id)
-            ->first();
+            $imagen = Imagen::where('imagenable_type', 'App\Models\Empleados')
+                ->where('imagenable_id', $empleados->id)
+                ->first();
 
-        // Retornar la información recopilada
-        return [
-            'id' => $empleados->id,
-            'codigo' => $empleados->codigo,
-            'foto' => $imagen ? $imagen->ruta : null, // Verificar si se encontró la imagen
-        ];
+            // Retornar la información recopilada
+            return [
+                'id' => $empleados->id,
+                'codigo' => $empleados->codigo,
+                'foto' => $imagen ? $imagen->ruta : null,
+            ];
+        } else {
+            // El empleado no existe, retornar null o cualquier otro valor que indique que no se encontró el empleado
+            return null;
+        }
+    }
+
+
+    public static function hasPrivilege($UserId, $privilegeId): bool
+    {
+        // Ejecuta la consulta para verificar si el usuario tiene el privilegio deseado
+        $result = DB::table('privilegiosroles as pr')->select('m.id AS id_modulo')
+            ->join('submodulos AS sm', 'sm.id', '=', 'pr.submodulos_id')
+            ->join('modulos AS m', 'm.id', '=', 'sm.modulos_id')
+            ->leftJoin('rolesusuarios AS rt', 'rt.roles_id', '=', 'pr.roles_id')
+            ->leftJoin('users AS u', 'rt.users_id', '=', 'u.id')
+            ->where('rt.users_id', '=', $UserId)
+            ->where('rt.estado', '=', 1)
+            ->where('pr.submodulos_id', '=', $privilegeId)
+            ->exists();
+        return $result;
     }
 }

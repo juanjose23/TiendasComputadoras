@@ -40,30 +40,30 @@ Route::get('/', function () {
 Route::get('/loginadmin',[PaginaController::class,'loginadmin'])->name('login');
 Route::post('/validarLogin', [PaginaController::class, 'validarLogin'])->name('validarLogin');
 //Controller del modulo de Gestion de Negocio
-Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'cargos'])->names('cargos')->middleware('auth');
-Route::resource('colaboradores', ColaboradoresController::class)->parameters(['colaboradores' => 'colaboradores'])->names('colaboradores')->middleware('auth');
-Route::resource('asignaciones', AsignacionesController::class)->parameters(['asignaciones' => 'asignaciones'])->names('asignaciones')->middleware('auth');
-Route::resource('salarios', SalariosController::class)->parameters(['salarios' => 'salarios'])->names('salarios')->middleware('auth');
+Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'cargos'])->names('cargos')->middleware('checkRole:16');
+Route::resource('colaboradores', ColaboradoresController::class)->parameters(['colaboradores' => 'colaboradores'])->names('colaboradores')->middleware('checkRole:17');
+Route::resource('asignaciones', AsignacionesController::class)->parameters(['asignaciones' => 'asignaciones'])->names('asignaciones')->middleware('checkRole:18');
+Route::resource('salarios', SalariosController::class)->parameters(['salarios' => 'salarios'])->names('salarios')->middleware('checkRole:19');
 //Controller de Catalogos
-Route::resource('categorias', CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias')->middleware('auth');
-Route::resource('subcategorias', SubcategoriasController::class)->parameters(['subcategorias' => 'subcategorias'])->names('subcategorias')->middleware('auth');
-Route::resource('marcas', MarcasController::class)->parameters(['marcas' => 'marcas'])->names('marcas')->middleware('auth');
-Route::resource('modelos', ModelosController::class)->parameters(['modelos' => 'modelos'])->names('modelos')->middleware('auth');
-Route::resource('colores', ColoresController::class)->parameters(['colores' => 'colores'])->names('colores')->middleware('auth');
-Route::resource('productos',ProductosController::class)->parameters(['productos' => 'productos'])->names('productos')->middleware('auth');
-Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos')->middleware('auth');
-Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia')->middleware('auth');
-Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia')->middleware('auth');
-Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg')->middleware('auth');
-Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('auth');
+Route::resource('categorias', CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias')->middleware('checkRole:1');
+Route::resource('subcategorias', SubcategoriasController::class)->parameters(['subcategorias' => 'subcategorias'])->names('subcategorias')->middleware('checkRole:2');
+Route::resource('marcas', MarcasController::class)->parameters(['marcas' => 'marcas'])->names('marcas')->middleware('checkRole:3');
+Route::resource('modelos', ModelosController::class)->parameters(['modelos' => 'modelos'])->names('modelos')->middleware('checkRole:4');
+Route::resource('colores', ColoresController::class)->parameters(['colores' => 'colores'])->names('colores')->middleware('checkRole:5');
+Route::resource('productos',ProductosController::class)->parameters(['productos' => 'productos'])->names('productos')->middleware('checkRole:6');
+Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos')->middleware('checkRole:6');
+Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia')->middleware('checkRole:6');
+Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia')->middleware('checkRole:6');
+Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg')->middleware('checkRole:6');
+Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:7');
 
 
 //Controller del modulo de usuarios
-Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('auth');
-Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios')->middleware('auth');
-Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos')->middleware('auth');
-Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios')/*->middleware('auth')*/;
-Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyroles'])->name('usuarios.destroyroles')->middleware('auth');
+Route::resource('roles',RolesController::class)->parameters(['roles' => 'roles'])->names('roles')->middleware('checkRole:29');
+Route::resource('privilegios',PrivilegiosController::class)->parameters(['privilegios' => 'privilegios'])->names('privilegios')->middleware('checkRole:30');
+Route::resource('/permisos',PermisoController::class)->parameters(['permisos'=>'permisos'])->names('permisos')->middleware('checkRole:31');
+Route::resource('/usuarios',UsersController::class)->parameters(['usuarios'=>'usuarios'])->names('usuarios')->middleware('checkRole:32');
+Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyroles'])->name('usuarios.destroyroles')->middleware('checkRole:33');
 
 
 //Controller para multimedia
