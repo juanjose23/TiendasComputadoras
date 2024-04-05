@@ -134,8 +134,8 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="genero" class="form-label text-dark">Genero</label>
-                    <select id="genero"style="width: 100%" name="genero" class="form-select buscador @error('genero') is-invalid @enderror">
+                    <label for="generos" class="form-label text-dark">Genero</label>
+                    <select id="generos"style="width: 100%" name="generos" class="form-select buscador @error('generos') is-invalid @enderror">
                         <option selected disabled>Seleccionar Talla</option>
                         @foreach ($generos as $genero)
                             <option value="{{ $genero->id }}" {{ old('genero') == $genero->id ? 'selected' : '' }}>

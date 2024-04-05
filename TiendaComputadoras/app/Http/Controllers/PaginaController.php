@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 class PaginaController extends Controller
 {
     //
-    public function loginadmin()
+    public function login()
     {
         return view("Auth.login");
     }
@@ -48,9 +48,8 @@ class PaginaController extends Controller
 
 
         $redirectRoute = $validarRol ? 'cargos.index' : '/';
-        $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!'; // Puedes personalizar el mensaje según el caso
+        $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!'; 
 
-        //Agregar ala session 
         // Iniciar sesión manualmente
         Auth::loginUsingId($userId);
 
@@ -62,6 +61,19 @@ class PaginaController extends Controller
         session(['Foto' => $informacionDetallada['foto']]);
         session(['Codigo' => $informacionDetallada['codigo']]);
         session(['id' => $informacionDetallada['id']]);
+       
         return redirect()->route($redirectRoute)->with('success', $redirectMessage);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect()->route('login');
+    }
+
+    public function error403()
+    {
+        return view('Error.403');
     }
 }

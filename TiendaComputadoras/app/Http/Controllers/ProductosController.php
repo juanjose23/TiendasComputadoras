@@ -15,6 +15,7 @@ use App\Models\Modelos;
 use App\Models\Productos;
 use App\Models\Subcategorias;
 use App\Models\Tallas;
+use App\Models\Tallasproductos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -81,7 +82,7 @@ class ProductosController extends Controller
         $Idcorte = $corte->id;
 
         //Tabla -productos
-        $talla = new Colores_productos();
+        $talla = new Tallasproductos();
         $talla->productos_id = $Idproducto;
         $talla->tallas_id = $request->talla;
         $talla->estado = 1;
@@ -93,8 +94,9 @@ class ProductosController extends Controller
         $detalle->productos_id = $Idproducto;
         $detalle->colores_id = $Idcolor;
         $detalle->tallas_id = $Idtalla;
-        $detalle->generos_id = $request->generos;
         $detalle->cortes_id = $Idcorte;
+        $detalle->generos_id = $request->generos;
+        $detalle->estado=1;
 
         $detalle->save();
         Session::flash('success', 'Se ha registrado la óperacion con éxito');

@@ -217,11 +217,13 @@ application. Let's break down what each part is doing: */
                 ->where('imagenable_id', $empleados->id)
                 ->first();
 
+          
+
             // Retornar la información recopilada
             return [
                 'id' => $empleados->id,
                 'codigo' => $empleados->codigo,
-                'foto' => $imagen ? $imagen->ruta : null,
+                'foto' => $imagen ? $imagen->url : null,
             ];
         } else {
             // El empleado no existe, retornar null o cualquier otro valor que indique que no se encontró el empleado

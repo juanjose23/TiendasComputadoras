@@ -14,13 +14,18 @@ return new class extends Migration
         //
         Schema::create("detallesproductos", function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("productos_id");
             $table->unsignedBigInteger("colores_id");
             $table->unsignedBigInteger("tallas_id");
             $table->unsignedBigInteger("cortes_id");
             $table->unsignedBigInteger("generos_id");
             $table->timestamps();
             $table->integer("estado");
-
+            $table->foreign("productos_id")
+                ->references("id")
+                ->on("productos")
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
             $table->foreign("colores_id")
                 ->references("id")
                 ->on("colores_productos")

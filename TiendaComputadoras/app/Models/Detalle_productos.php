@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Detalle_productos extends Model
 {
-    protected $table = 'productos_detalles';
+    protected $table = 'detallesproductos';
     use HasFactory;
 
     public function productos()

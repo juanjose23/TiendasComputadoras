@@ -21,7 +21,7 @@ class CheckRole
         // Verificar si el usuario tiene el privilegio con el ID especificado
         if (!User::hasPrivilege($UserId, $privilegeId)) {
             // El usuario no tiene el privilegio necesario, redirigir a una página de acceso denegado
-            return response('No tienes acceso', 403);
+            return redirect()->route('error403');
         }
 
 
