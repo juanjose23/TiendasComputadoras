@@ -15,75 +15,76 @@ class MarcasSeeder extends Seeder
     {
         $marcas = [
             [
-                'nombre' => 'Samsung',
-                'descripcion' => 'Samsung Electronics es una empresa surcoreana que fabrica una amplia gama de productos electrónicos, incluyendo smartphones, televisores, electrodomésticos y componentes de computadoras.',
-                'paises_id' => 112,
-                'sitio_web' => 'https://www.samsung.com/',
+                'nombre' => 'Nike',
+                'descripcion' => 'Nike es una empresa estadounidense especializada en ropa deportiva, calzado y accesorios para atletas y aficionados al deporte en todo el mundo.',
+                'paises_id' => 183,
+                'sitio_web' => 'https://www.nike.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Apple',
-                'descripcion' => 'Apple es una empresa estadounidense conocida por sus dispositivos electrónicos, como el iPhone, iPad, Mac, Apple Watch y Apple TV, así como por su software y servicios.',
-                'paises_id' => 161,
-                'sitio_web' => 'https://www.apple.com/',
+                'nombre' => 'Adidas',
+                'descripcion' => 'Adidas es una empresa alemana conocida por su amplia gama de productos deportivos, incluyendo ropa, calzado y accesorios para hombres, mujeres y niños.',
+                'paises_id' => 76,
+                'sitio_web' => 'https://www.adidas.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Sony',
-                'descripcion' => 'Sony es una empresa japonesa que fabrica una amplia gama de productos electrónicos, incluyendo televisores, cámaras, consolas de videojuegos (PlayStation), audio y video, entre otros.',
-                'paises_id' => 121,
-                'sitio_web' => 'https://www.sony.com/',
+                'nombre' => 'Zara',
+                'descripcion' => 'Zara es una empresa española de moda rápida que ofrece una amplia gama de ropa y accesorios para hombres, mujeres y niños, con tiendas en todo el mundo.',
+                'paises_id' => 189,
+                'sitio_web' => 'https://www.zara.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'LG',
-                'descripcion' => 'LG Electronics es una empresa surcoreana que fabrica productos electrónicos, electrodomésticos y dispositivos móviles, como televisores, refrigeradores, lavadoras, smartphones y más.',
-                'paises_id' => 112,
-                'sitio_web' => 'https://www.lg.com/',
+                'nombre' => 'H&M',
+                'descripcion' => 'H&M es una empresa sueca de moda que ofrece ropa y accesorios asequibles y modernos para hombres, mujeres, adolescentes y niños en todo el mundo.',
+                'paises_id' => 190,
+                'sitio_web' => 'https://www2.hm.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Microsoft',
-                'descripcion' => 'Microsoft es una empresa estadounidense que desarrolla, fabrica, licencia y vende una amplia gama de software, hardware y servicios relacionados con la informática.',
-                'paises_id' => 161,
-                'sitio_web' => 'https://www.microsoft.com/',
+                'nombre' => 'Gucci',
+                'descripcion' => 'Gucci es una marca italiana de moda de lujo conocida por sus productos de alta calidad, incluyendo ropa, bolsos, zapatos y accesorios para hombres y mujeres.',
+                'paises_id' => 105,
+                'sitio_web' => 'https://www.gucci.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Panasonic',
-                'descripcion' => 'Panasonic es una empresa japonesa que fabrica productos electrónicos, electrodomésticos, componentes y sistemas industriales, incluyendo televisores, cámaras, equipos de audio y más.',
-                'paises_id' => 121,
-                'sitio_web' => 'https://www.panasonic.com/',
+                'nombre' => 'Hugo Boss',
+                'descripcion' => 'Hugo Boss es una empresa alemana de moda de lujo que ofrece una amplia gama de ropa elegante y sofisticada para hombres y mujeres, así como fragancias y accesorios.',
+                'paises_id' => 76,
+                'sitio_web' => 'https://www.hugoboss.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'HP (Hewlett-Packard)',
-                'descripcion' => 'HP es una empresa estadounidense que fabrica una amplia gama de productos electrónicos y hardware de computadora, incluyendo computadoras portátiles, de escritorio, impresoras y más.',
-                'paises_id' => 161,
-                'sitio_web' => 'https://www.hp.com/',
+                'nombre' => 'Levi\'s',
+                'descripcion' => 'Levi\'s es una empresa estadounidense de moda conocida por sus vaqueros y ropa informal, ofreciendo una amplia variedad de estilos y cortes para hombres y mujeres.',
+                'paises_id' => 183,
+                'sitio_web' => 'https://www.levi.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Dell',
-                'descripcion' => 'Dell es una empresa estadounidense que fabrica computadoras personales, servidores, dispositivos de almacenamiento, redes, software y más, con un enfoque en soluciones empresariales.',
-                'paises_id' => 161,
-                'sitio_web' => 'https://www.dell.com/',
+                'nombre' => 'Ralph Lauren',
+                'descripcion' => 'Ralph Lauren es una marca estadounidense de moda de lujo conocida por su estilo clásico y sofisticado, ofreciendo ropa, accesorios y fragancias para hombres, mujeres y niños.',
+                'paises_id' => 183,
+                'sitio_web' => 'https://www.ralphlauren.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'Canon',
-                'descripcion' => 'Canon es una empresa japonesa que fabrica productos electrónicos, incluyendo cámaras digitales, impresoras, escáneres, dispositivos médicos y soluciones de imagen y óptica.',
-                'paises_id' => 121,
-                'sitio_web' => 'https://www.canon.com/',
+                'nombre' => 'Tommy Hilfiger',
+                'descripcion' => 'Tommy Hilfiger es una marca estadounidense de moda conocida por su estilo preppy y casual, ofreciendo una amplia gama de ropa y accesorios para hombres, mujeres y niños.',
+                'paises_id' => 183,
+                'sitio_web' => 'https://global.tommy.com/',
                 'estado' => 1
             ],
             [
-                'nombre' => 'ASUS',
-                'descripcion' => 'ASUS es una empresa taiwanesa que fabrica una amplia gama de productos electrónicos, incluyendo computadoras portátiles, tarjetas madre, tarjetas gráficas, monitores y dispositivos de red.',
-                'paises_id' => 209,
-                'sitio_web' => 'https://www.asus.com/',
+                'nombre' => 'Calvin Klein',
+                'descripcion' => 'Calvin Klein es una marca estadounidense de moda conocida por su estilo minimalista y moderno, ofreciendo una amplia gama de ropa, accesorios, fragancias y productos para el hogar.',
+                'paises_id' => 183,
+                'sitio_web' => 'https://www.calvinklein.us/',
                 'estado' => 1
-            ]
+            ],
+           
         ];
 
         // Crear las marcas utilizando el array

@@ -16,6 +16,13 @@
     <link defer href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         rel="stylesheet">
+    <script src="{{ asset('js/settings.js') }}"></script>
+    <style>
+        body {
+            opacity: 0;
+        }
+    </style>
+    <!-- END SETTINGS -->
 
 </head>
 
@@ -75,7 +82,7 @@
             $('.buscador').select2({
                 width: 'resolve' // o puedes usar un valor numérico si prefieres un ancho fijo
             });
-          
+
         });
     </script>
 </body>

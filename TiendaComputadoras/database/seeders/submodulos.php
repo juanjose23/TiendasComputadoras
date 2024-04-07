@@ -82,56 +82,56 @@ class submodulos extends Seeder
                 'modulos_id'=>2,
                 'nombre' => 'Proveedores',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>2,
                 'nombre' => 'Stock',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>2,
                 'nombre' => 'Movimientos',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>3,
                 'nombre' => 'Solicitudes',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>3,
                 'nombre' => 'Cotizaciones',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>3,
                 'nombre' => 'Ordenes de compras',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>3,
                 'nombre' => 'Devoluciones de compras',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>3,
                 'nombre' => 'Recepciones de compras',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
@@ -145,7 +145,7 @@ class submodulos extends Seeder
                 'modulos_id'=>4,
                 'nombre' => 'Empleados',
                 'descripcion' => '',
-                'enlace'=>'empleados.index',
+                'enlace'=>'colaboradores.index',
                 'estado' => 1
             ],
             [
@@ -158,7 +158,7 @@ class submodulos extends Seeder
             [
                 'modulos_id'=>4,
                 'nombre' => 'Salarios',
-                'descripcion' => '',
+                'descripcion' =>'',
                 'enlace'=>'salarios.index',
                 'estado' => 1
             ],
@@ -166,63 +166,63 @@ class submodulos extends Seeder
                 'modulos_id'=>5,
                 'nombre' => 'Pedidos',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>5,
                 'nombre' => 'Cotizaciones de venta',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>5,
                 'nombre' => 'Ventas',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>5,
                 'nombre' => 'Entregas',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>6,
                 'nombre' => 'Cajas',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>6,
                 'nombre' => 'Apertura',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>6,
                 'nombre' => 'Arqueo',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>6,
                 'nombre' => 'Cierre',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
                 'modulos_id'=>6,
                 'nombre' => 'Configuraciones',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ],
             [
@@ -243,21 +243,21 @@ class submodulos extends Seeder
                 'modulos_id'=>7,
                 'nombre' => 'Privilegios',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>'privilegios.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>7,
                 'nombre' => 'Permisos',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>'permisos.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>7,
                 'nombre' => 'Conexiones',
                 'descripcion' => '',
-                'enlace'=>'',
+                'enlace'=>null,
                 'estado' => 1
             ]
 

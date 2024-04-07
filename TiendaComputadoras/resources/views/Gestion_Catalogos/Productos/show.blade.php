@@ -14,8 +14,8 @@
             <li class="nav-item" role="presentation">
                 <a class="nav-link" href="#icon-tab-2" data-bs-toggle="tab" role="tab" aria-selected="false"
                     tabindex="-1">
-                    <i class="bi bi-palette"></i> <!-- Icono de Font Awesome -->
-                    Variantes de colores
+                    <i class="align-middle me-2" data-feather="list" style="color:brown;"></i>
+                    Variantes de detalles
                 </a>
             </li>
             <li class="nav-item" role="presentation">
@@ -97,77 +97,65 @@
                                 </tbody>
                             </table>
 
-                            <div class="">
-                                <div class="card-body">
-                                    <h5 class="card-title">Detalles del producto</h5>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <i class="bi bi-badge-8k"></i>
-
-
-                                            <strong>Peso:</strong> {{ $productos->detalles->peso }}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="bi bi-tools me-2"></i>
-                                            <strong>Materiales:</strong> {{ $productos->detalles->material }}
-                                        </li>
-                                        <li class="list-group-item">
-
-                                            <i class="bi bi-crop"></i>
-
-                                            <strong>Dimensiones:</strong> {{ $productos->detalles->dimensiones }}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="bi bi-link-45deg me-2"></i>
-                                            <strong>Compatibilidad:</strong> {{ $productos->detalles->compatibilidad }}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="bi bi-hand-thumbs-up me-2"></i>
-                                            <strong>Instrucciones de cuidado:</strong>
-                                            {{ $productos->detalles->instrucciones_cuidado }}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="bi bi-tools me-2"></i>
-                                            <strong>Instrucciones de montaje:</strong>
-                                            {{ $productos->detalles->instrucciones_montaje }}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <i class="bi bi-ticket-detailed"></i>
-                                            <strong>Características especiales:</strong>
-                                            {{ $productos->detalles->caracteristicas_especiales }}
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
 
                         </div>
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="icon-tab-2" role="tabpanel">
-                <h4 class="tab-title"> <i class="bi bi-palette-fill" style="color:brown;"></i>
-                    Variante de colores</h4>
+                <h4 class="tab-title"> <i class="align-middle me-2" data-feather="list" style="color:brown;"></i>
+                    Detalles de los Variantes</h4>
                 <div class="">
                     <div class="card-header">
                         <div class="card-actions float-end">
 
-                            <a href="{{ route('productos.index') }}" class=" btn btn-danger">
-                                <i class="bi bi-house"></i> volver al inicio
-                            </a>
-                            <a href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}" class=" btn btn-primary">
-                                <i class="bi bi-plus"></i> Agregar Variante
-                            </a>
+                            <!-- HTML -->
+                            <div class="btn-group btn-group-md">
+                                <div class="mb-3">
+
+
+                                    <a href="{{ route('productos.index') }}" class=" btn btn-danger">
+                                        <i class="bi bi-house"></i> Volver al inicio
+                                    </a>
+
+                                    <button id="infoDropdown" type="button" class="btn btn-info dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Configuracion de detalles
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="infoDropdown">
+                                 
+                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                            <i class="align-middle me-2" data-feather="droplet"  style="color:red;"></i> Nuevo color
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                            <i class="align-middle me-2" data-feather="crop" style="color:aqua"></i> Nueva Corte
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                            <i class="align-middle me-2" data-feather="tag" style="color:black;"></i>  Nueva talla
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                            <i class="align-middle me-2" data-feather="edit"></i> Nuevos detalles
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
 
 
                         </div>
+
                         <h5 class="card-title mb-0 text-black text-center">Producto {{ $productos->nombre }}</h5>
                     </div>
                     <div class="card-body">
                         <table class="table table-sm mt-2 mb-4">
                             <thead>
                                 <tr>
-                                    <th>Codigo del color</th>
+                                    <th>Género</th>
+                                    <th>Corte</th>
+                                    <th>Talla</th>
                                     <th>Color</th>
                                     <th>Muestras</th>
                                     <th>Estado</th>
@@ -178,39 +166,47 @@
                             </thead>
                             <tbody>
                                 @foreach ($productoscolores as $colorproducto)
-                                <tr>
-                                    <td>{{ $colorproducto->colores->codigo }}</td>
-                                    <td>{{ $colorproducto->colores->nombre }}</td>
-                                    <td>
-                                        <span class="badge rounded-pill">
-                                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color:{{ $colorproducto->colores->codigo }}"></div>
-                                        </span>
-                                    </td>
-                                   
-                                    <td>
-                                        <span class="badge rounded-pill {{ $colorproducto->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                            {{ $colorproducto->estado == 1 ? 'Activo' : 'Inactivo' }}
-                                        </span>
-                                    </td>
-                                    <td>{{ $colorproducto->created_at }}</td>
-                                    <td>{{ $colorproducto->updated_at }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-{{ $colorproducto->estado == 1 ? 'danger' : 'success' }} btn-sm" role="button" onclick="confirmAction({{ $colorproducto->id }})">
-                                            <i class="bi bi-{{ $colorproducto->estado == 1 ? 'trash' : 'power' }}"></i>
-                                        </button>
-                                        <form id="deleteForm{{ $colorproducto->id }}" action="{{ route('coloresproductos.destroy', ['coloresproductos' => $colorproducto->id]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="text" name="id" value={{$colorproducto->id}} hidden>
-                                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                            <button id="submitBtn{{ $colorproducto->id }}" type="submit" style="display: none;"></button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $colorproducto->colores->codigo }}</td>
+                                        <td>{{ $colorproducto->colores->nombre }}</td>
+                                        <td>
+                                            <span class="badge rounded-pill">
+                                                <div
+                                                    style="width: 20px; height: 20px; border-radius: 50%; background-color:{{ $colorproducto->colores->codigo }}">
+                                                </div>
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span
+                                                class="badge rounded-pill {{ $colorproducto->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                                {{ $colorproducto->estado == 1 ? 'Activo' : 'Inactivo' }}
+                                            </span>
+                                        </td>
+                                        <td>{{ $colorproducto->created_at }}</td>
+                                        <td>{{ $colorproducto->updated_at }}</td>
+                                        <td>
+                                            <button type="button"
+                                                class="btn btn-{{ $colorproducto->estado == 1 ? 'danger' : 'success' }} btn-sm"
+                                                role="button" onclick="confirmAction({{ $colorproducto->id }})">
+                                                <i class="bi bi-{{ $colorproducto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            </button>
+                                            <form id="deleteForm{{ $colorproducto->id }}"
+                                                action="{{ route('coloresproductos.destroy', ['coloresproductos' => $colorproducto->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="text" name="id" value={{ $colorproducto->id }} hidden>
+                                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                                <button id="submitBtn{{ $colorproducto->id }}" type="submit"
+                                                    style="display: none;"></button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        
+
 
 
                     </div>
@@ -228,7 +224,8 @@
                             <a href="{{ route('productos.index') }}" class=" btn btn-danger">
                                 <i class="bi bi-house"></i> volver al inicio
                             </a>
-                            <a href="{{ route('productos.multimedia', ['id' => $productos->id]) }}" class=" btn btn-primary">
+                            <a href="{{ route('productos.multimedia', ['id' => $productos->id]) }}"
+                                class=" btn btn-primary">
                                 <i class="bi bi-plus"></i> Agregar Imagen
                             </a>
 
@@ -241,7 +238,7 @@
                             <thead>
                                 <tr>
                                     <th>Imagen</th>
-                                  
+
                                     <th>Fecha de registro</th>
                                     <th>Fecha de actualización</th>
                                     <th>Acciones</th>
@@ -249,33 +246,39 @@
                             </thead>
                             <tbody>
                                 @foreach ($imagenes as $imagenproducto)
-                                <tr>
-                                    <td>
-                                        <img src="{{ $imagenproducto->url }}" alt="Imagen" class="img-fluid" width="100px">
-                                    </td>
-                                    
-                                  
-                                   
-                                  
-                                    <td>{{ $colorproducto->created_at }}</td>
-                                    <td>{{ $colorproducto->updated_at }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-danger btn-sm" role="button" onclick="confirmActionimg({{ $imagenproducto->id }})">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                        <form id="deleteFormimg{{ $imagenproducto->id }}" action="{{ route('productos.destroyimg', ['id' => $imagenproducto->id]) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="text" name="id" value={{$imagenproducto->id}} hidden>
-                                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                            <button id="submitBtn{{ $imagenproducto->id }}" type="submit" style="display: none;"></button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="{{ $imagenproducto->url }}" alt="Imagen" class="img-fluid"
+                                                width="100px">
+                                        </td>
+
+
+
+
+                                        <td>{{ $colorproducto->created_at }}</td>
+                                        <td>{{ $colorproducto->updated_at }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger btn-sm" role="button"
+                                                onclick="confirmActionimg({{ $imagenproducto->id }})">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            <form id="deleteFormimg{{ $imagenproducto->id }}"
+                                                action="{{ route('productos.destroyimg', ['id' => $imagenproducto->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="text" name="id" value={{ $imagenproducto->id }}
+                                                    hidden>
+                                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                                <button id="submitBtn{{ $imagenproducto->id }}" type="submit"
+                                                    style="display: none;"></button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        
+
 
 
                     </div>
@@ -284,6 +287,23 @@
         </div>
     </div>
 @endsection
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inicializar el dropdown
+        var dropdown = new bootstrap.Dropdown(document.getElementById('infoDropdown'));
+
+        // Agregar evento para cerrar el dropdown cuando se haga clic fuera de él
+        document.addEventListener("click", function(event) {
+            var dropdownToggle = document.getElementById('infoDropdown');
+            var dropdownMenu = document.querySelector('.dropdown-menu');
+
+            if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdown.hide();
+            }
+        });
+    });
+</script>
 <script>
     function confirmAction(ColorId) {
         Swal.fire({
@@ -310,6 +330,7 @@
             }
         });
     }
+
     function confirmActionimg(imgId) {
         Swal.fire({
             title: '¿Estás seguro?',

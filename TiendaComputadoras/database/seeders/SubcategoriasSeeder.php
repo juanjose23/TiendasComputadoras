@@ -17,251 +17,197 @@ class SubcategoriasSeeder extends Seeder
         $subcategorias = [
             [
                 'categorias_id'=>1,
-                'nombre' => 'LED TV',
-                'descripcion' => 'Subcategoría de televisores que utilizan tecnología LED para la iluminación de la pantalla.',
+                'nombre' => 'Camisetas de Manga Corta',
+                'descripcion' => 'Camisetas con mangas cortas en una variedad de colores y diseños para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>1,
-                'nombre' => 'OLED TV',
-                'descripcion' => 'Subcategoría de televisores que utilizan tecnología OLED para ofrecer una calidad de imagen superior con negros más profundos y colores más vibrantes.',
+                'nombre' => 'Camisetas de Manga Larga',
+                'descripcion' => 'Camisetas con mangas largas en una variedad de estilos y materiales para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>1,
-                'nombre' => 'QLED TV',
-                'descripcion' => 'Subcategoría de televisores que utilizan tecnología Quantum Dot para mejorar la reproducción del color y ofrecer una experiencia visual más inmersiva con alto rango dinámico (HDR).',
+                'nombre' => 'Camisetas Estampadas',
+                'descripcion' => 'Camisetas con estampados gráficos y diseños creativos para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>1,
-                'nombre' => 'Smart TV',
-                'descripcion' => 'Subcategoría de televisores que tienen capacidades de conexión a internet y pueden ejecutar aplicaciones, lo que permite el acceso a servicios de streaming, redes sociales y otros contenidos en línea.',
+                'nombre' => 'Camisetas Básicas',
+                'descripcion' => 'Camisetas lisas y simples en una variedad de colores básicos para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>1,
-                'nombre' => '8K TV',
-                'descripcion' => 'Subcategoría de televisores que ofrecen una resolución cuatro veces mayor que la de los televisores 4K, ideal para contenido de alta definición y videojuegos de última generación.',
+                'nombre' => 'Camisetas de Algodón Orgánico',
+                'descripcion' => 'Camisetas fabricadas con algodón orgánico, respetuoso con el medio ambiente y suave al tacto para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>2,
-                'nombre' => 'Android',
-                'descripcion' => 'Subcategoría de smartphones con sistema operativo Android, conocidos por su amplia variedad de modelos y personalización.',
+                'nombre' => 'Chaquetas de Cuero',
+                'descripcion' => 'Chaquetas de cuero genuino en una variedad de estilos, desde clásicas hasta modernas, para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>2,
-                'nombre' => 'iOS',
-                'descripcion' => 'Subcategoría de smartphones con sistema operativo iOS (iPhone), conocidos por su diseño elegante, integración con otros dispositivos Apple y su ecosistema de aplicaciones.',
+                'nombre' => 'Chaquetas Impermeables',
+                'descripcion' => 'Chaquetas impermeables y cortavientos para hombres y mujeres, diseñadas para proteger contra la lluvia y el viento.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>2,
-                'nombre' => 'Flagship',
-                'descripcion' => 'Subcategoría de smartphones de gama alta (flagship), conocidos por sus especificaciones avanzadas y características premium.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>2,
-                'nombre' => 'Económicos',
-                'descripcion' => 'Subcategoría de smartphones económicos, que ofrecen un buen equilibrio entre precio y rendimiento para aquellos con presupuestos más ajustados.',
-                'estado' => 1
-            ],
-            [
-                
-                'categorias_id'=>2,
-                'nombre' => 'Gaming',
-                'descripcion' => 'Subcategoría de smartphones diseñados específicamente para juegos, con características como pantallas de alta tasa de refresco, refrigeración mejorada y botones dedicados para juegos.',
+                'nombre' => 'Chaquetas de Lana',
+                'descripcion' => 'Chaquetas de lana cálidas y elegantes en una variedad de diseños y colores para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>3,
-                'nombre' => 'Ultrabooks',
-                'descripcion' => 'Subcategoría de laptops delgadas y livianas, con diseño elegante y potencia suficiente para tareas cotidianas y profesionales.',
+                'nombre' => 'Chaquetas de Cuero',
+                'descripcion' => 'Chaquetas de cuero genuino en una variedad de estilos, desde clásicas hasta modernas, para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>3,
-                'nombre' => 'Gaming',
-                'descripcion' => 'Subcategoría de laptops diseñadas para juegos, con hardware potente, gráficos de alta calidad y características específicas para gaming.',
+                'nombre' => 'Chaquetas Impermeables',
+                'descripcion' => 'Chaquetas impermeables y cortavientos para hombres y mujeres, diseñadas para proteger contra la lluvia y el viento.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>3,
-                'nombre' => '2 en 1',
-                'descripcion' => 'Subcategoría de laptops con diseño convertible que pueden funcionar como tabletas o laptops según las necesidades del usuario.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>3,
-                'nombre' => 'Estudiantes',
-                'descripcion' => 'Subcategoría de laptops diseñadas para estudiantes, con durabilidad, portabilidad y características adecuadas para tareas escolares y universitarias.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>3,
-                'nombre' => 'Profesionales',
-                'descripcion' => 'Subcategoría de laptops diseñadas para profesionales, con rendimiento superior, seguridad avanzada y capacidad de manejar cargas de trabajo intensivas.',
+                'nombre' => 'Chaquetas de Lana',
+                'descripcion' => 'Chaquetas de lana cálidas y elegantes en una variedad de diseños y colores para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>4,
-                'nombre' => 'Android',
-                'descripcion' => 'Subcategoría de tablets con sistema operativo Android, ofreciendo una amplia variedad de modelos y aplicaciones disponibles en la tienda Google Play.',
+                'nombre' => 'Vestidos Casuales',
+                'descripcion' => 'Vestidos informales y cómodos para el uso diario en una variedad de estilos y estampados para mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>4,
-                'nombre' => 'iOS',
-                'descripcion' => 'Subcategoría de tablets con sistema operativo iOS (iPad), conocidas por su diseño elegante, rendimiento fluido y gran cantidad de aplicaciones optimizadas para tablets.',
+                'nombre' => 'Vestidos de Noche',
+                'descripcion' => 'Vestidos elegantes y sofisticados para ocasiones especiales y eventos formales para mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>4,
-                'nombre' => 'Windows',
-                'descripcion' => 'Subcategoría de tablets con sistema operativo Windows, que ofrecen compatibilidad con una amplia gama de software de productividad y la capacidad de funcionar como un portátil con accesorios adicionales.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>4,
-                'nombre' => '2 en 1',
-                'descripcion' => 'Subcategoría de tablets con capacidad de convertirse en laptops gracias a teclados desmontables o plegables, ofreciendo versatilidad para tareas de productividad y entretenimiento.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>4,
-                'nombre' => 'Gaming',
-                'descripcion' => 'Subcategoría de tablets diseñadas específicamente para juegos, con pantallas de alta resolución, altavoces potentes y controles táctiles optimizados para una experiencia de juego inmersiva.',
+                'nombre' => 'Vestidos Estampados Florales',
+                'descripcion' => 'Vestidos con estampados florales y primaverales en una variedad de cortes y longitudes para mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>5,
-                'nombre' => 'DSLR',
-                'descripcion' => 'Subcategoría de cámaras digitales de lentes intercambiables, conocidas por su calidad de imagen, versatilidad y controles manuales, ideales para fotógrafos aficionados y profesionales.',
+                'nombre' => 'Camisas de Vestir',
+                'descripcion' => 'Camisas elegantes y formales para hombres y mujeres, adecuadas para ocasiones profesionales y eventos formales.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>5,
-                'nombre' => 'Mirrorless',
-                'descripcion' => 'Subcategoría de cámaras digitales sin espejo, ofreciendo un diseño más compacto y ligero que las DSLR pero con rendimiento y calidad de imagen comparables, populares entre fotógrafos que buscan portabilidad y versatilidad.',
+                'nombre' => 'Camisas Informales',
+                'descripcion' => 'Camisas casuales y cómodas para el uso diario en una variedad de estilos y estampados para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>5,
-                'nombre' => 'Compactas',
-                'descripcion' => 'Subcategoría de cámaras digitales compactas y ligeras, ideales para capturar momentos en movimiento con facilidad, siendo convenientes para viajes y uso diario.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>5,
-                'nombre' => 'Bridge',
-                'descripcion' => 'Subcategoría de cámaras digitales con características de cámaras DSLR pero con un diseño compacto similar al de las cámaras compactas, ofreciendo un equilibrio entre versatilidad y portabilidad.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>5,
-                'nombre' => 'Acción',
-                'descripcion' => 'Subcategoría de cámaras digitales diseñadas para capturar actividades deportivas y de acción, ofreciendo resistencia al agua, golpes y condiciones extremas, y siendo compatibles con una amplia gama de accesorios de montaje.',
+                'nombre' => 'Camisas de Manga Corta',
+                'descripcion' => 'Camisas con mangas cortas en una variedad de tejidos y colores para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>6,
-                'nombre' => 'In-Ear',
-                'descripcion' => 'Subcategoría de auriculares que se insertan dentro del canal auditivo, ofreciendo portabilidad y aislamiento de ruido, ideales para uso en movimiento y deportes.',
+                'nombre' => 'Faldas Lápiz',
+                'descripcion' => 'Faldas ajustadas y elegantes que se ajustan al cuerpo, ideales para ocasiones formales y profesionales para mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>6,
-                'nombre' => 'On-Ear',
-                'descripcion' => 'Subcategoría de auriculares que descansan sobre la oreja, ofreciendo comodidad y calidad de sonido equilibrada, ideales para uso diario y viajes.',
+                'nombre' => 'Faldas Plisadas',
+                'descripcion' => 'Faldas con pliegues y detalles plisados que añaden volumen y movimiento, disponibles en una variedad de longitudes para mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>6,
-                'nombre' => 'Over-Ear',
-                'descripcion' => 'Subcategoría de auriculares que cubren toda la oreja, ofreciendo comodidad excepcional y calidad de sonido inmersiva, ideales para sesiones de escucha prolongadas y uso profesional.',
+                'nombre' => 'Faldas Midi',
+                'descripcion' => 'Faldas de longitud media que llegan hasta la mitad de la pantorrilla, ofreciendo versatilidad y estilo para mujeres en diversas ocasiones.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>7,
-                'nombre' => 'Altavoces Bluetooth',
-                'descripcion' => 'Subcategoría de altavoces que se conectan de forma inalámbrica mediante tecnología Bluetooth, ofreciendo portabilidad y facilidad de uso con dispositivos móviles y otros dispositivos compatibles.',
+                'nombre' => 'Sweaters de Lana',
+                'descripcion' => 'Sweaters de lana cálidos y confortables en una variedad de estilos y diseños para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>7,
-                'nombre' => 'Altavoces Hi-Fi',
-                'descripcion' => 'Subcategoría de altavoces de alta fidelidad, diseñados para ofrecer una reproducción de sonido de alta calidad y fidelidad, ideales para audiófilos y entusiastas de la música.',
+                'nombre' => 'Sweaters de Punto',
+                'descripcion' => 'Sweaters tejidos a mano o a máquina con detalles de punto, ideales para los días fríos y las noches acogedoras para hombres y mujeres.',
+                'estado' => 1
+            ],
+            [
+                'categorias_id'=>7,
+                'nombre' => 'Sweaters con Cuello de Tortuga',
+                'descripcion' => 'Sweaters con cuello alto y ajustado que proporcionan calidez y estilo adicional para hombres y mujeres.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>8,
-                'nombre' => 'Acción',
-                'descripcion' => 'Subcategoría de videojuegos que se centran en la acción y el combate, con mecánicas de juego intensas y emocionantes.',
+                'nombre' => 'Abrigos de Invierno',
+                'descripcion' => 'Abrigos gruesos y cálidos diseñados para proteger contra el frío y el viento durante los meses de invierno.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>8,
-                'nombre' => 'Aventura',
-                'descripcion' => 'Subcategoría de videojuegos que se centran en la exploración y la narrativa, con mundos expansivos y tramas envolventes.',
+                'nombre' => 'Abrigos Parka',
+                'descripcion' => 'Abrigos largos y acolchados con capucha, ideales para condiciones climáticas extremas y actividades al aire libre.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>8,
-                'nombre' => 'Deportes',
-                'descripcion' => 'Subcategoría de videojuegos que se centran en deportes y competiciones, con simulaciones realistas y modos de juego variados.',
+                'nombre' => 'Abrigos de Lana',
+                'descripcion' => 'Abrigos elegantes y abrigados fabricados con lana de alta calidad, adecuados para el uso diario y ocasiones especiales.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>9,
-                'nombre' => 'Teclados',
-                'descripcion' => 'Subcategoría de accesorios de computadora que incluye teclados, ofreciendo diferentes diseños, tamaños y tecnologías, ideales para tareas de escritura y productividad.',
+                'nombre' => 'Sujetadores',
+                'descripcion' => 'Sujetadores en una variedad de estilos y tallas para mujeres, ofreciendo comodidad y soporte durante todo el día.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>9,
-                'nombre' => 'Ratones',
-                'descripcion' => 'Subcategoría de accesorios de computadora que incluye ratones (mouses), ofreciendo diferentes estilos, tamaños y características, ideales para navegación y precisión en diferentes tipos de trabajo.',
+                'nombre' => 'Calzoncillos',
+                'descripcion' => 'Calzoncillos de algodón suave y elástico en diferentes cortes y diseños para hombres, proporcionando comodidad y ajuste.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>9,
-                'nombre' => 'Monitores',
-                'descripcion' => 'Subcategoría de accesorios de computadora que incluye monitores, ofreciendo diferentes tamaños, resoluciones y tecnologías de pantalla, ideales para ampliar el espacio de trabajo y mejorar la experiencia visual.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>9,
-                'nombre' => 'Fundas y Maletines',
-                'descripcion' => 'Subcategoría de accesorios de computadora que incluye fundas y maletines, diseñados para proteger y transportar computadoras portátiles y otros dispositivos de forma segura y cómoda.',
-                'estado' => 1
-            ],
-            [
-                'categorias_id'=>9,
-                'nombre' => 'Auriculares y Micrófonos',
-                'descripcion' => 'Subcategoría de accesorios de computadora que incluye auriculares y micrófonos, ideales para comunicaciones, conferencias en línea, juegos y multimedia, ofreciendo calidad de audio y comodidad de uso.',
+                'nombre' => 'Conjuntos de Lencería',
+                'descripcion' => 'Conjuntos coordinados de sujetador y braguita en una variedad de estilos y materiales para mujeres, ideales para ocasiones especiales.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>10,
-                'nombre' => 'Discos Duros Externos',
-                'descripcion' => 'Subcategoría de dispositivos de almacenamiento externos que ofrecen capacidad adicional para respaldos y almacenamiento de datos, ideales para transferencia de archivos y portabilidad.',
+                'nombre' => 'Bikinis',
+                'descripcion' => 'Conjuntos de bikini de dos piezas en una variedad de estilos y estampados para mujeres, perfectos para días de playa y piscina.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>10,
-                'nombre' => 'Unidades Flash USB',
-                'descripcion' => 'Subcategoría de dispositivos de almacenamiento portátiles y compactos que utilizan memoria flash, ideales para transferir y transportar archivos de manera conveniente y rápida.',
+                'nombre' => 'Trajes de Baño de Una Pieza',
+                'descripcion' => 'Trajes de baño de una sola pieza en una variedad de diseños y cortes para mujeres, ofreciendo cobertura y estilo.',
                 'estado' => 1
             ],
             [
                 'categorias_id'=>10,
-                'nombre' => 'Tarjetas de Memoria',
-                'descripcion' => 'Subcategoría de dispositivos de almacenamiento que se utilizan en cámaras, teléfonos y otros dispositivos para almacenar fotos, videos y otros archivos multimedia, ofreciendo diferentes capacidades y velocidades.',
+                'nombre' => 'Bañadores Shorts',
+                'descripcion' => 'Bañadores cortos para hombres en una variedad de colores y estilos, ideales para actividades acuáticas y días soleados en la playa.',
                 'estado' => 1
             ]
+
         ];
 
         // Crear las subcategorías utilizando el array

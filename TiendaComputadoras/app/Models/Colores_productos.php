@@ -17,10 +17,11 @@ class Colores_productos extends Model
     {
         return $this->belongsTo('App\Models\Colores');
     }
-    public function precios()
+    public function detalles()
     {
-        return $this->hasMany('App\Models\Precios');
+        return $this->HasMany('App\Models\Detalle_productos');
     }
+ 
     /**
      * Obtiene los productos disponibles.
      * 

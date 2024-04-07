@@ -12,6 +12,10 @@ class Genero extends Model
     {
         return $this->HasOne('App\Models\Persona_Naturales');
     }
+    public function detallesproductos()
+    {
+        return $this->hasOne('App\Models\productos');
+    }
     public static function obtenerGenero()
     {
         return self::select('id', 'nombre')->where('estado', 1)->get();

@@ -26,7 +26,7 @@ class PaginaController extends Controller
 
         $usuarios = new User();
         $user = $usuarios->ValidarUsuario($request->usuario);
-
+        $privilegio=new Privilegios();
         if ($user === null) {
             return redirect()->back()->withInput()->with('error', 'Usuario no encontrado');
         }
@@ -36,7 +36,8 @@ class PaginaController extends Controller
         $validarcontraseña = $usuarios->ValidarContrasena($userId, $request->contraseña);
         $InformacionPersonal = $usuarios->ObtenerInformacionUsuario($personasId);
         $informacionDetallada = $usuarios->ObtenerCodigoCliente($personasId) ?? $usuarios->ObtenerCodigoEmpleados($personasId);
-
+        $privilegios=$privilegio->ObtenerPrivilegiosUsuario($userId);
+      
         if (!$validarcontraseña) {
             return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
         }
@@ -61,7 +62,7 @@ class PaginaController extends Controller
         session(['Foto' => $informacionDetallada['foto']]);
         session(['Codigo' => $informacionDetallada['codigo']]);
         session(['id' => $informacionDetallada['id']]);
-       
+        session(['privilegios'=>$privilegios]);
         return redirect()->route($redirectRoute)->with('success', $redirectMessage);
     }
 

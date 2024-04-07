@@ -42,7 +42,7 @@ Route::get('/', function () {
 Route::get('/login',[PaginaController::class,'login'])->name('login');
 Route::post('/validarLogin', [PaginaController::class, 'validarLogin'])->name('validarLogin');
 Route::get('/logout',[PaginaController::class,'logout']);
-Route::get('/error403',[PaginaController::class,'error403']);
+Route::get('/error403',[PaginaController::class,'error403'])->name('error403');
 
 //Controller del modulo de Gestion de Negocio
 Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'cargos'])->names('cargos')->middleware('checkRole:18');

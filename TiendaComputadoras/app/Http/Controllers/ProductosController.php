@@ -42,7 +42,7 @@ class ProductosController extends Controller
         $colores = Colores::where('estado', 1)->get();
         $cortes = Cortes::where('estado', 1)->get();
         $tallas = Tallas::where('estado', 1)->get();
-        $generos = Genero::where('estado', 1)->get();
+        $generos = Genero::obtenerGenero();
         return view('Gestion_Catalogos.Productos.create', compact('modelos', 'colores', 'subcategorias', 'generos', 'cortes', 'tallas'));
     }
 
@@ -96,7 +96,7 @@ class ProductosController extends Controller
         $detalle->tallas_id = $Idtalla;
         $detalle->cortes_id = $Idcorte;
         $detalle->generos_id = $request->generos;
-        $detalle->estado=1;
+        $detalle->estado = 1;
 
         $detalle->save();
         Session::flash('success', 'Se ha registrado la óperacion con éxito');
@@ -218,5 +218,25 @@ class ProductosController extends Controller
         Cloudinary::destroy($public_id);
         Imagen::destroy($logo->id);
         return redirect()->route('productos.show', $logo->imagenable_id);
+    }
+
+    /**
+     *  Guardar detalles
+     */
+
+    public function agregarCorte()
+    {
+    }
+
+    public function guardarCorte()
+    {
+    }
+
+    public function agregartallas()
+    {
+    }
+    public function guardartallas()
+    {
+
     }
 }

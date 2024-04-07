@@ -17,190 +17,182 @@ class ModelosSeeder extends Seeder
         $modelos = [
             [
                 'marcas_id'=>1,
-                'nombre' => 'Galaxy S21',
-                'descripcion' => 'El Galaxy S21 es el último teléfono insignia de Samsung, con un diseño elegante, potentes especificaciones y cámaras de alta calidad.',
+                'nombre' => 'Air Max 270',
+                'descripcion' => 'Las zapatillas Nike Air Max 270 ofrecen una combinación de estilo y comodidad, con una unidad Air Max grande en el talón y colores llamativos.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>1,
-                'nombre' => 'Galaxy Tab S7',
-                'descripcion' => 'La Galaxy Tab S7 es una tablet Android de alta gama con una pantalla impresionante, un potente rendimiento y compatibilidad con el S Pen.',
+                'nombre' => 'Air Force 1',
+                'descripcion' => 'Las zapatillas Nike Air Force 1 son un clásico de la moda urbana, con un diseño atemporal y materiales de alta calidad que ofrecen durabilidad y estilo.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>1,
-                'nombre' => 'Samsung Q90T',
-                'descripcion' => 'El Samsung Q90T es un televisor QLED de alta gama con una calidad de imagen excepcional, un diseño elegante y características avanzadas.',
+                'nombre' => 'React Infinity Run',
+                'descripcion' => 'Las zapatillas Nike React Infinity Run ofrecen una amortiguación suave y receptiva para correr largas distancias, con un diseño ligero y transpirable para mayor comodidad.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>2,
-                'nombre' => 'iPhone 12',
-                'descripcion' => 'El iPhone 12 es el último smartphone de Apple, con un diseño renovado, potente rendimiento y cámaras mejoradas.',
+                'nombre' => 'Ultraboost',
+                'descripcion' => 'Las zapatillas Adidas Ultraboost ofrecen una combinación de amortiguación y retorno de energía, con un diseño elegante y una parte superior de tejido Primeknit para un ajuste cómodo.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>2,
-                'nombre' => 'MacBook Pro 16"',
-                'descripcion' => 'El MacBook Pro de 16 pulgadas es una potente computadora portátil diseñada para profesionales, con una pantalla impresionante, rendimiento excepcional y teclado mejorado.',
+                'nombre' => 'Stan Smith',
+                'descripcion' => 'Los tenis Adidas Stan Smith son un icono de estilo urbano, con un diseño minimalista y una parte superior de cuero suave para un look clásico y versátil.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>2,
-                'nombre' => 'Apple Watch Series 6',
-                'descripcion' => 'El Apple Watch Series 6 es el último reloj inteligente de Apple, con características avanzadas de salud y fitness, pantalla siempre encendida y un diseño elegante.',
+                'nombre' => 'Superstar',
+                'descripcion' => 'Los tenis Adidas Superstar son legendarios en el mundo de la moda urbana, con su emblemática puntera de concha y un diseño atemporal que combina con cualquier estilo.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>3,
-                'nombre' => 'PlayStation 5',
-                'descripcion' => 'La PlayStation 5 es la última consola de videojuegos de Sony, con potente rendimiento, gráficos impresionantes y una amplia variedad de juegos.',
+                'nombre' => 'Blazer de Cuadros',
+                'descripcion' => 'El blazer de cuadros de Zara es una prenda clásica y elegante, perfecta para completar cualquier conjunto formal o informal con estilo.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>3,
-                'nombre' => 'Sony Xperia 1 III',
-                'descripcion' => 'El Sony Xperia 1 III es el último smartphone de Sony, con una pantalla 4K HDR OLED, cámara fotográfica versátil y un diseño elegante.',
+                'nombre' => 'Vestido Midi Plisado',
+                'descripcion' => 'El vestido midi plisado de Zara es una opción versátil y femenina, ideal para ocasiones casuales o eventos especiales con su diseño elegante y cómodo.',
                 'estado' => 1
             ],
             [
                 'marcas_id'=>3,
-                'nombre' => 'Sony Bravia A80J',
-                'descripcion' => 'El Sony Bravia A80J es un televisor OLED de alta gama con una calidad de imagen excepcional, tecnología de audio inmersiva y funciones inteligentes avanzadas.',
-                'estado' => 1
-            ],
-           
-            [
-                'marcas_id' => 3,
-                'nombre' => 'Sony Xperia 5 III',
-                'descripcion' => 'El Sony Xperia 5 III es un smartphone de gama alta con un diseño compacto, potente rendimiento y cámaras de alta calidad.',
+                'nombre' => 'Pantalones Chinos Slim Fit',
+                'descripcion' => 'Los pantalones chinos slim fit de Zara son una opción moderna y versátil para cualquier ocasión, con su corte ajustado y su tejido cómodo y duradero.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 3,
-                'nombre' => 'Sony WH-1000XM4',
-                'descripcion' => 'Los Sony WH-1000XM4 son auriculares con cancelación de ruido líderes en su clase, ofreciendo una experiencia auditiva inmersiva y comodidad excepcional.',
-                'estado' => 1
-            ],
-            // Agrega más modelos para Sony aquí...
-            [
-                'marcas_id' => 4,
-                'nombre' => 'LG OLED CX',
-                'descripcion' => 'El LG OLED CX es un televisor OLED de alta calidad con una pantalla impresionante, funciones inteligentes y un diseño elegante.',
+                'marcas_id'=>4,
+                'nombre' => 'Jersey de Punto Cuello Alto',
+                'descripcion' => 'El jersey de punto con cuello alto de H&M es una prenda versátil y cálida, perfecta para combinar con jeans o faldas en los días fríos de invierno.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 4,
-                'nombre' => 'LG Gram 17',
-                'descripcion' => 'El LG Gram 17 es una computadora portátil ultraligera con una pantalla grande, potente rendimiento y una duración de batería excepcional.',
+                'marcas_id'=>4,
+                'nombre' => 'Camisa Vaquera Slim Fit',
+                'descripcion' => 'La camisa vaquera slim fit de H&M es una opción moderna y casual para cualquier ocasión, con su ajuste favorecedor y su tejido de denim suave y cómodo.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 4,
-                'nombre' => 'LG VELVET',
-                'descripcion' => 'El LG VELVET es un smartphone elegante con una pantalla OLED, cámaras versátiles y un diseño atractivo.',
+                'marcas_id'=>4,
+                'nombre' => 'Vestido Estampado Floral',
+                'descripcion' => 'El vestido estampado floral de H&M es una opción fresca y femenina para la primavera y el verano, con su diseño ligero y sus colores vibrantes.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 5, // Microsoft
-                'nombre' => 'Surface Laptop 4',
-                'descripcion' => 'La Surface Laptop 4 es una computadora portátil elegante y potente, diseñada para profesionales y usuarios exigentes.',
+                'marcas_id'=>5,
+                'nombre' => 'Bolso de Cuero con Logo',
+                'descripcion' => 'El bolso de cuero con logo de Gucci es un accesorio de lujo y estilo, con su diseño icónico y su artesanía impecable que lo convierten en una pieza deseada por muchos.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 5,
-                'nombre' => 'Surface Pro 7',
-                'descripcion' => 'La Surface Pro 7 es una tablet versátil con funciones de laptop, ideal para la productividad y la creatividad en movimiento.',
+                'marcas_id'=>5,
+                'nombre' => 'Zapatos de Cuero con Hebilla',
+                'descripcion' => 'Los zapatos de cuero con hebilla de Gucci son una opción elegante y sofisticada para hombres, con su diseño clásico y su calidad excepcional que los hacen destacar en cualquier ocasión.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 5,
-                'nombre' => 'Xbox Series X',
-                'descripcion' => 'La Xbox Series X es la última consola de videojuegos de Microsoft, con potencia de próxima generación y capacidades de juego inmersivas.',
+                'marcas_id'=>5,
+                'nombre' => 'Vestido de Seda Estampado',
+                'descripcion' => 'El vestido de seda estampado de Gucci es una pieza de alta costura que combina estilo y lujo, con su tela suave y su estampado exclusivo que lo convierten en una elección única para eventos especiales.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 6, // Panasonic
-                'nombre' => 'Panasonic Lumix GH5',
-                'descripcion' => 'La Panasonic Lumix GH5 es una cámara digital de alta gama diseñada para fotógrafos y videógrafos profesionales.',
+                'marcas_id'=>6,
+                'nombre' => 'Traje de Lana Slim Fit',
+                'descripcion' => 'El traje de lana slim fit de Hugo Boss es una opción elegante y sofisticada para hombres, con su corte ajustado y su tejido de alta calidad que lo hacen perfecto para ocasiones formales.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 6,
-                'nombre' => 'Panasonic Viera CX800',
-                'descripcion' => 'El Panasonic Viera CX800 es un televisor LED con una calidad de imagen impresionante y funciones inteligentes avanzadas.',
+                'marcas_id'=>6,
+                'nombre' => 'Chaqueta de Cuero Biker',
+                'descripcion' => 'La chaqueta de cuero biker de Hugo Boss es una prenda de estilo urbano y contemporáneo, con su diseño atrevido y su artesanía excepcional que la hacen destacar en cualquier ocasión casual.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 6,
-                'nombre' => 'Panasonic Toughbook CF-33',
-                'descripcion' => 'El Panasonic Toughbook CF-33 es una computadora portátil resistente y duradera diseñada para entornos industriales y exteriores.',
+                'marcas_id'=>6,
+                'nombre' => 'Blusa de Seda con Lazo',
+                'descripcion' => 'La blusa de seda con lazo de Hugo Boss es una opción elegante y femenina para mujeres, con su tejido lujoso y su detalle de lazo que añade un toque de sofisticación a cualquier conjunto.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 7, // HP (Hewlett-Packard)
-                'nombre' => 'HP Pavilion 15',
-                'descripcion' => 'El HP Pavilion 15 es una computadora portátil versátil con un diseño elegante, pantalla de alta definición y rendimiento confiable.',
+                'marcas_id'=>7,
+                'nombre' => 'Jeans 501 Original Fit',
+                'descripcion' => 'Los jeans 501 Original Fit de Levi\'s son un clásico de la moda denim, con su corte recto y su estilo atemporal que los hacen perfectos para cualquier ocasión casual.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 7,
-                'nombre' => 'HP ENVY 27',
-                'descripcion' => 'El HP ENVY 27 es un monitor de alta resolución con diseño delgado, imágenes vibrantes y funciones de conectividad avanzadas.',
+                'marcas_id'=>7,
+                'nombre' => 'Chaqueta Trucker',
+                'descripcion' => 'La chaqueta Trucker de Levi\'s es una prenda icónica de la moda urbana, con su diseño versátil y su tejido resistente que la convierten en un básico indispensable en el armario.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 7,
-                'nombre' => 'HP LaserJet Pro MFP M428fdw',
-                'descripcion' => 'La HP LaserJet Pro MFP M428fdw es una impresora multifuncional rápida y confiable diseñada para la productividad en la oficina.',
+                'marcas_id'=>7,
+                'nombre' => 'Camiseta Graphic Tee',
+                'descripcion' => 'La camiseta Graphic Tee de Levi\'s es una opción fresca y moderna para cualquier look casual, con sus estampados llamativos y su tejido suave y cómodo.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 8, // Dell
-                'nombre' => 'Dell XPS 15',
-                'descripcion' => 'El Dell XPS 15 es una computadora portátil premium con una pantalla impresionante, rendimiento potente y diseño elegante.',
+                'marcas_id'=>8,
+                'nombre' => 'Polo Classic Fit',
+                'descripcion' => 'El polo Classic Fit de Ralph Lauren es un básico de la moda preppy, con su diseño elegante y su tejido de algodón de alta calidad que ofrece comodidad y estilo en cualquier ocasión.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 8,
-                'nombre' => 'Dell UltraSharp U2720Q',
-                'descripcion' => 'El Dell UltraSharp U2720Q es un monitor 4K con colores precisos, amplio ángulo de visión y ergonomía mejorada para una experiencia de visualización óptima.',
+                'marcas_id'=>8,
+                'nombre' => 'Camisa Oxford Slim Fit',
+                'descripcion' => 'La camisa Oxford Slim Fit de Ralph Lauren es una opción sofisticada y versátil para looks casuales o formales, con su corte ajustado y su tejido resistente que la hacen perfecta para cualquier ocasión.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 9, // Canon
-                'nombre' => 'Canon EOS R5',
-                'descripcion' => 'La Canon EOS R5 es una cámara mirrorless de alta resolución con capacidad de grabación de video 8K y enfoque automático avanzado.',
+                'marcas_id'=>8,
+                'nombre' => 'Jersey de Cachemira',
+                'descripcion' => 'El jersey de cachemira de Ralph Lauren es una prenda de lujo y estilo, con su tejido suave y cálido que ofrece un look elegante y sofisticado en los días fríos de invierno.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 9,
-                'nombre' => 'Canon PIXMA TR8520',
-                'descripcion' => 'La Canon PIXMA TR8520 es una impresora multifunción compacta con conexión inalámbrica, escaneo a color y fax.',
+                'marcas_id'=>9,
+                'nombre' => 'Polo Slim Fit',
+                'descripcion' => 'El polo Slim Fit de Tommy Hilfiger es una opción moderna y sofisticada para looks casuales, con su corte ajustado y su emblemático logo bordado que añade un toque de estilo a cualquier conjunto.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 9,
-                'nombre' => 'Canon CanoScan LiDE 400',
-                'descripcion' => 'El Canon CanoScan LiDE 400 es un escáner de documentos compacto con alta resolución y conexión USB.',
+                'marcas_id'=>9,
+                'nombre' => 'Sudadera con Capucha',
+                'descripcion' => 'La sudadera con capucha de Tommy Hilfiger es una prenda deportiva y urbana, con su diseño cómodo y su tejido suave que la hacen perfecta para el día a día.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 10, // ASUS
-                'nombre' => 'ASUS ZenBook 14',
-                'descripcion' => 'El ASUS ZenBook 14 es un portátil ultradelgado con una pantalla NanoEdge sin bordes, procesadores potentes y una batería de larga duración.',
+                'marcas_id'=>9,
+                'nombre' => 'Camisa de Cuadros',
+                'descripcion' => 'La camisa de cuadros de Tommy Hilfiger es una opción clásica y versátil para looks casuales, con su diseño atemporal y su tejido de algodón de alta calidad que ofrece comodidad y estilo.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 10,
-                'nombre' => 'ASUS ROG Strix G15',
-                'descripcion' => 'El ASUS ROG Strix G15 es una computadora portátil para juegos con un diseño elegante, potente hardware y una pantalla de alta frecuencia de actualización.',
+                'marcas_id'=>10,
+                'nombre' => 'Boxer Briefs Pack de 3',
+                'descripcion' => 'Los boxer briefs de Calvin Klein son un básico de la moda íntima masculina, con su ajuste cómodo y su tejido elástico que ofrece sujeción y comodidad durante todo el día.',
                 'estado' => 1
             ],
             [
-                'marcas_id' => 10,
-                'nombre' => 'ASUS TUF Gaming VG27AQ',
-                'descripcion' => 'El ASUS TUF Gaming VG27AQ es un monitor gaming con tecnología Adaptive Sync, una alta tasa de refresco y una rápida respuesta.',
+                'marcas_id'=>10,
+                'nombre' => 'Camiseta Logo',
+                'descripcion' => 'La camiseta logo de Calvin Klein es una prenda casual y moderna, con su diseño simple y su logo icónico que añade un toque de estilo a cualquier look urbano.',
+                'estado' => 1
+            ],
+            [
+                'marcas_id'=>10,
+                'nombre' => 'Calzoncillos Briefs Pack de 4',
+                'descripcion' => 'Los calzoncillos briefs de Calvin Klein son una opción clásica y cómoda para la moda íntima masculina, con su diseño versátil y su tejido suave que ofrece confort durante todo el día.',
                 'estado' => 1
             ]
         ];

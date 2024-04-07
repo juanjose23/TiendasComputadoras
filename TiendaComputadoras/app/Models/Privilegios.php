@@ -147,7 +147,8 @@ class Privilegios extends Model
     public function ObtenerPrivilegiosUsuario($id)
     {
         // Realizar la consulta para obtener los privilegios del usuario
-        $resultado = Privilegios::select('pr.submodulos_id', 'm.id AS id_modulo', 'm.nombre AS modulo', 'm.icono', 'sm.nombre AS submodulo', 'sm.enlace', 'rt.roles_id AS id_rol_temporal')
+        $resultado = db::table('privilegiosroles  as pr')
+            ->select('pr.submodulos_id', 'm.id AS id_modulo', 'm.nombre AS modulo', 'm.icono', 'sm.nombre AS submodulo', 'sm.enlace', 'rt.roles_id AS id_rol_temporal')
             ->join('submodulos AS sm', 'sm.id', '=', 'pr.submodulos_id')
             ->join('modulos AS m', 'm.id', '=', 'sm.modulos_id')
             ->leftJoin('rolesusuarios AS rt', 'rt.roles_id', '=', 'pr.roles_id')
@@ -158,31 +159,31 @@ class Privilegios extends Model
 
         // Inicializar un arreglo para almacenar los modulos y submodulos
         $modulos = array();
-
         foreach ($resultado as $row) {
-            $modulo_id = $row['id_modulo'];
-            $submodulo_id = $row['id_sub_modulo'];
+            $modulo_id = $row->id_modulo;
+            $submodulo_id = $row->submodulos_id;
 
             // Verificar si el modulo ya existe en el arreglo, sino agregarlo
             if (!isset($modulos[$modulo_id])) {
                 $modulos[$modulo_id] = array(
                     'id' => $modulo_id,
-                    'nombre' => $row['modulo'],
-                    'icono' => $row['icono'],
+                    'nombre' => $row->modulo,
+                    'icono' => $row->icono,
                     'submodulos' => array()
                 );
             }
 
-            // Verificar si el submodulo no esta vacio, si no esta vacio agregarlo al modulo correspondiente
+            // Verificar si el submodulo no está vacío, si no está vacío agregarlo al modulo correspondiente
             if (!empty($submodulo_id)) {
                 $submodulo = array(
                     'id' => $submodulo_id,
-                    'nombre' => $row['submodulo'],
-                    'enlace' => $row['enlace']
+                    'nombre' => $row->submodulo,
+                    'enlace' => $row->enlace
                 );
                 $modulos[$modulo_id]['submodulos'][] = $submodulo;
             }
         }
+
 
         // Retornar los privilegios estructurados
         return $modulos;

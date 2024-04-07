@@ -21,9 +21,18 @@ class Productos extends Model
     {
         return $this->hasMany('App\Models\Colores_productos');
     }
+    public function cortesproductos()
+    {
+        return $this->hasMany('App\Models\Cortesproductos');
+    }
+    public function tallasproductos()
+    {
+        return $this->hasMany('App\Models\Tallasproductos');
+    }
+ 
     public function detalles()
     {
-        return $this->HasOne('App\Models\Detalle_productos');
+        return $this->HasMany('App\Models\Detalle_productos');
     }
     public function imagenes()
     {

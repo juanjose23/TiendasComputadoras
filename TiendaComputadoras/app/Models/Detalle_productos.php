@@ -15,4 +15,30 @@ class Detalle_productos extends Model
     {
         return $this->BelongsTo('App\Models\Productos');
     }
+    public function precios()
+    {
+        return $this->hasMany('App\Models\Precios');
+    } 
+  
+    public function colores()
+    {
+        return $this->belongsTo('App\Models\Colores_productos');
+    }
+  
+    public function cortes()
+    {
+        return $this->belongsTo('App\Models\Cortesproductos');
+    }
+
+    
+    public function tallas()
+    {
+        return $this->belongsTo('App\Models\Tallasproductos');
+    }
+
+    public function generos()
+    {
+        return $this->belongsTo('App\Models\Productos');
+    }
+   
 }

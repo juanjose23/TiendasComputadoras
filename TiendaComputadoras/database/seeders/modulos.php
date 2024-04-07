@@ -17,43 +17,43 @@ class modulos extends Seeder
             [
                 'nombre' => 'Gestión de Productos',
                 'descripcion' => '',
-                'icono'=>'<i class="align-middle" data-feather="shopping-bag"></i>',
+                'icono'=>'shopping-bag',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de inventarios',
                 'descripcion' => '',
-                'icono'=>'<i class="align-middle" data-feather="archive"></i>',
+                'icono'=>'archive',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de compras',
                 'descripcion' => '',
-                'icono'=>'<i class="align-middle" data-feather="layout"></i>',
+                'icono'=>'layout',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de negocio',
                 'descripcion' => '',
-                'icono'=>'<i class="align-middle" data-feather="briefcase"></i>',
+                'icono'=>'briefcase',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de ventas',
                 'descripcion' => '',
-                'icono'=>' <i class="align-middle" data-feather="trending-up"></i>',
+                'icono'=>'trending-up',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de caja',
                 'descripcion' => '',
-                'icono'=>'<i class="align-middle" data-feather="box"></i>',
+                'icono'=>'box',
                 'estado' => 1
             ],
             [
                 'nombre' => 'Gestión de usuarios',
                 'descripcion' => '',
-                'icono'=>' <i class="align-middle" data-feather="users"></i>',
+                'icono'=>'users',
                 'estado' => 1
             ],
         ];

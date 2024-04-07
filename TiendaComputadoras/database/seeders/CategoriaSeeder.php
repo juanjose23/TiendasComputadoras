@@ -14,22 +14,23 @@ class CategoriaSeeder extends Seeder
     public function run(): void
     {
         $categorias = [
-            'Televisores',
-            'Smartphones',
-            'Laptops',
-            'Tabletas',
-            'Cámaras digitales',
-            'Auriculares',
-            'Altavoces',
-            'Videojuegos',
-            'Accesorios de computadora',
-            'Dispositivos de almacenamiento'
+            'Camisetas',
+            'Pantalones',
+            'Chaquetas',
+            'Vestidos',
+            'Camisas',
+            'Faldas',
+            'Sweaters',
+            'Abrigos',
+            'Ropa interior',
+            'Trajes de baño'
         ];
+        
 
         foreach ($categorias as $categoria) {
             Categorias::create([
                 'nombre' => $categoria,
-                'descripcion' => 'Productos electrónicos de la categoría ' . $categoria,
+                'descripcion' => 'Productos de ropas de la categoría ' . $categoria,
                 'estado' => 1
             ]);
         }

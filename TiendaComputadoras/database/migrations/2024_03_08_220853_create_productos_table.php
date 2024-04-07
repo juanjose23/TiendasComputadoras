@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('modelos_id')->references('id')->on('modelos')->cascadeOnDelete()->cascadeOnUpdate();
             $table->unsignedBigInteger('subcategorias_id')->references('id')->on('subcategorias')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
             $table->timestamp('fecha_lanzamiento')->nullable();
             $table->integer('estado');
             $table->timestamps();
