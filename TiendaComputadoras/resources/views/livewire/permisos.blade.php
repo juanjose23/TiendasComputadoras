@@ -52,7 +52,7 @@
                         <td class="text-center">{{ wordwrap($rol->cantidad, 50, "\n", true) }}</td>
                         <td>
                             <div class="d-flex mb-1 align-items-center">
-                                <a href="{{ route('privilegios.edit', ['privilegios' => $rol->roles->id]) }}"
+                                <a href="{{ route('permisos.edit', ['permisos' => $rol->roles->id]) }}"
                                     class="btn btn-info" role="button">
                                     <i class="bi bi-pencil"></i>
 
@@ -60,7 +60,7 @@
                            
 
                             <div class="m-1">
-                                <a href="{{ route('privilegios.show', ['privilegios' => $rol->roles->id]) }}"
+                                <a href="{{ route('permisos.show', ['permisos' => $rol->roles->id]) }}"
                                     class="btn btn-secondary" role="button">
                                     <i class="bi bi-eye"></i>
                                 </a>

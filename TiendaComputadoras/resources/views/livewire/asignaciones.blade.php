@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('asignaciones.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Asignación
-                    </a>
+            @can('create', App\Models\Empleados::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('asignaciones.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Asignación
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -24,7 +26,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a  class="dropdown-item" href="{{route('exportasignaciones')}}"><i
+                        <li><a class="dropdown-item" href="{{ route('exportasignaciones') }}"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
                     </ul>
@@ -61,11 +63,11 @@
                 </tr>
             </thead>
             <tbody>
-             
 
-                    @foreach ($datos as $colaborador)
+
+                @foreach ($datos as $colaborador)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $colaborador->empleados->codigo }}</td>
 
                         <td>{{ $colaborador->empleados->personas->nombre }}</td>
@@ -79,13 +81,13 @@
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
-                             
+                                @can('update', App\Models\Empleados::class)
                                     <a href="{{ route('asignaciones.edit', ['asignaciones' => $colaborador->empleados->id]) }}"
                                         class="btn btn-info" role="button">
                                         <i class="bi bi-pencil"></i>
 
                                     </a>
-                               
+                                @endcan
 
                                 <div class="m-1">
                                     <a href="{{ route('asignaciones.show', ['asignaciones' => $colaborador->empleados->id]) }}"
@@ -109,7 +111,7 @@
                             </form>
 
                         </td>
-                </tr>
+                    </tr>
                 @endforeach
 
             </tbody>

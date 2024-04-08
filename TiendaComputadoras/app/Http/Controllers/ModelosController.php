@@ -14,6 +14,15 @@ class ModelosController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\Productos')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\Productos')->only(['edit', 'update']);
+        $this->middleware('can:delete,App\Models\Productos')->only(['destroy']);
+        // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+        $this->middleware('can:viewAny,App\Models\Productos')->except(['index', 'show']);
+    }
     public function index()
     {
         //

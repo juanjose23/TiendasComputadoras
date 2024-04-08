@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('precios.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar producto
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('precios.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar producto
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -96,33 +98,34 @@
                                     class="btn btn-secondary me-1" role="button">
                                     <i class="bi bi-info-circle"></i>
                                 </a>
-
-                                <!-- Botón para editar -->
-                                <div class=" me-1">
-                                    <a href="{{ route('precios.edit', ['precios' => $producto->id]) }}"
-                                        class="btn btn-info btn-block" role="button">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                </div>
-
-                                <!-- Botón para activar/desactivar -->
-                                <div class="flex me-1">
-                                    @if ($producto->estado == 1)
-                                        <button type="button"
-                                            class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block"
-                                            role="button" onclick="confirmAction({{ $producto->id }})">
-                                            <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
-                                        </button>
-                                    @endif
-                                </div>
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('precios.edit', ['precios' => $producto->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('delete', App\Models\Productos::class)
+                                    <!-- Botón para activar/desactivar -->
+                                    <div class="flex me-1">
+                                        @if ($producto->estado == 1)
+                                            <button type="button"
+                                                class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                                role="button" onclick="confirmAction({{ $producto->id }})">
+                                                <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            </button>
+                                        @endif
+                                    </div>
+                                @endcan
                             </div>
 
 
 
 
                             <form id="deleteForm{{ $producto->id }}"
-                                action="{{ route('precios.destroy', ['precios' => $producto->id]) }}"
-                                method="POST">
+                                action="{{ route('precios.destroy', ['precios' => $producto->id]) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
 

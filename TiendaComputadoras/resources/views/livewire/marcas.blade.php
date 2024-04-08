@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('marcas.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Marca
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('marcas.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Marca
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -63,76 +65,81 @@
                 </tr>
             </thead>
             <tbody>
-               
-                    @foreach ($Marcas as $marca)
-                <tr>
-                    <td>{{ $loop->index + 1 }}</td>
+
+                @foreach ($Marcas as $marca)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
 
 
-                    <td>
+                        <td>
 
 
-                        @if ($marca->imagenes->isNotEmpty())
-                            @foreach ($marca->imagenes as $imagen)
-                                <img src="{{ $imagen->url }}" width="36" height="36" class="rounded-circle me-2"
-                                    alt="Charles Hall" alt="{{ $marca->nombre }}">
-                            @endforeach
-                        @endif
-                        <span>{{ $marca->nombre }}</span>
-                        <!-- Agrega el nombre de la marca junto a la imagen -->
+                            @if ($marca->imagenes->isNotEmpty())
+                                @foreach ($marca->imagenes as $imagen)
+                                    <img src="{{ $imagen->url }}" width="36" height="36"
+                                        class="rounded-circle me-2" alt="Charles Hall" alt="{{ $marca->nombre }}">
+                                @endforeach
+                            @endif
+                            <span>{{ $marca->nombre }}</span>
+                            <!-- Agrega el nombre de la marca junto a la imagen -->
 
-                    </td>
-                    <td class="text-wrap">{{ wordwrap($marca->descripcion, 50, "\n", true) }}</td>
+                        </td>
+                        <td class="text-wrap">{{ wordwrap($marca->descripcion, 50, "\n", true) }}</td>
 
-                    <td>{{ $marca->paises->nombre }}</td>
-                    <td>{{ $marca->sitio_web }}</td>
-                    <td><span class="badge rounded-pill {{ $marca->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $marca->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
+                        <td>{{ $marca->paises->nombre }}</td>
+                        <td>{{ $marca->sitio_web }}</td>
+                        <td><span class="badge rounded-pill {{ $marca->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $marca->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
 
-                        <div class="d-flex mb-1 align-items-center">
-                            <!--
+                            <div class="d-flex mb-1 align-items-center">
+                                <!--
                             <a href="{{ route('marcas.show', ['marcas' => $marca->id]) }}"
                                 class="btn btn-secondary me-1" role="button">
                                 <i class="bi bi-info-circle"></i>
                             </a>
  Botón de información -->
-                            <!-- Botón para editar -->
-                            <div class=" me-1">
-                                <a href="{{ route('marcas.edit', ['marcas' => $marca->id]) }}"
-                                    class="btn btn-info btn-block" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('marcas.edit', ['marcas' => $marca->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
+
+                                @can('delete', App\Models\productos::class)
+                                    <!-- Botón para activar/desactivar -->
+                                    <div class="flex me-1">
+                                        <button type="button"
+                                            class="btn btn-{{ $marca->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                            role="button" onclick="confirmAction({{ $marca->id }})">
+                                            <i class="bi bi-{{ $marca->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    </div>
+                                @endcan
                             </div>
 
-                            <!-- Botón para activar/desactivar -->
-                            <div class="flex me-1">
-                                <button type="button"
-                                    class="btn btn-{{ $marca->estado == 1 ? 'danger' : 'success' }} btn-block"
-                                    role="button" onclick="confirmAction({{ $marca->id }})">
-                                    <i class="bi bi-{{ $marca->estado == 1 ? 'trash' : 'power' }}"></i>
-                                </button>
-                            </div>
-                        </div>
 
 
 
+                            <form id="deleteForm{{ $marca->id }}"
+                                action="{{ route('marcas.destroy', ['marcas' => $marca->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                        <form id="deleteForm{{ $marca->id }}"
-                            action="{{ route('marcas.destroy', ['marcas' => $marca->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
+                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                <button id="submitBtn{{ $marca->id }}" type="submit"
+                                    style="display: none;"></button>
+                            </form>
 
-                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $marca->id }}" type="submit" style="display: none;"></button>
-                        </form>
-
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 @endforeach
-               
+
             </tbody>
         </table>
 

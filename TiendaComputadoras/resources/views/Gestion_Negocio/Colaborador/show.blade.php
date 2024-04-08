@@ -8,18 +8,20 @@
                 <div class="card-body mb-3">
                     <div class="text-center">
                         @foreach ($imagenes as $imagen)
-                        <img src="{{$imagen->url}}" alt="{{ $empleados->personas->nombre }}"
-                            class="img-fluid rounded-circle mb-2" width="100" height="128" />
-                            @endforeach
+                            <img src="{{ $imagen->url }}" alt="{{ $empleados->personas->nombre }}"
+                                class="img-fluid rounded-circle mb-2" width="100" height="128" />
+                        @endforeach
                         <h5 class="card-title mb-0">{{ $empleados->personas->nombre }}
                             {{ $empleados->personas->persona_naturales->apellido }}</h5>
                         <div class="text-muted mb-2"></div>
 
                         <div>
-                            <a class="btn btn-primary btn-sm mb-1"
-                                href="{{ route('colaboradores.edit', ['colaboradores' => $empleados->id]) }}">Actualizar
-                                Datos</a>
-
+                            @can('update', App\Models\Empleados::class)
+                                <a class="btn btn-primary btn-sm mb-1"
+                                    href="{{ route('colaboradores.edit', ['colaboradores' => $empleados->id]) }}">Actualizar
+                                    Datos
+                                </a>
+                            @endcan
                         </div>
                     </div>
                     <hr class="my-0" />
@@ -95,7 +97,7 @@
 
                         <div class="flex-grow-1">
 
-                            <strong>Salario Actual:{{ $salario}}</strong>
+                            <strong>Salario Actual:{{ $salario }}</strong>
                             <br />
 
                             <hr />
@@ -184,7 +186,8 @@
                     </div>
                     <hr />
                     <div class="d-grid">
-                        <a href="{{ route('exportaciones.pdf', ['colaboradores' => $empleados->id]) }}" class="btn btn-primary">Descargar pdf</a>
+                        <a href="{{ route('exportaciones.pdf', ['colaboradores' => $empleados->id]) }}"
+                            class="btn btn-primary">Descargar pdf</a>
 
                     </div>
                 </div>

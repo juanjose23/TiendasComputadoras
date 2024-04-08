@@ -14,6 +14,7 @@ class SubcategoriasPolicy
     public function viewAny(User $user): bool
     {
         //
+        return true;
     }
 
     /**
@@ -22,6 +23,7 @@ class SubcategoriasPolicy
     public function view(User $user, Subcategorias $subcategorias): bool
     {
         //
+        return true;
     }
 
     /**

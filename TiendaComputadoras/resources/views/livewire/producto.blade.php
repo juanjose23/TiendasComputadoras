@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('productos.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar producto
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('productos.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar producto
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -67,64 +69,72 @@
                 </tr>
             </thead>
             <tbody>
-                
-                    @foreach ($productos as $producto)
-                <tr>
-                    <td>{{ $loop->index + 1 }}</td>
 
-                    <td>{{ $producto->subcategorias->categorias->nombre }}</td>
-                    <td>{{ $producto->subcategorias->nombre }}</td>
-                    <td>{{ $producto->modelos->marcas->nombre }}</td>
-                    <td>{{ $producto->modelos->nombre }}</td>
-                    <td>{{ $producto->nombre }}</td>
+                @foreach ($productos as $producto)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
 
-                    <td class="text-wrap">{{ wordwrap($producto->descripcion, 50, "\n", true) }}</td>
-                    <td>{{ \Carbon\Carbon::parse($producto->fecha_lanzamiento)->format('d/m/Y') }}</td>
+                        <td>{{ $producto->subcategorias->categorias->nombre }}</td>
+                        <td>{{ $producto->subcategorias->nombre }}</td>
+                        <td>{{ $producto->modelos->marcas->nombre }}</td>
+                        <td>{{ $producto->modelos->nombre }}</td>
+                        <td>{{ $producto->nombre }}</td>
 
-                    <td><span class="badge rounded-pill {{ $producto->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $producto->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
+                        <td class="text-wrap">{{ wordwrap($producto->descripcion, 50, "\n", true) }}</td>
+                        <td>{{ \Carbon\Carbon::parse($producto->fecha_lanzamiento)->format('d/m/Y') }}</td>
 
-                        <div class="d-flex mb-1 align-items-center">
-                        
+                        <td><span class="badge rounded-pill {{ $producto->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $producto->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
+
+                            <div class="d-flex mb-1 align-items-center">
+
                                 <!-- Botón de información -->
-                                <a href="{{ route('productos.show', ['productos' => $producto->id]) }}" class="btn btn-secondary me-1" role="button">
+                                <a href="{{ route('productos.show', ['productos' => $producto->id]) }}"
+                                    class="btn btn-secondary me-1" role="button">
                                     <i class="bi bi-info-circle"></i>
                                 </a>
-                        
-                            <!-- Botón para editar -->
-                            <div class=" me-1">
-                                <a href="{{ route('productos.edit', ['productos' => $producto->id]) }}" class="btn btn-info btn-block" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('productos.edit', ['productos' => $producto->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('delete', App\Models\Empleados::class)
+                                    <!-- Botón para activar/desactivar -->
+                                    <div class="flex me-1">
+                                        <button type="button"
+                                            class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                            role="button" onclick="confirmAction({{ $producto->id }})">
+                                            <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    </div>
+                                @endcan
                             </div>
-                        
-                            <!-- Botón para activar/desactivar -->
-                            <div class="flex me-1">
-                                <button type="button" class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block" role="button" onclick="confirmAction({{ $producto->id }})">
-                                    <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
 
 
 
-                        <form id="deleteForm{{ $producto->id }}"
-                            action="{{ route('productos.destroy', ['productos' => $producto->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
 
-                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $producto->id }}" type="submit" style="display: none;"></button>
-                        </form>
+                            <form id="deleteForm{{ $producto->id }}"
+                                action="{{ route('productos.destroy', ['productos' => $producto->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                    </td>
-                </tr>
+                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                <button id="submitBtn{{ $producto->id }}" type="submit"
+                                    style="display: none;"></button>
+                            </form>
+
+                        </td>
+                    </tr>
                 @endforeach
-                
+
             </tbody>
         </table>
 

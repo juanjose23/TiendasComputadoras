@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('colaboradores.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar colaborador
-                    </a>
+            @can('create', App\Models\Empleados::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('colaboradores.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar colaborador
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -24,14 +26,20 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('exportColaboradores') }}"><i
+                        <li>
+                            <a class="dropdown-item" href="{{ route('exportColaboradores') }}"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
-                                Exportar a Excel</a></li>
-                        <li><a class="dropdown-item" href="{{ route('exportColaboradorespdf') }}"><i
+                                Exportar a Excel
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('exportColaboradorespdf') }}"><i
                                     class="bi bi-file-pdf text-danger"></i>
                                 Exportar
                                 a
-                                PDF</a></li>
+                                PDF
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -69,68 +77,70 @@
                 </tr>
             </thead>
             <tbody>
-               
-                    @foreach ($datos as $colaborador)
-                <tr>
-                    <td>{{ $loop->index + 1 }}</td>
-                    <td>{{ $colaborador->empleados->codigo }}</td>
 
-                    <td>{{ $colaborador->nombre }}</td>
-                    <td>{{ $colaborador->persona_naturales->apellido }}</td>
-                    <td>{{ $colaborador->persona_naturales->tipo_identificacion }}</td>
-                    <td>{{ $colaborador->persona_naturales->identificacion }}</td>
-                    <td>{{ $colaborador->telefono }}</td>
-                    <td>{{ $colaborador->correo }}</td>
-                    <td><span
-                            class="badge rounded-pill {{ $colaborador->empleados->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $colaborador->empleados->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
+                @foreach ($datos as $colaborador)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>{{ $colaborador->empleados->codigo }}</td>
 
-                        <div class="d-flex mb-1 align-items-center">
+                        <td>{{ $colaborador->nombre }}</td>
+                        <td>{{ $colaborador->persona_naturales->apellido }}</td>
+                        <td>{{ $colaborador->persona_naturales->tipo_identificacion }}</td>
+                        <td>{{ $colaborador->persona_naturales->identificacion }}</td>
+                        <td>{{ $colaborador->telefono }}</td>
+                        <td>{{ $colaborador->correo }}</td>
+                        <td><span
+                                class="badge rounded-pill {{ $colaborador->empleados->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $colaborador->empleados->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
 
+                            <div class="d-flex mb-1 align-items-center">
 
-                            <a href="{{ route('colaboradores.edit', ['colaboradores' => $colaborador->empleados->id]) }}"
-                                class="btn btn-info" role="button">
-                                <i class="bi bi-pencil"></i>
+                                @can('update', App\Models\Empleados::class)
+                                    <a href="{{ route('colaboradores.edit', ['colaboradores' => $colaborador->empleados->id]) }}"
+                                        class="btn btn-info" role="button">
+                                        <i class="bi bi-pencil"></i>
 
-                            </a>
+                                    </a>
+                                @endcan
+                                @can('delete', App\Models\Empleados::class)
+                                    <div class="m-1">
+                                        <!-- Botón para activar/desactivar -->
+                                        <button type="button"
+                                            class="btn btn-{{ $colaborador->empleados->estado == 1 ? 'danger' : 'success' }}"
+                                            role="button" onclick="confirmAction({{ $colaborador->empleados->id }})">
+                                            <i
+                                                class="bi bi-{{ $colaborador->empleados->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    </div>
+                                @endcan
 
-                            <div class="m-1">
-                                <!-- Botón para activar/desactivar -->
-                                <button type="button"
-                                    class="btn btn-{{ $colaborador->empleados->estado == 1 ? 'danger' : 'success' }}"
-                                    role="button" onclick="confirmAction({{ $colaborador->empleados->id }})">
-                                    <i
-                                        class="bi bi-{{ $colaborador->empleados->estado == 1 ? 'trash' : 'power' }}"></i>
-                                </button>
+                                <a href="{{ route('colaboradores.show', ['colaboradores' => $colaborador->empleados->id]) }}"
+                                    class="btn btn-secondary" role="button">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+
                             </div>
 
-                            <a href="{{ route('colaboradores.show', ['colaboradores' => $colaborador->empleados->id]) }}"
-                                class="btn btn-secondary" role="button">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
-
-                        </div>
 
 
+                            <form id="deleteForm{{ $colaborador->empleados->id }}"
+                                action="{{ route('colaboradores.destroy', ['colaboradores' => $colaborador->empleados->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                        <form id="deleteForm{{ $colaborador->empleados->id }}"
-                            action="{{ route('colaboradores.destroy', ['colaboradores' => $colaborador->empleados->id]) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
+                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                <button id="submitBtn{{ $colaborador->empleados->id }}" type="submit"
+                                    style="display: none;"></button>
+                            </form>
 
-                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $colaborador->empleados->id }}" type="submit"
-                                style="display: none;"></button>
-                        </form>
-
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 @endforeach
-        
+
             </tbody>
         </table>
 

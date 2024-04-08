@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('subcategorias.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Sub-categoría
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('subcategorias.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Sub-categoría
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -62,55 +64,63 @@
                 </tr>
             </thead>
             <tbody>
-           
-                    @foreach ($subcategorias as $subcategoria)
-                <tr>
-                    <td>{{ $loop->index + 1 }}</td>
 
-                    <td>{{ $subcategoria->categorias->nombre }}</td>
-                    <td>{{ $subcategoria->nombre }}</td>
+                @foreach ($subcategorias as $subcategoria)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
 
-                    <td class="text-wrap">{{ wordwrap($subcategoria->descripcion, 50, "\n", true) }}</td>
-                    <td><span class="badge rounded-pill {{ $subcategoria->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $subcategoria->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
+                        <td>{{ $subcategoria->categorias->nombre }}</td>
+                        <td>{{ $subcategoria->nombre }}</td>
 
-                        <div class="d-flex mb-1 align-items-center">
-                           
-                        
-                            <!-- Botón para editar -->
-                            <div class=" me-1">
-                                <a href="{{ route('subcategorias.edit', ['subcategorias' => $subcategoria->id]) }}" class="btn btn-info btn-block" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
+                        <td class="text-wrap">{{ wordwrap($subcategoria->descripcion, 50, "\n", true) }}</td>
+                        <td><span
+                                class="badge rounded-pill {{ $subcategoria->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $subcategoria->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
+
+                            <div class="d-flex mb-1 align-items-center">
+
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('subcategorias.edit', ['subcategorias' => $subcategoria->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('delete', App\Models\Productos::class)
+                                    <!-- Botón para activar/desactivar -->
+                                    <div class="flex me-1">
+                                        <button type="button"
+                                            class="btn btn-{{ $subcategoria->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                            role="button" onclick="confirmAction({{ $subcategoria->id }})">
+                                            <i class="bi bi-{{ $subcategoria->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    </div>
+                                @endcan
                             </div>
-                        
-                            <!-- Botón para activar/desactivar -->
-                            <div class="flex me-1">
-                                <button type="button" class="btn btn-{{ $subcategoria->estado == 1 ? 'danger' : 'success' }} btn-block" role="button" onclick="confirmAction({{ $subcategoria->id }})">
-                                    <i class="bi bi-{{ $subcategoria->estado == 1 ? 'trash' : 'power' }}"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
 
 
 
-                        <form id="deleteForm{{ $subcategoria->id }}"
-                            action="{{ route('subcategorias.destroy', ['subcategorias' => $subcategoria->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
 
-                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $subcategoria->id }}" type="submit" style="display: none;"></button>
-                        </form>
+                            <form id="deleteForm{{ $subcategoria->id }}"
+                                action="{{ route('subcategorias.destroy', ['subcategorias' => $subcategoria->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                    </td>
-                </tr>
+                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                <button id="submitBtn{{ $subcategoria->id }}" type="submit"
+                                    style="display: none;"></button>
+                            </form>
+
+                        </td>
+                    </tr>
                 @endforeach
-             
+
             </tbody>
         </table>
 

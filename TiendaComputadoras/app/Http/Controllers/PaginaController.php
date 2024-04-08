@@ -38,9 +38,9 @@ class PaginaController extends Controller
         $informacionDetallada = $usuarios->ObtenerCodigoCliente($personasId) ?? $usuarios->ObtenerCodigoEmpleados($personasId);
         $privilegios=$privilegio->ObtenerPrivilegiosUsuario($userId);
       
-        if (!$validarcontraseña) {
+       /* if (!$validarcontraseña) {
             return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
-        }
+        }*/
 
         $validarRol = RolesUsuarios::where('users_id', $userId)
             ->where('roles_id', '!=', 1)

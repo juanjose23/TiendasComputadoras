@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('tallas.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar talla
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('tallas.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar talla
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -84,23 +86,25 @@
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
-
-                                <!-- Botón para editar -->
-                                <div class=" me-1">
-                                    <a href="{{ route('tallas.edit', ['tallas' => $talla->id]) }}"
-                                        class="btn btn-info btn-block" role="button">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                </div>
-
-                                <!-- Botón para activar/desactivar -->
-                                <div class="flex me-1">
-                                    <button type="button"
-                                        class="btn btn-{{ $talla->estado == 1 ? 'danger' : 'success' }} btn-block"
-                                        role="button" onclick="confirmAction({{ $talla->id }})">
-                                        <i class="bi bi-{{ $talla->estado == 1 ? 'trash' : 'power' }}"></i>
-                                    </button>
-                                </div>
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('tallas.edit', ['tallas' => $talla->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('delete', App\Models\Productos::class)
+                                    <!-- Botón para activar/desactivar -->
+                                    <div class="flex me-1">
+                                        <button type="button"
+                                            class="btn btn-{{ $talla->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                            role="button" onclick="confirmAction({{ $talla->id }})">
+                                            <i class="bi bi-{{ $talla->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    </div>
+                                @endcan
                             </div>
 
 

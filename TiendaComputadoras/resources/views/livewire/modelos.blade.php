@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('modelos.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Modelos
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('modelos.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Modelos
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -82,22 +84,26 @@
                                 <i class="bi bi-info-circle"></i>
                             </a>
  Botón de información -->
-                                <!-- Botón para editar -->
-                                <div class=" me-1">
-                                    <a href="{{ route('modelos.edit', ['modelos' => $modelo->id]) }}"
-                                        class="btn btn-info btn-block" role="button">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                </div>
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('modelos.edit', ['modelos' => $modelo->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
 
-                                <!-- Botón para activar/desactivar -->
-                                <div class="flex me-1">
-                                    <button type="button"
-                                        class="btn btn-{{ $modelo->estado == 1 ? 'danger' : 'success' }} btn-block"
-                                        role="button" onclick="confirmAction({{ $modelo->id }})">
-                                        <i class="bi bi-{{ $modelo->estado == 1 ? 'trash' : 'power' }}"></i>
-                                    </button>
-                                </div>
+                                @can('delete', App\Models\Empleados::class)
+                                    <!-- Botón para activar/desactivar -->
+                                    <div class="flex me-1">
+                                        <button type="button"
+                                            class="btn btn-{{ $modelo->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                            role="button" onclick="confirmAction({{ $modelo->id }})">
+                                            <i class="bi bi-{{ $modelo->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    </div>
+                                @endcan
                             </div>
 
 

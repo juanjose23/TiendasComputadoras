@@ -8,13 +8,19 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('cargos.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Crear cargo
-                    </a>
+            @can('create', App\Models\Cargos::class)
+                <!-- No se mostrará el botón -->
+
+                <div class="dropdown">
+
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('cargos.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Crear cargo
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcannot
+
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -79,13 +85,15 @@
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
-
-                                <a href="{{ route('cargos.edit', ['cargos' => $cargo->id]) }}"
-                                    class="btn btn-info d-block" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
+                                @can('update', App\Models\Cargos::class)
+                                    <a href="{{ route('cargos.edit', ['cargos' => $cargo->id]) }}"
+                                        class="btn btn-info d-block" role="button">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                @endcan
 
                                 <div class="m-1">
+                                    @can('delete', App\Models\Cargos::class)
                                     <!-- Botón para activar/desactivar -->
                                     <button type="button"
                                         class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} d-block"
@@ -93,6 +101,8 @@
                                         <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
 
                                     </button>
+                                    @endcan
+
                                 </div>
                             </div>
 

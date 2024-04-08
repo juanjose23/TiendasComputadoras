@@ -8,14 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('colores.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar Color
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('colores.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Color
+                        </a>
+                    </div>
                 </div>
-            </div>
-
+            @endcan
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
                 <div class="dropdown">
@@ -62,73 +63,73 @@
                 </tr>
             </thead>
             <tbody>
-          
-                    @foreach ($Colores as $color)
-                <tr>
-                    <td>{{ $loop->index + 1 }}</td>
+
+                @foreach ($Colores as $color)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
 
 
-                    <td>
+                        <td>
 
-                       {{ $color->nombre }}
-                    
+                            {{ $color->nombre }}
 
-                    </td>
-                  
-                    <td>{{ $color->codigo }}</td>
-                    <td>
-                        <span class="badge rounded-pill " >
-                            <div style="width: 20px; height: 20px; border-radius: 50%; background-color:{{$color->codigo}}"></div>
 
-                    </span>
-                </td>
-                    <td><span class="badge rounded-pill {{ $color->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $color->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
+                        </td>
 
-                        <div class="d-flex mb-1 align-items-center">
-                            <!--
-                            <a href="{{ route('colores.show', ['colores' => $color->id]) }}"
-                                class="btn btn-secondary me-1" role="button">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
- Botón de información -->
-                            <!-- Botón para editar -->
-                            <div class=" me-1">
-                                <a href="{{ route('colores.edit', ['colores' => $color->id]) }}"
-                                    class="btn btn-info btn-block" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
+                        <td>{{ $color->codigo }}</td>
+                        <td>
+                            <span class="badge rounded-pill ">
+                                <div
+                                    style="width: 20px; height: 20px; border-radius: 50%; background-color:{{ $color->codigo }}">
+                                </div>
+
+                            </span>
+                        </td>
+                        <td><span class="badge rounded-pill {{ $color->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $color->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
+
+                            <div class="d-flex mb-1 align-items-center">
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('colores.edit', ['colores' => $color->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('delete', App\Models\Productos::class)
+                                    <!-- Botón para activar/desactivar -->
+                                    <div class="flex me-1">
+                                        <button type="button"
+                                            class="btn btn-{{ $color->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                            role="button" onclick="confirmAction({{ $color->id }})">
+                                            <i class="bi bi-{{ $color->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        </button>
+                                    </div>
+                                @endcan
                             </div>
 
-                            <!-- Botón para activar/desactivar -->
-                            <div class="flex me-1">
-                                <button type="button"
-                                    class="btn btn-{{ $color->estado == 1 ? 'danger' : 'success' }} btn-block"
-                                    role="button" onclick="confirmAction({{ $color->id }})">
-                                    <i class="bi bi-{{ $color->estado == 1 ? 'trash' : 'power' }}"></i>
-                                </button>
-                            </div>
-                        </div>
 
 
 
+                            <form id="deleteForm{{ $color->id }}"
+                                action="{{ route('colores.destroy', ['colores' => $color->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                        <form id="deleteForm{{ $color->id }}"
-                            action="{{ route('colores.destroy', ['colores' => $color->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
+                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                <button id="submitBtn{{ $color->id }}" type="submit"
+                                    style="display: none;"></button>
+                            </form>
 
-                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $color->id }}" type="submit" style="display: none;"></button>
-                        </form>
-
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
                 @endforeach
-             
+
             </tbody>
         </table>
 

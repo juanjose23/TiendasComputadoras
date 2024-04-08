@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CargoStore;
 use App\Http\Requests\UpdateCargos;
 use App\Models\Cargos;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class CargosController extends Controller
 {
 
+
+    public function __construct()
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\Cargos')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\Cargos')->only(['edit', 'update']);
+        // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+        $this->middleware('can:viewAny,App\Models\Cargos')->except(['index', 'show']);
+    }
 
     //Metodos para la vista.
     public function index()
@@ -19,10 +29,18 @@ class CargosController extends Controller
     }
     public function create()
     {
+      /*  if (Gate::denies('create', Cargos::class)) {
+            // Si no tiene permiso, redirige a la página de error 403
+            return redirect()->route('error403');
+        }*/
         return view('Gestion_Negocio.Cargos.create');
     }
     public function store(CargoStore $request)
     {
+        /*if (Gate::denies('create', Cargos::class)) {
+            // Si no tiene permiso, redirige a la página de error 403
+            return redirect()->route('error403');
+        }*/
         $Cargos = new Cargos();
         $perfil = $request->perfil;
         $Cargos->codigo = $Cargos->generarCodigo($perfil);
@@ -36,6 +54,10 @@ class CargosController extends Controller
     }
     public function edit($cargos)
     {
+       /* if (Gate::denies('update', Cargos::class)) {
+            // Si no tiene permiso, redirige a la página de error 403
+            return redirect()->route('error403');
+        }*/
         $cargos = Cargos::findOrFail($cargos);
 
         return view('Gestion_Negocio.Cargos.edit', compact('cargos'));
@@ -43,6 +65,7 @@ class CargosController extends Controller
 
     public function update(UpdateCargos $request, $cargos)
     {
+        
         $cargo = Cargos::findOrFail($cargos);
 
         // Verificar si los datos han cambiado
@@ -82,6 +105,5 @@ class CargosController extends Controller
         Session::flash('success', 'El estado del cargo ha sido cambiado exitosamente.');
 
         return redirect()->route('cargos.index');
-        
     }
 }

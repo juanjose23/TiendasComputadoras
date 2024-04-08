@@ -32,8 +32,8 @@ class permisosroles extends Model
     {
         // Realizar la consulta para obtener los permisos asociados a los módulos activos
         $permisos = DB::table('modulos as m')
-            ->join('permisosmodulos as pm', 'm.id', '=', 'pm.modulos_id')
-            ->join('permisos as p', 'pm.permisos_id', '=', 'p.id')
+            ->join('permisosmodulos as pm', 'pm.modulos_id', '=', 'm.id')
+            ->join('permisos as p', 'p.id',  '=', 'pm.permisos_id')
             ->select('pm.id as id_permiso_modulo', 'm.id as id_modulo', 'm.nombre as nombre_modulo', 'p.id as id_permiso', 'p.nombre as nombre_permiso')
             ->where('m.estado', '=', 1)
             ->get();
@@ -86,12 +86,14 @@ class permisosroles extends Model
             ->join('permisosmodulos as pm', 'm.id', '=', 'pm.modulos_id')
             ->join('permisos as p', 'pm.permisos_id', '=', 'p.id')
             ->where('m.estado', '=', 1)
-            ->whereNotIn('pm.permisos_id', function ($query) use ($IdRol) {
-                $query->select('permisosmodulos_id')
-                    ->from('permisosroles')
-                    ->where('roles_id', '=', $IdRol);
+            ->whereNotIn('pm.id', function ($query) use ($IdRol) {
+                $query->select('pp.permisosmodulos_id')
+                    ->from('permisosroles as pp')
+                    ->where('pp.roles_id', '=', $IdRol);
             })
             ->get();
+
+
         $permisos = [];
 
         foreach ($resultados as $resultado) {
@@ -125,7 +127,7 @@ class permisosroles extends Model
     public function mostrarpermisosrol($IdRol)
     {
         $resultados = DB::table('permisosroles as pp')
-            ->select('pp.id as id_permiso_modulo', 'm.id as id_modulo', 'm.nombre as nombre_modulo', 'p.id as id_permiso', 'p.nombre as nombre_permiso','pp.created_at AS fecha_registro','pp.updated_at AS fecha_actualizacion')
+            ->select('pp.id as id_permiso_modulo', 'm.id as id_modulo', 'm.nombre as nombre_modulo', 'p.id as id_permiso', 'p.nombre as nombre_permiso', 'pp.created_at AS fecha_registro', 'pp.updated_at AS fecha_actualizacion')
             ->leftJoin('permisosmodulos as pm', 'pp.permisosmodulos_id', '=', 'pm.id')
             ->leftJoin('modulos as m', 'm.id', '=', 'pm.modulos_id')
             ->leftJoin('permisos as p', 'p.id', '=', 'pm.permisos_id')
@@ -141,8 +143,8 @@ class permisosroles extends Model
                 'id_permiso_modulo' => $resultado->id_permiso_modulo,
                 'id' => $resultado->id_permiso,
                 'nombre' => $resultado->nombre_permiso,
-                'fecha_registro'=>$resultado->fecha_registro,
-                'fecha_actualizacion'=>$resultado->fecha_actualizacion
+                'fecha_registro' => $resultado->fecha_registro,
+                'fecha_actualizacion' => $resultado->fecha_actualizacion
 
             ];
             if (array_key_exists($modulo_nombre, $permisos)) {
@@ -152,12 +154,32 @@ class permisosroles extends Model
                     'id' => $resultado->id_modulo,
                     'nombre' => $modulo_nombre,
                     'permisos' => [$permiso],
-                    'fecha_registro'=>$resultado->fecha_registro,
-                    'fecha_actualizacion'=>$resultado->fecha_actualizacion
+                    'fecha_registro' => $resultado->fecha_registro,
+                    'fecha_actualizacion' => $resultado->fecha_actualizacion
                 ];
             }
         }
         // Devolver los permisos organizados por módulos
         return array_values($permisos);
+    }
+
+    /**
+     * Función para obtener los permisos de roles para un usuario específico
+     *
+     * @param int $userId ID del usuario
+     * @return array Array de resultados de permisos de roles
+     */
+    public static function obtenerPermisosRoles($userId)
+    {
+        // Realizar la consulta utilizando el Query Builder de Laravel
+        $resultados = DB::table('permisosroles AS pr')
+            ->select('pr.permisosmodulos_id', 'pr.id')
+            ->join('rolesusuarios AS ru', 'ru.roles_id', '=', 'pr.roles_id')
+            ->join('users AS u', 'u.id', '=', 'ru.users_id')
+            ->where('u.id', $userId)
+            ->get();
+
+        // Devolver los resultados como un array
+        return $resultados->toArray();
     }
 }

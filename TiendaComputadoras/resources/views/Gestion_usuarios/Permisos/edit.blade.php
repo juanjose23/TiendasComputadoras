@@ -27,9 +27,9 @@
                                 @foreach ($modulo['permisos'] as $submodulo)
                                     <div style="margin-left: 20px; margin-bottom: 10px;">
                                         <input type="checkbox" name="submodulos[{{ $modulo['id'] }}][]"
-                                            value="{{ $submodulo['id'] }}"
+                                            value="{{ $submodulo['id_permiso_modulo'] }}"
                                             class="flat   @error("submodulos.$modulo[id]") is-invalid @enderror"
-                                            @if (old("submodulos.$modulo[id]") && in_array($submodulo['id'], old("submodulos.$modulo[id]"))) checked @endif>
+                                            @if (old("submodulos.$modulo[id]") && in_array($submodulo['id_permiso_modulo'], old("submodulos.$modulo[id]"))) checked @endif>
                                         <span>{{ $submodulo['nombre'] }}</span>
                                     </div>
                                 @endforeach

@@ -117,28 +117,37 @@
                                     <a href="{{ route('productos.index') }}" class=" btn btn-danger">
                                         <i class="bi bi-house"></i> Volver al inicio
                                     </a>
+                                    @can('update', App\Models\Productos::class)
+                                        <button id="infoDropdown" type="button" class="btn btn-info dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Configuracion de detalles
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="infoDropdown">
 
-                                    <button id="infoDropdown" type="button" class="btn btn-info dropdown-toggle"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Configuracion de detalles
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="infoDropdown">
-                                 
-                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                            <i class="align-middle me-2" data-feather="droplet"  style="color:red;"></i> Nuevo color
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                            <i class="align-middle me-2" data-feather="crop" style="color:aqua"></i> Nueva Corte
-                                        </a>
-                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                            <i class="align-middle me-2" data-feather="tag" style="color:black;"></i>  Nueva talla
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                            <i class="align-middle me-2" data-feather="edit"></i> Nuevos detalles
-                                        </a>
 
-                                    </div>
+                                            <a class="dropdown-item"
+                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                                <i class="align-middle me-2" data-feather="droplet" style="color:red;"></i>
+                                                Nuevo color
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                                <i class="align-middle me-2" data-feather="crop" style="color:aqua"></i> Nueva
+                                                Corte
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                                <i class="align-middle me-2" data-feather="tag" style="color:black;"></i> Nueva
+                                                talla
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item"
+                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                                <i class="align-middle me-2" data-feather="edit"></i> Nuevos detalles
+                                            </a>
+
+                                        </div>
+                                    @endcan
                                 </div>
                             </div>
 
@@ -186,21 +195,25 @@
                                         <td>{{ $colorproducto->created_at }}</td>
                                         <td>{{ $colorproducto->updated_at }}</td>
                                         <td>
-                                            <button type="button"
-                                                class="btn btn-{{ $colorproducto->estado == 1 ? 'danger' : 'success' }} btn-sm"
-                                                role="button" onclick="confirmAction({{ $colorproducto->id }})">
-                                                <i class="bi bi-{{ $colorproducto->estado == 1 ? 'trash' : 'power' }}"></i>
-                                            </button>
-                                            <form id="deleteForm{{ $colorproducto->id }}"
-                                                action="{{ route('coloresproductos.destroy', ['coloresproductos' => $colorproducto->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="text" name="id" value={{ $colorproducto->id }} hidden>
-                                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                                <button id="submitBtn{{ $colorproducto->id }}" type="submit"
-                                                    style="display: none;"></button>
-                                            </form>
+                                            @can('delete', App\Models\Productos::class)
+                                                <button type="button"
+                                                    class="btn btn-{{ $colorproducto->estado == 1 ? 'danger' : 'success' }} btn-sm"
+                                                    role="button" onclick="confirmAction({{ $colorproducto->id }})">
+                                                    <i
+                                                        class="bi bi-{{ $colorproducto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                </button>
+                                                <form id="deleteForm{{ $colorproducto->id }}"
+                                                    action="{{ route('coloresproductos.destroy', ['coloresproductos' => $colorproducto->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="text" name="id" value={{ $colorproducto->id }}
+                                                        hidden>
+                                                    <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                                    <button id="submitBtn{{ $colorproducto->id }}" type="submit"
+                                                        style="display: none;"></button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
@@ -224,11 +237,12 @@
                             <a href="{{ route('productos.index') }}" class=" btn btn-danger">
                                 <i class="bi bi-house"></i> volver al inicio
                             </a>
-                            <a href="{{ route('productos.multimedia', ['id' => $productos->id]) }}"
-                                class=" btn btn-primary">
-                                <i class="bi bi-plus"></i> Agregar Imagen
-                            </a>
-
+                            @can('update', App\Models\Productos::class)
+                                <a href="{{ route('productos.multimedia', ['id' => $productos->id]) }}"
+                                    class=" btn btn-primary">
+                                    <i class="bi bi-plus"></i> Agregar Imagen
+                                </a>
+                            @endcan
 
                         </div>
                         <h5 class="card-title mb-0 text-black text-center">Producto {{ $productos->nombre }}</h5>
@@ -258,21 +272,23 @@
                                         <td>{{ $colorproducto->created_at }}</td>
                                         <td>{{ $colorproducto->updated_at }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-danger btn-sm" role="button"
-                                                onclick="confirmActionimg({{ $imagenproducto->id }})">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                            <form id="deleteFormimg{{ $imagenproducto->id }}"
-                                                action="{{ route('productos.destroyimg', ['id' => $imagenproducto->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="text" name="id" value={{ $imagenproducto->id }}
-                                                    hidden>
-                                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                                <button id="submitBtn{{ $imagenproducto->id }}" type="submit"
-                                                    style="display: none;"></button>
-                                            </form>
+                                            @can('delete', App\Models\Productos::class)
+                                                <button type="button" class="btn btn-danger btn-sm" role="button"
+                                                    onclick="confirmActionimg({{ $imagenproducto->id }})">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                                <form id="deleteFormimg{{ $imagenproducto->id }}"
+                                                    action="{{ route('productos.destroyimg', ['id' => $imagenproducto->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="text" name="id" value={{ $imagenproducto->id }}
+                                                        hidden>
+                                                    <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                                    <button id="submitBtn{{ $imagenproducto->id }}" type="submit"
+                                                        style="display: none;"></button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('categorias.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar categoría
-                    </a>
+            @can('create', App\Models\Productos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('categorias.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar categoría
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -61,58 +63,66 @@
                 </tr>
             </thead>
             <tbody>
-             
-                    @foreach ($Cargo as $cargo)
-                <tr>
-                    <td>{{ $loop->index + 1 }}</td>
+
+                @foreach ($Cargo as $cargo)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
 
 
-                    <td>{{ $cargo->nombre }}</td>
+                        <td>{{ $cargo->nombre }}</td>
 
-                    <td class="text-wrap">{{ wordwrap($cargo->descripcion, 50, "\n", true) }}</td>
-                    <td><span class="badge rounded-pill {{ $cargo->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                            {{ $cargo->estado == 1 ? 'Activo' : 'Inactivo' }}
-                        </span>
-                    </td>
-                    <td>
+                        <td class="text-wrap">{{ wordwrap($cargo->descripcion, 50, "\n", true) }}</td>
+                        <td><span class="badge rounded-pill {{ $cargo->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                {{ $cargo->estado == 1 ? 'Activo' : 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
 
-                        <div class="d-flex mb-1 align-items-center">
-                            <!-- Botón de información -->
-                            <a href="{{ route('categorias.show', ['categorias' => $cargo->id]) }}" class="btn btn-secondary me-1" role="button">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
-                        
-                            <!-- Botón para editar -->
-                            <div class=" me-1">
-                                <a href="{{ route('categorias.edit', ['categorias' => $cargo->id]) }}" class="btn btn-info btn-block" role="button">
-                                    <i class="bi bi-pencil"></i>
+                            <div class="d-flex mb-1 align-items-center">
+                                <!-- Botón de información -->
+                                <a href="{{ route('categorias.show', ['categorias' => $cargo->id]) }}"
+                                    class="btn btn-secondary me-1" role="button">
+                                    <i class="bi bi-info-circle"></i>
                                 </a>
+                                @can('update', App\Models\Productos::class)
+                                    <!-- Botón para editar -->
+                                    <div class=" me-1">
+                                        <a href="{{ route('categorias.edit', ['categorias' => $cargo->id]) }}"
+                                            class="btn btn-info btn-block" role="button">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                    </div>
+                                @endcan
+                                @can('delete', App\Models\Productos::class)
+                                <!-- Botón para activar/desactivar -->
+                                <div class="flex me-1">
+                                    <button type="button"
+                                        class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} btn-block"
+                                        role="button" onclick="confirmAction({{ $cargo->id }})">
+                                        <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
+                                    </button>
+                                </div>
+                                @endcan
                             </div>
-                        
-                            <!-- Botón para activar/desactivar -->
-                            <div class="flex me-1">
-                                <button type="button" class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} btn-block" role="button" onclick="confirmAction({{ $cargo->id }})">
-                                    <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
 
 
 
-                        <form id="deleteForm{{ $cargo->id }}"
-                            action="{{ route('categorias.destroy', ['categorias' => $cargo->id]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
 
-                            <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                            <button id="submitBtn{{ $cargo->id }}" type="submit" style="display: none;"></button>
-                        </form>
+                            <form id="deleteForm{{ $cargo->id }}"
+                                action="{{ route('categorias.destroy', ['categorias' => $cargo->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('DELETE')
 
-                    </td>
-                </tr>
+                                <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
+                                <button id="submitBtn{{ $cargo->id }}" type="submit"
+                                    style="display: none;"></button>
+                            </form>
+
+                        </td>
+                    </tr>
                 @endforeach
-          
+
             </tbody>
         </table>
 
