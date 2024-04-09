@@ -1,4 +1,4 @@
-<div >
+<div>
     <div class="d-flex justify-content-between align-items-center flex-wrap">
         <div class="input-group mb-3" style="max-width: 300px;">
             <input type="text" wire:model.live.debounce.300ms="buscar" class="form-control form-control rounded-start"
@@ -8,15 +8,17 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('privilegios.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Asignar privielgios 
-                    </a>
+            @can('create', App\Models\permisos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('privilegios.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Asignar privielgios
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
-           
+
 
             <!-- Botón para seleccionar cantidad de registros a mostrar -->
             <div class="ms-2">
@@ -53,19 +55,21 @@
                         <td class="text-center">{{ wordwrap($rol->cantidad, 50, "\n", true) }}</td>
                         <td>
                             <div class="d-flex mb-1 align-items-center">
-                                <a href="{{ route('privilegios.edit', ['privilegios' => $rol->roles->id]) }}"
-                                    class="btn btn-info" role="button">
-                                    <i class="bi bi-pencil"></i>
+                                @can('update', App\Models\permisos::class)
+                                    <a href="{{ route('privilegios.edit', ['privilegios' => $rol->roles->id]) }}"
+                                        class="btn btn-info" role="button">
+                                        <i class="bi bi-pencil"></i>
 
-                                </a>
-                           
-
-                            <div class="m-1">
-                                <a href="{{ route('privilegios.show', ['privilegios' => $rol->roles->id]) }}"
-                                    class="btn btn-secondary" role="button">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                            </div>
+                                    </a>
+                                @endcan
+                                @can('delete', App\Models\permisos::class)
+                                    <div class="m-1">
+                                        <a href="{{ route('privilegios.show', ['privilegios' => $rol->roles->id]) }}"
+                                            class="btn btn-secondary" role="button">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
+                                @endcan
                             </div>
 
                         </td>

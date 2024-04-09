@@ -20,8 +20,8 @@ class Preciosproductos extends Component
             'productoscolores.productos.modelos',
             'productoscolores.productos.modelos.marcas',
             'productoscolores.productos.subcategorias',
-            'productoscolores.productos.subcategorias.categorias',
-            'productoscolores.productos.detalles'
+            'productoscolores.productos.subcategorias.categorias'
+            
         ])->where(function ($query) {
             $query->where('precio', 'like', '%' . $this->buscar . '%')
                 ->orWhereHas('productoscolores.colores', function ($query) {
@@ -47,16 +47,8 @@ class Preciosproductos extends Component
                 })
                 ->orWhereHas('productoscolores.productos.modelos.marcas', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
-                })
-                ->orWhereHas('productoscolores.productos.detalles', function ($query) {
-                    $query->where('dimensiones', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('peso', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('material', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('compatibilidad', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('instrucciones_cuidado', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('instrucciones_montaje', 'like', '%' . $this->buscar . '%');
-                    $query->orWhere('caracteristicas_especiales', 'like', '%' . $this->buscar . '%');
                 });
+                
         })->paginate($this->perPage);
         
         return view('livewire.preciosproductos',compact('productos'));

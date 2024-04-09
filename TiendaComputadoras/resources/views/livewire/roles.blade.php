@@ -8,14 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('roles.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Crear rol
-                    </a>
+            @can('create', App\Models\permisos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('roles.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Crear rol
+                        </a>
+                    </div>
                 </div>
-            </div>
-
+            @endcan
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
                 <div class="dropdown">
@@ -54,9 +55,9 @@
                     <th scope="col" class="px-4 py-3">
                         <span class="sr-only">#</span>
                     </th>
-             
+
                     <th scope="col" class="px-4 py-3">Cargo</th>
-                
+
                     <th scope="col" class="px-4 py-3">Descripción</th>
                     <th scope="col" class="px-4 py-3">Estado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
@@ -67,10 +68,10 @@
                 @foreach ($roles as $rol)
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
-                 
+
 
                         <td>{{ $rol->nombre }}</td>
-                      
+
                         <td class="text-wrap">{{ wordwrap($rol->descripcion, 50, "\n", true) }}</td>
                         <td><span class="badge rounded-pill {{ $rol->estado == 1 ? 'bg-success' : 'bg-danger' }}">
                                 {{ $rol->estado == 1 ? 'Activo' : 'Inactivo' }}
@@ -79,21 +80,23 @@
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
+                                @can('update', App\Models\permisos::class)
+                                    <a href="{{ route('roles.edit', ['roles' => $rol->id]) }}" class="btn btn-info d-block"
+                                        role="button">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                @endcan
+                                @can('delete', App\Models\permisos::class)
+                                    <div class="m-1">
+                                        <!-- Botón para activar/desactivar -->
+                                        <button type="button"
+                                            class="btn btn-{{ $rol->estado == 1 ? 'danger' : 'success' }} d-block"
+                                            role="button" onclick="confirmAction({{ $rol->id }})">
+                                            <i class="bi bi-{{ $rol->estado == 1 ? 'trash' : 'power' }}"></i>
 
-                                <a href="{{ route('roles.edit', ['roles' => $rol->id]) }}"
-                                    class="btn btn-info d-block" role="button">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-
-                                <div class="m-1">
-                                    <!-- Botón para activar/desactivar -->
-                                    <button type="button"
-                                        class="btn btn-{{ $rol->estado == 1 ? 'danger' : 'success' }} d-block"
-                                        role="button" onclick="confirmAction({{ $rol->id }})">
-                                        <i class="bi bi-{{ $rol->estado == 1 ? 'trash' : 'power' }}"></i>
-
-                                    </button>
-                                </div>
+                                        </button>
+                                    </div>
+                                @endcan
                             </div>
 
                             <form id="deleteForm{{ $rol->id }}"

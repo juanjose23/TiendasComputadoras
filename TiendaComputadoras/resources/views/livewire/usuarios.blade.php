@@ -8,13 +8,15 @@
         <!-- Contenedor con alineación a la derecha -->
         <div class="d-flex justify-content-end flex-wrap mt-3 mt-md-0">
             <!-- Botón para crear un cargo -->
-            <div class="dropdown">
-                <div class="btn-group ms-2 mb-2 mb-md-0">
-                    <a href="{{ route('usuarios.create') }}" class="btn btn-success btn-icon">
-                        <i class="bi bi-file-earmark-plus-fill"></i> Registrar usuario
-                    </a>
+            @can('create', App\Models\permisos::class)
+                <div class="dropdown">
+                    <div class="btn-group ms-2 mb-2 mb-md-0">
+                        <a href="{{ route('usuarios.create') }}" class="btn btn-success btn-icon">
+                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar usuario
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endcan
 
             <!-- Botón de exportación -->
             <div class="btn-group ms-2 mb-2 mb-md-0">
@@ -24,7 +26,7 @@
                         <i class="bi bi-box-arrow-up-right"></i> Exportaciones
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a  class="dropdown-item" href="{{route('exportusuarios')}}"><i
+                        <li><a class="dropdown-item" href="{{ route('exportusuarios') }}"><i
                                     class="bi bi-file-earmark-spreadsheet text-success"></i>
                                 Exportar a Excel</a></li>
                     </ul>
@@ -61,42 +63,45 @@
                 </tr>
             </thead>
             <tbody>
-             
 
-                    @foreach ($usuarios as $colaborador)
+
+                @foreach ($usuarios as $colaborador)
                     <tr>
-                        <td>{{ $loop->index+1 }}</td>
+                        <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $colaborador->personas->empleados->codigo }}</td>
 
                         <td>{{ $colaborador->personas->nombre }}</td>
                         <td>{{ $colaborador->personas->persona_naturales->apellido }}</td>
                         <td>{{ $colaborador->usuario }}</td>
                         <td>
-                            <span class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : ($colaborador->estado == 2 ? 'bg-warning' : 'bg-danger') }}">
+                            <span
+                                class="badge rounded-pill {{ $colaborador->estado == 1 ? 'bg-success' : ($colaborador->estado == 2 ? 'bg-warning' : 'bg-danger') }}">
                                 {{ $colaborador->estado == 1 ? 'Activo' : ($colaborador->estado == 2 ? 'Verificar' : 'Inactivo') }}
                             </span>
                         </td>
-                        
+
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
-                             
+                                @can('update', App\Models\permisos::class)
                                     <a href="{{ route('usuarios.edit', ['usuarios' => $colaborador->id]) }}"
                                         class="btn btn-info" role="button">
                                         <i class="bi bi-pencil"></i>
 
                                     </a>
-                               
+                                @endcan
 
-                                    <div class="m-1">
-                                        <!-- Botón para activar/desactivar -->
-                                        <button type="button"
-                                            class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }} d-block"
-                                            role="button" onclick="confirmAction({{ $colaborador->id }})">
-                                            <i class="bi bi-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
-    
-                                        </button>
-                                    </div>
+                                @can('delete', App\Models\permisos::class)
+                                <div class="m-1">
+                                    <!-- Botón para activar/desactivar -->
+                                    <button type="button"
+                                        class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }} d-block"
+                                        role="button" onclick="confirmAction({{ $colaborador->id }})">
+                                        <i class="bi bi-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
+
+                                    </button>
+                                </div>
+                                @endcan
                             </div>
 
 
@@ -113,7 +118,7 @@
                             </form>
 
                         </td>
-                </tr>
+                    </tr>
                 @endforeach
 
             </tbody>

@@ -179,7 +179,7 @@ application. Let's break down what each part is doing: */
         }
         // Si existe registro en Persona_Juridicas, la persona es jurídica
         elseif ($personaJuridica) {
-            $nombre = $personaJuridica->razon_social;
+            $apellido_razon_social = $personaJuridica->razon_social;
         }
 
         // Retornar la información recopilada

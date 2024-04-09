@@ -55,14 +55,14 @@ Route::resource('subcategorias', SubcategoriasController::class)->parameters(['s
 Route::resource('marcas', MarcasController::class)->parameters(['marcas' => 'marcas'])->names('marcas')->middleware('checkRole:3');
 Route::resource('modelos', ModelosController::class)->parameters(['modelos' => 'modelos'])->names('modelos')->middleware('checkRole:4');
 Route::resource('colores', ColoresController::class)->parameters(['colores' => 'colores'])->names('colores')->middleware('checkRole:5');
-Route::resource('tallas', TallasController::class)->parameters(['tallas'=>'tallas'])->names('tallas')->middleware('checkRol:6');
-Route::resource('cortes',CortesController::class)->parameters(['cortes'=> 'cortes'])->names('cortes')->middleware('checkRol:6');
+Route::resource('tallas', TallasController::class)->parameters(['tallas'=>'tallas'])->names('tallas')->middleware('checkRole:6');
+Route::resource('cortes',CortesController::class)->parameters(['cortes'=> 'cortes'])->names('cortes')->middleware('checkRole:7');
 Route::resource('productos',ProductosController::class)->parameters(['productos' => 'productos'])->names('productos')->middleware('checkRole:7');
-Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos')->middleware('checkRole:7');
-Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia')->middleware('checkRole:7');
-Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia')->middleware('checkRole:7');
-Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg')->middleware('checkRole:7');
-Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:8');
+Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos')->middleware('checkRole:8');
+Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia')->middleware('checkRole:8');
+Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia')->middleware('checkRole:8');
+Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg')->middleware('checkRole:8');
+Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:9');
 
 
 //Controller del modulo de usuarios

@@ -54,14 +54,14 @@ class submodulos extends Seeder
                 'modulos_id'=>1,
                 'nombre' => 'Tallas',
                 'descripcion' => '',
-                'enlace'=>'colores.index',
+                'enlace'=>'tallas.index',
                 'estado' => 1
             ],
             [
                 'modulos_id'=>1,
                 'nombre' => 'Cortes',
                 'descripcion' => '',
-                'enlace'=>'colores.index',
+                'enlace'=>'cortes.index',
                 'estado' => 1
             ],
             [
