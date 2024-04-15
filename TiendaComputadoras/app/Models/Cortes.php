@@ -10,6 +10,6 @@ class Cortes extends Model
     use HasFactory;
     public function cortesproductos()
     {
-        return $this->hasMany('App\Models\Cortes');
+        return $this->hasMany('App\Models\Cortes_productos');
     }
 }

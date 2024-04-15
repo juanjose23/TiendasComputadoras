@@ -15,9 +15,9 @@ return new class extends Migration
         Schema::create("detallesproductos", function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("productos_id");
-            $table->unsignedBigInteger("colores_id");
-            $table->unsignedBigInteger("tallas_id");
-            $table->unsignedBigInteger("cortes_id");
+            $table->unsignedBigInteger("coloresproductos_id");
+            $table->unsignedBigInteger("tallasproductos_id");
+            $table->unsignedBigInteger("cortesproductos_id");
             $table->unsignedBigInteger("generos_id");
             $table->timestamps();
             $table->integer("estado");
@@ -26,19 +26,19 @@ return new class extends Migration
                 ->on("productos")
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
-            $table->foreign("colores_id")
+            $table->foreign("coloresproductos_id")
                 ->references("id")
                 ->on("colores_productos")
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
 
-            $table->foreign("tallas_id")
+            $table->foreign("tallasproductos_id")
                 ->references("id")
                 ->on("tallasproductos")
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
 
-            $table->foreign("cortes_id")
+            $table->foreign("cortesproductos_id")
                 ->references("id")
                 ->on("cortesproductos")
                 ->onDelete("cascade")

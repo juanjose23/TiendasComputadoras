@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateProductos;
 use App\Models\Colores;
 use App\Models\Colores_productos;
 use App\Models\Cortes;
+use App\Models\Cortes_productos;
 use App\Models\Cortesproductos;
 use App\Models\Detalle_productos;
 use App\Models\Genero;
@@ -15,6 +16,7 @@ use App\Models\Modelos;
 use App\Models\Productos;
 use App\Models\Subcategorias;
 use App\Models\Tallas;
+use App\Models\Tallas_productos;
 use App\Models\Tallasproductos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -25,6 +27,15 @@ class ProductosController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        // Aplica el middleware de autorización solo a los métodos "create" y "store"
+        $this->middleware('can:create,App\Models\Productos')->only(['create', 'store']);
+        $this->middleware('can:update,App\Models\Productos')->only(['edit', 'update']);
+        $this->middleware('can:delete,App\Models\Productos')->only(['destroy']);
+        // Aplica el middleware de autorización a todos los métodos excepto "index" y "show"
+        $this->middleware('can:viewAny,App\Models\Productos')->except(['index', 'show']);
+    }
     public function index()
     {
         //
@@ -74,7 +85,7 @@ class ProductosController extends Controller
         $Idcolor = $color->id;
 
         //Tabla cortes-productos
-        $corte = new Cortesproductos();
+        $corte = new Cortes_productos();
         $corte->productos_id = $Idproducto;
         $corte->cortes_id = $request->corte;
         $corte->estado = 1;
@@ -82,7 +93,7 @@ class ProductosController extends Controller
         $Idcorte = $corte->id;
 
         //Tabla -productos
-        $talla = new Tallasproductos();
+        $talla = new Tallas_productos();
         $talla->productos_id = $Idproducto;
         $talla->tallas_id = $request->talla;
         $talla->estado = 1;
@@ -92,9 +103,9 @@ class ProductosController extends Controller
         //Detalles del productos
         $detalle = new Detalle_productos();
         $detalle->productos_id = $Idproducto;
-        $detalle->colores_id = $Idcolor;
-        $detalle->tallas_id = $Idtalla;
-        $detalle->cortes_id = $Idcorte;
+        $detalle->coloresproductos_id = $Idcolor;
+        $detalle->tallasproductos_id = $Idtalla;
+        $detalle->cortesproductos_id = $Idcorte;
         $detalle->generos_id = $request->generos;
         $detalle->estado = 1;
 
@@ -111,14 +122,15 @@ class ProductosController extends Controller
         //
         $productos = Productos::with(['modelos', 'modelos.marcas', 'subcategorias', 'subcategorias.categorias', 'detalles', 'coloresproductos', 'imagenes'])
             ->findOrFail($productos->id);
-        $productoscolores = Colores_productos::with(['colores'])->where('productos_id', $productos->id)->get();
+        $detalle = Detalle_productos::with(['tallasproductos', 'coloresproductos', 'cortesproductos', 'tallasproductos.tallas', 'coloresproductos.colores', 'cortesproductos.cortes'])->where('productos_id', $productos->id)->paginate(3);
+
         $imagenes = Imagen::where('imagenable_type', 'App\Models\Productos')
             ->where('imagenable_id', $productos->id)
             ->get();
 
 
-        // return $productoscolores;
-        return view('Gestion_Catalogos.Productos.show', compact('productos', 'productoscolores', 'imagenes'));
+
+        return view('Gestion_Catalogos.Productos.show', compact('productos', 'detalle', 'imagenes'));
     }
 
     /**
@@ -158,15 +170,7 @@ class ProductosController extends Controller
         $producto->estado = $request->estado;
         $producto->save();
 
-        //Detalles del productos
-        $producto->detalles->dimensiones = $request->dimensiones;
-        $producto->detalles->peso = $request->peso;
-        $producto->detalles->material = $request->material;
-        $producto->detalles->instrucciones_cuidado = $request->instrucciones_cuidado;
-        $producto->detalles->instrucciones_montaje = $request->instrucciones_montaje;
-        $producto->detalles->caracteristicas_especiales = $request->caracteristicas_especiales;
-        $producto->detalles->compatibilidad = $request->compatibilidad;
-        $producto->detalles->save();
+
         Session::flash('success', 'Se ha registrado la óperacion con éxito');
         return redirect()->route('productos.index');
     }
@@ -224,12 +228,59 @@ class ProductosController extends Controller
      *  Guardar detalles
      */
 
-    public function agregarCorte()
+    public function agregarCorte($id)
     {
+        $producto = Detalle_productos::with(['productos'])->find($id);
+        $Idproductos = $producto->productos_id;
+        $corte = Cortes_productos::ObtenerCortes($Idproductos);
+        $cortes=Cortes_productos::with(['cortes'])->where('productos_id',$Idproductos)->get();
+       
+        return view('Gestion_Catalogos.Productos.Cortes.cortes', compact('producto','corte','cortes'));
     }
 
-    public function guardarCorte()
+    public function guardarcorte(Request $request)
     {
+         // Validar los campos de la solicitud
+         $request->validate([
+            'producto' => 'required|exists:productos,id',
+            'cortes' => 'required|exists:colores,id',
+            'estado' => 'required|in:0,1',
+        ], [
+            'producto.required' => 'El campo producto es obligatorio.',
+            'producto.exists' => 'El producto seleccionado no existe en la base de datos.',
+            'cortes.required' => 'El campo cortes es obligatorio.',
+            'cortes.exists' => 'El corte seleccionado no existe en la base de datos.',
+            'estado.required' => 'El campo estado es obligatorio.',
+            'estado.in' => 'El campo estado no esta seleccionado',
+        ]);
+        
+        $corte = new Cortes_productos();
+        $corte->productos_id = $request->producto;
+        $corte->cortes_id = $request->cortes;
+        $corte->estado = 1;
+        $corte->save();
+        $Idcorte = $corte->id;
+
+        $Detalle = Detalle_productos::find($request->detalle);
+        $detalle = new Detalle_productos();
+        $detalle->productos_id = $Detalle->productos_id;
+        $detalle->coloresproductos_id = $Detalle->coloresproductos_id;
+        $detalle->tallasproductos_id = $Detalle->tallasproductos_id;
+        $detalle->cortesproductos_id = $Idcorte;
+        $detalle->generos_id = $Detalle->generos_id;
+        $detalle->estado = 1;
+        $detalle->save();
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
+
+    }
+
+    public function destroycortes($id)
+    {
+        $producto = Cortes_productos::findOrFail($id);
+        // Cambia el estado del producto
+        $producto->estado = $producto->estado == 1 ? 0 : 1;
+        $producto->save();
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
     }
 
     public function agregartallas()
@@ -237,6 +288,5 @@ class ProductosController extends Controller
     }
     public function guardartallas()
     {
-
     }
 }

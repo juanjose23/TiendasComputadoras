@@ -117,37 +117,7 @@
                                     <a href="{{ route('productos.index') }}" class=" btn btn-danger">
                                         <i class="bi bi-house"></i> Volver al inicio
                                     </a>
-                                    @can('update', App\Models\Productos::class)
-                                        <button id="infoDropdown" type="button" class="btn btn-info dropdown-toggle"
-                                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Configuracion de detalles
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="infoDropdown">
 
-
-                                            <a class="dropdown-item"
-                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                                <i class="align-middle me-2" data-feather="droplet" style="color:red;"></i>
-                                                Nuevo color
-                                            </a>
-                                            <a class="dropdown-item"
-                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                                <i class="align-middle me-2" data-feather="crop" style="color:aqua"></i> Nueva
-                                                Corte
-                                            </a>
-                                            <a class="dropdown-item"
-                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                                <i class="align-middle me-2" data-feather="tag" style="color:black;"></i> Nueva
-                                                talla
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item"
-                                                href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
-                                                <i class="align-middle me-2" data-feather="edit"></i> Nuevos detalles
-                                            </a>
-
-                                        </div>
-                                    @endcan
                                 </div>
                             </div>
 
@@ -174,45 +144,81 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($productoscolores as $colorproducto)
+                                @foreach ($detalle as $detalles)
                                     <tr>
-                                        <td>{{ $colorproducto->colores->codigo }}</td>
-                                        <td>{{ $colorproducto->colores->nombre }}</td>
+                                        <td>{{ $detalles->generos->nombre }}</td>
+                                        <td>{{ $detalles->cortesproductos->cortes->nombre }}</td>
+                                        <td>{{ $detalles->tallasproductos->tallas->nombre }}</td>
+                                        <td>{{ $detalles->coloresproductos->colores->nombre }}</td>
                                         <td>
                                             <span class="badge rounded-pill">
                                                 <div
-                                                    style="width: 20px; height: 20px; border-radius: 50%; background-color:{{ $colorproducto->colores->codigo }}">
+                                                    style="width: 20px; height: 20px; border-radius: 50%; background-color:{{ $detalles->coloresproductos->colores->codigo }}">
                                                 </div>
                                             </span>
                                         </td>
 
                                         <td>
                                             <span
-                                                class="badge rounded-pill {{ $colorproducto->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                                {{ $colorproducto->estado == 1 ? 'Activo' : 'Inactivo' }}
+                                                class="badge rounded-pill {{ $detalles->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                                {{ $detalles->estado == 1 ? 'Activo' : 'Inactivo' }}
                                             </span>
                                         </td>
-                                        <td>{{ $colorproducto->created_at }}</td>
-                                        <td>{{ $colorproducto->updated_at }}</td>
+                                        <td>{{ $detalles->created_at }}</td>
+                                        <td>{{ $detalles->updated_at }}</td>
                                         <td>
                                             @can('delete', App\Models\Productos::class)
                                                 <button type="button"
-                                                    class="btn btn-{{ $colorproducto->estado == 1 ? 'danger' : 'success' }} btn-sm"
-                                                    role="button" onclick="confirmAction({{ $colorproducto->id }})">
-                                                    <i
-                                                        class="bi bi-{{ $colorproducto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                    class="btn btn-{{ $detalles->estado == 1 ? 'danger' : 'success' }} btn-sm"
+                                                    role="button" onclick="confirmAction({{ $detalles->id }})">
+                                                    <i class="bi bi-{{ $detalles->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                    Dar de baja
                                                 </button>
-                                                <form id="deleteForm{{ $colorproducto->id }}"
-                                                    action="{{ route('coloresproductos.destroy', ['coloresproductos' => $colorproducto->id]) }}"
+                                                <form id="deleteForm{{ $detalles->id }}"
+                                                    action="{{ route('coloresproductos.destroy', ['coloresproductos' => $detalles->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="text" name="id" value={{ $colorproducto->id }}
-                                                        hidden>
+                                                    <input type="text" name="id" value={{ $detalles->id }} hidden>
                                                     <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                                    <button id="submitBtn{{ $colorproducto->id }}" type="submit"
+                                                    <button id="submitBtn{{ $detalles->id }}" type="submit"
                                                         style="display: none;"></button>
                                                 </form>
+                                            @endcan
+                                            @can('update', App\Models\Productos::class)
+                                                <button id="infoDropdown" type="button" class="btn btn-info dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="align-middle me-1" data-feather="settings"></i> Configuracion 
+                                                 
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="infoDropdown">
+
+
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('coloresproductos.edit', ['coloresproductos' => $detalles->id]) }}">
+                                                        <i class="align-middle me-2" data-feather="droplet"
+                                                            style="color:red;"></i>
+                                                        Nuevo color
+                                                    </a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('productos.agregarCorte', ['id' => $productos->id]) }}">
+                                                        <i class="align-middle me-2" data-feather="crop"
+                                                            style="color:aqua"></i> Nueva
+                                                        Corte
+                                                    </a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                                        <i class="align-middle me-2" data-feather="tag"
+                                                            style="color:black;"></i> Nueva
+                                                        talla
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('coloresproductos.edit', ['coloresproductos' => $productos->id]) }}">
+                                                        <i class="align-middle me-2" data-feather="edit"></i> Nuevos detalles
+                                                    </a>
+
+                                                </div>
                                             @endcan
                                         </td>
                                     </tr>
@@ -220,8 +226,7 @@
                             </tbody>
                         </table>
 
-
-
+                        
                     </div>
                 </div>
             </div>

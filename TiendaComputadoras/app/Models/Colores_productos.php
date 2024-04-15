@@ -19,9 +19,8 @@ class Colores_productos extends Model
     }
     public function detalles()
     {
-        return $this->HasMany('App\Models\Detalle_productos');
+        return $this->hasMany('App\Models\Detalles_productos');
     }
- 
     /**
      * Obtiene los productos disponibles.
      * 

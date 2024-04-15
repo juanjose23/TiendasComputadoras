@@ -32,12 +32,12 @@ class StoreProductos extends FormRequest
                         ->whereIn('id', function ($query) {
                             $query->select('productos_id')
                                 ->from('detallesproductos')
-                                ->where('colores_id', $this->input('color'));
+                                ->where('coloresproductos_id', $this->input('color'));
                         })
                         ->whereIn('id', function ($query) {
                             $query->select('productos_id')
                                 ->from('detallesproductos')
-                                ->where('tallas_id', $this->input('talla'));
+                                ->where('tallasproductos_id', $this->input('talla'));
                         })
                         ->whereIn('id', function ($query) {
                             $query->select('productos_id')
@@ -47,7 +47,7 @@ class StoreProductos extends FormRequest
                         ->whereIn('id', function ($query) {
                             $query->select('productos_id')
                                 ->from('detallesproductos')
-                                ->where('cortes_id', $this->input('corte'));
+                                ->where('cortesproductos_id', $this->input('corte'));
                         });
                 })->ignore($this->route('producto')), // Ignora el producto actual al validar la unicidad del nombre
             ],
