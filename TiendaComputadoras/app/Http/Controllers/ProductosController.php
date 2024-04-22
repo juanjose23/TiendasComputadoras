@@ -122,7 +122,6 @@ class ProductosController extends Controller
         //
         $productos = Productos::with(['modelos', 'modelos.marcas', 'subcategorias', 'subcategorias.categorias', 'detalles', 'coloresproductos', 'imagenes'])
             ->findOrFail($productos->id);
-        $detalle = Detalle_productos::with(['tallasproductos', 'coloresproductos', 'cortesproductos', 'tallasproductos.tallas', 'coloresproductos.colores', 'cortesproductos.cortes'])->where('productos_id', $productos->id)->paginate(3);
 
         $imagenes = Imagen::where('imagenable_type', 'App\Models\Productos')
             ->where('imagenable_id', $productos->id)
@@ -130,7 +129,7 @@ class ProductosController extends Controller
 
 
 
-        return view('Gestion_Catalogos.Productos.show', compact('productos', 'detalle', 'imagenes'));
+        return view('Gestion_Catalogos.Productos.show', compact('productos',  'imagenes'));
     }
 
     /**
@@ -283,10 +282,56 @@ class ProductosController extends Controller
         return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
     }
 
-    public function agregartallas()
+    //Tallas
+
+    public function agregartallas($id)
     {
+        $producto = Detalle_productos::with(['productos'])->find($id);
+        $Idproductos = $producto->productos_id;
+        $talla = Tallas_productos::ObtenerTallas($Idproductos);
+        $tallas=Tallas_productos::with(['tallas'])->where('productos_id',$Idproductos)->get();
+       
+        return view('Gestion_Catalogos.Productos.Tallas.tallas', compact('producto','talla','tallas'));
     }
-    public function guardartallas()
+    public function guardartallas(Request $request)
     {
+        $request->validate([
+            'producto' => 'required|exists:productos,id',
+            'tallas' => 'required|exists:colores,id',
+            'estado' => 'required|in:0,1',
+        ], [
+            'producto.required' => 'El campo producto es obligatorio.',
+            'producto.exists' => 'El producto seleccionado no existe en la base de datos.',
+            'cortes.required' => 'El campo cortes es obligatorio.',
+            'cortes.exists' => 'El corte seleccionado no existe en la base de datos.',
+            'estado.required' => 'El campo estado es obligatorio.',
+            'estado.in' => 'El campo estado no esta seleccionado',
+        ]);
+        
+        $talla = new Tallas_productos();
+        $talla->productos_id = $request->producto;
+        $talla->tallas_id = $request->tallas;
+        $talla->estado = 1;
+        $talla->save();
+        $Idtalla = $talla->id;
+
+        $Detalle = Detalle_productos::find($request->detalle);
+        $detalle = new Detalle_productos();
+        $detalle->productos_id = $Detalle->productos_id;
+        $detalle->coloresproductos_id = $Detalle->coloresproductos_id;
+        $detalle->tallasproductos_id = $Idtalla;
+        $detalle->cortesproductos_id = $Detalle->cortesproductos_id;
+        $detalle->generos_id = $Detalle->generos_id;
+        $detalle->estado = 1;
+        $detalle->save();
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
+    }
+    public function destroytallas($id)
+    {
+        $producto = Tallas_productos::findOrFail($id);
+        // Cambia el estado del producto
+        $producto->estado = $producto->estado == 1 ? 0 : 1;
+        $producto->save();
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
     }
 }

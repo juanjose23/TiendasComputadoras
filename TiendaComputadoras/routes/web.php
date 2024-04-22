@@ -61,10 +61,14 @@ Route::resource('productos',ProductosController::class)->parameters(['productos'
 Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos')->middleware('checkRole:8');
 Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia')->middleware('checkRole:8');
 Route::get('/productos/{id}/agregarCorte', [ProductosController::class, 'agregarCorte'])->name('productos.agregarCorte')->middleware('checkRole:8');
+Route::get('/productos/{id}/agregartallas', [ProductosController::class, 'agregartallas'])->name('productos.agregartallas')->middleware('checkRole:8');
 Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia')->middleware('checkRole:8');
 Route::post('/productos/guardarcorte', [ProductosController::class, 'guardarcorte'])->name('productos.guardarcorte')->middleware('checkRole:8');
+Route::post('/productos/guardartallas', [ProductosController::class, 'guardartallas'])->name('productos.guardartallas')->middleware('checkRole:8');
 Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg')->middleware('checkRole:8');
 Route::delete('/productos/destroycortes/{id}', [ProductosController::class, 'destroycortes'])->name('productos.destroycortes')->middleware('checkRole:8');
+Route::delete('/productos/destroytallas/{id}', [ProductosController::class, 'destroytallas'])->name('productos.destroytallas')->middleware('checkRole:8');
+
 Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:9');
 
 

@@ -25,6 +25,20 @@ class Tallas_productos extends Model
     }
 
 
+/**
+     * Obtener  Todas las tallas no asigandas a un productos 
+     * filtrando  por el Id devolviendo un Array 
+     */
 
+     public static function ObtenerTallas($Idproducto)
+     {
+         $cortes = Tallas::whereNotIn('id', function($query) use ($Idproducto) {
+             $query->select('tallas_id')
+                   ->from('tallasproductos')
+                   ->where('productos_id', $Idproducto);
+         })->where('estado', 1)
+         ->get();
+         return $cortes;
+     }
    
 }

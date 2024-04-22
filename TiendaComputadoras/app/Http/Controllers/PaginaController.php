@@ -73,6 +73,10 @@ class PaginaController extends Controller
         return redirect()->route('login');
     }
 
+    public function admin()
+    {
+        
+    }
     public function error403()
     {
         return view('Error.403');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Colores;
 use App\Models\Colores_productos;
+use App\Models\Detalle_productos;
 use App\Models\Productos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -29,15 +30,16 @@ class Coloresproductos extends Controller
     }
     public function edit( $colores_productos)
     {
-        $producto = Productos::find($colores_productos);
-      
-        $colores = Colores::whereNotIn('id', function($query) {
+        $producto = Detalle_productos::with(['productos'])->find($colores_productos);
+        $Idproducto= $producto->productos->id;
+        $colores = Colores::whereNotIn('id', function($query) use ($Idproducto) {
             $query->select('colores_id')
-                  ->from('colores_productos');
+                  ->from('colores_productos')
+                  ->where('productos_id', $Idproducto);
         })->where('estado', 1)
         ->get();
-        
-        return view('Gestion_Catalogos.Productos.colores', compact('colores', 'producto'));
+        $listacolores=Colores_productos::with(['colores'])->where('productos_id', $Idproducto)->get();
+        return view('Gestion_Catalogos.Productos.colores', compact('colores', 'producto','listacolores'));
     }
 
     public function store(Request $request)
@@ -55,9 +57,19 @@ class Coloresproductos extends Controller
         $color->colores_id = $request->color;
         $color->estado = $request->estado;
         $color->save();
-    
-        
-        return redirect()->route('productos.show', $color->productos_id)->with('success', 'Se ha registrado la variante correctamente exitosamente.');
+        $Idcolor = $color->id;
+
+
+        $Detalle = Detalle_productos::find($request->detalle);
+        $detalle = new Detalle_productos();
+        $detalle->productos_id = $Detalle->productos_id;
+        $detalle->coloresproductos_id = $Idcolor;
+        $detalle->tallasproductos_id = $Detalle->tallasproductos_id;
+        $detalle->cortesproductos_id = $Detalle->cortesproductos_id;
+        $detalle->generos_id = $Detalle->generos_id;
+        $detalle->estado = 1;
+        $detalle->save();
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
     }
     
 
@@ -68,8 +80,9 @@ class Coloresproductos extends Controller
         // Cambia el estado del producto
         $producto->estado = $producto->estado == 1 ? 0 : 1;
         $producto->save();
+
         // Redirige de vuelta a la página de índice con un mensaje flash
         Session::flash('success', 'El estado del color del producto ha sido cambiado exitosamente.');
-        return redirect()->route('productos.show', $producto->productos_id);
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
     }
 }

@@ -1,19 +1,20 @@
 @extends('layout.layout')
-@section('title', 'Colores')
-@section('submodulo', 'Registrar variante de Colores')
+@section('title', 'Cortes')
+@section('submodulo', 'Registrar variante de tallas')
 @section('content')
-    <form action="{{ route('coloresproductos.store') }}" method="POST">
+    <form action="{{ route('productos.guardartallas') }}" method="POST">
         @csrf
+       
         <div class="row">
 
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="producto" class="form-label text-dark">producto</label>
-                    <input type="text" name="nombre" class="form-control" value='{{ $producto->productos->nombre }}'
+                    <input type="text" name="nombre" class="form-control" value={{ $producto->productos->nombre }}
                         disabled>
                     <input type="text" name="producto" class="form-control" value='{{ $producto->productos->id }}'
                         hidden>
-                    <input type="text" name="detalle" value="{{$producto->id}}" hidden>
+                    <input type="text" name="detalle" value="{{ $producto->id }}" hidden>
                     @error('producto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -21,16 +22,17 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="color" class="form-label text-dark">color</label>
-                    <select id="color" name="color" class="buscador form-select @error('color') is-invalid @enderror">
-                        <option selected disabled>Elegir color</option>
-                        @foreach ($colores as $color)
-                            <option value="{{ $color->id }}" {{ old('color') == $color->id ? 'selected' : '' }}>
-                                {{ $color->nombre }}
+                    <label for="tallas" class="form-label text-dark">Tallas:</label>
+                    <select id="tallas" name="tallas"
+                        class="buscador form-select @error('tallas') is-invalid @enderror">
+                        <option selected disabled>Elegir Talla</option>
+                        @foreach ($talla as $talla)
+                            <option value="{{ $talla->id }}" {{ old('tallas') == $talla->id ? 'selected' : '' }}>
+                                {{ $talla->nombre }}
                             </option>
                         @endforeach
                     </select>
-                    @error('color')
+                    @error('tallas')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -61,8 +63,6 @@
             </div>
         </div>
     </form>
-
-
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -74,7 +74,7 @@
                     <thead>
                         <tr>
 
-                            <th>Corte</th>
+                            <th>Talla</th>
                             <th>Descripcion</th>
                             <th>Estado</th>
                             <th>Fecha de registro</th>
@@ -83,45 +83,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($listacolores as $color)
+                        @foreach ($tallas as $talla)
                             <tr>
-                                <td>{{ $color->colores->nombre }}</td>
-                                <td>{{ $color->colores->codigo }}</td>
-                               
-                                <td>
-                                    <span class="badge rounded-pill ">
-                                        <div
-                                            style="width: 20px; height: 20px; border-radius: 50%; background-color:{{ $color->colores->codigo }}">
-                                        </div>
-        
-                                    </span>
-                                </td>
+                                <td>{{ $talla->tallas->nombre }}</td>
+                                <td>{{ $talla->tallas->descripcion }}</td>
+
 
 
                                 <td>
                                     <span
-                                        class="badge rounded-pill {{ $color->estado == 1 ? 'bg-success' : 'bg-danger' }}">
-                                        {{ $color->estado == 1 ? 'Activo' : 'Inactivo' }}
+                                        class="badge rounded-pill {{ $talla->estado == 1 ? 'bg-success' : 'bg-danger' }}">
+                                        {{ $talla->estado == 1 ? 'Activo' : 'Inactivo' }}
                                     </span>
                                 </td>
-                                <td>{{ $color->created_at }}</td>
-                                <td>{{ $color->updated_at }}</td>
+                                <td>{{ $talla->created_at }}</td>
+                                <td>{{ $talla->updated_at }}</td>
                                 <td>
                                     @can('delete', App\Models\Productos::class)
                                         <button type="button"
-                                            class="btn btn-{{ $color->estado == 1 ? 'danger' : 'success' }} btn-sm"
-                                            role="button" onclick="confirmAction({{ $color->id }})">
-                                            <i class="bi bi-{{ $color->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            class="btn btn-{{ $talla->estado == 1 ? 'danger' : 'success' }} btn-sm"
+                                            role="button" onclick="confirmAction({{ $talla->id }})">
+                                            <i class="bi bi-{{ $talla->estado == 1 ? 'trash' : 'power' }}"></i>
 
                                         </button>
-                                        <form id="deleteForm{{ $color->id }}"
-                                            action="{{ route('coloresproductos.destroy', ['coloresproductos' => $color->id]) }}"
+                                        <form id="deleteForm{{ $talla->id }}"
+                                            action="{{ route('productos.destroytallas', ['id' => $talla->id]) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="text" name="id" value={{ $color->id }} hidden>
+                                            <input type="text" name="id" value={{ $talla->id }} hidden>
                                             <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                            <button id="submitBtn{{ $color->id }}" type="submit"
+                                            <button id="submitBtn{{ $talla->id }}" type="submit"
                                                 style="display: none;"></button>
                                         </form>
                                     @endcan
@@ -134,13 +126,13 @@
             </div>
         </div>
     </div>
-@endsection
 
+@endsection
 <script>
-    function confirmAction(ColorId) {
+    function confirmAction(CorteId) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: '¿Quieres cambiar el estado de este color,  se dara de baja al detalle correspondiente?',
+            text: '¿Quieres cambiar el estado de esta talla,  se dara de baja al detalle correspondiente?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -148,7 +140,7 @@
             confirmButtonText: 'Sí, cambiar estado'
         }).then((result) => {
             if (result.isConfirmed) {
-                var form = document.getElementById('deleteForm' + ColorId);
+                var form = document.getElementById('deleteForm' + CorteId);
 
                 // Agregar un campo oculto al formulario para indicar la acción
                 var actionInput = document.createElement('input');

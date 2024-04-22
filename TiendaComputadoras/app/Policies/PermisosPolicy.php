@@ -12,7 +12,7 @@ class PermisosPolicy
     /**
      * Create a new policy instance.
      */
-   
+
     public function viewAny(User $user): bool
     {
         //
@@ -36,11 +36,11 @@ class PermisosPolicy
         //        
         $idPermisoDeseado = 24;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
-          
+
             return true;
         }
 
-       
+
         return false;
     }
 
@@ -103,17 +103,28 @@ class PermisosPolicy
     {
         $userId = $user->id;
         $permisos = permisosroles::obtenerPermisosRoles($userId); // Aquí deberías llamar a tu función para obtener los permisos del usuario
-       
+
         foreach ($permisos as $permiso) {
-         
-           
-            if ($permiso->permisosmodulos_id === $idPermisoDeseado) {
-             
+
+            if ($permiso->id === $idPermisoDeseado) {
+               
                 return true;
             }
-        }
 
-       
+          
+
+            /**Usando print_r()
+            echo "Contenido del array : ";
+            echo "<pre>"; 
+            print_r($permisos);
+            echo "</pre>";
+            **/
+
+            
+        }
+       /* echo "afuera";
+        exit();
+*/
         return false;
     }
 }
