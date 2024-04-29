@@ -14,7 +14,7 @@ class Genero extends Model
     }
     public function detallesproductos()
     {
-        return $this->hasOne('App\Models\productos');
+        return $this->HasMany('App\Models\Detalle_productos');
     }
     public static function obtenerGenero()
     {

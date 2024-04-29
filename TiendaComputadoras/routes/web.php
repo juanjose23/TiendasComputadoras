@@ -49,6 +49,7 @@ Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'car
 Route::resource('colaboradores', ColaboradoresController::class)->parameters(['colaboradores' => 'colaboradores'])->names('colaboradores')->middleware('checkRole:19');
 Route::resource('asignaciones', AsignacionesController::class)->parameters(['asignaciones' => 'asignaciones'])->names('asignaciones')->middleware('checkRole:20');
 Route::resource('salarios', SalariosController::class)->parameters(['salarios' => 'salarios'])->names('salarios')->middleware('checkRole:21');
+
 //Controller de Catalogos
 Route::resource('categorias', CategoriasController::class)->parameters(['categorias' => 'categorias'])->names('categorias')->middleware('checkRole:1');
 Route::resource('subcategorias', SubcategoriasController::class)->parameters(['subcategorias' => 'subcategorias'])->names('subcategorias')->middleware('checkRole:2');
@@ -59,16 +60,24 @@ Route::resource('tallas', TallasController::class)->parameters(['tallas'=>'talla
 Route::resource('cortes',CortesController::class)->parameters(['cortes'=> 'cortes'])->names('cortes')->middleware('checkRole:7');
 Route::resource('productos',ProductosController::class)->parameters(['productos' => 'productos'])->names('productos')->middleware('checkRole:7');
 Route::resource('coloresproductos',Coloresproductos::class)->parameters(['coloresproductos' => 'coloresproductos'])->names('coloresproductos')->middleware('checkRole:8');
+
+//Controller de tablas de catalogos auxiliares
 Route::get('/productos/{id}/multimedia', [ProductosController::class, 'multimedia'])->name('productos.multimedia')->middleware('checkRole:8');
 Route::get('/productos/{id}/agregarCorte', [ProductosController::class, 'agregarCorte'])->name('productos.agregarCorte')->middleware('checkRole:8');
 Route::get('/productos/{id}/agregartallas', [ProductosController::class, 'agregartallas'])->name('productos.agregartallas')->middleware('checkRole:8');
+Route::get('/productos/{id}/agregardetalles', [ProductosController::class, 'agregardetalles'])->name('productos.agregardetalles')->middleware('checkRole:8');
+
 Route::post('/guardarmultimedia', [ProductosController::class, 'guardarmultimedia'])->name('productos.guardarmultimedia')->middleware('checkRole:8');
 Route::post('/productos/guardarcorte', [ProductosController::class, 'guardarcorte'])->name('productos.guardarcorte')->middleware('checkRole:8');
 Route::post('/productos/guardartallas', [ProductosController::class, 'guardartallas'])->name('productos.guardartallas')->middleware('checkRole:8');
+Route::post('/productos/guardardetalles', [ProductosController::class, 'guardardetalles'])->name('productos.guardardetalles')->middleware('checkRole:8');
+
 Route::delete('/productos/destroyimg/{id}', [ProductosController::class, 'destroyimg'])->name('productos.destroyimg')->middleware('checkRole:8');
 Route::delete('/productos/destroycortes/{id}', [ProductosController::class, 'destroycortes'])->name('productos.destroycortes')->middleware('checkRole:8');
 Route::delete('/productos/destroytallas/{id}', [ProductosController::class, 'destroytallas'])->name('productos.destroytallas')->middleware('checkRole:8');
+Route::delete('/productos/destroydetalles/{id}', [ProductosController::class, 'destroydetalles'])->name('productos.destroydetalles')->middleware('checkRole:8');
 
+//Controller de los precios
 Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:9');
 
 
@@ -82,7 +91,9 @@ Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyro
 
 //Controller para multimedia
 Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img')->middleware('auth');
-//Rutas para exportacion y reportes
+
+
+//Controller para exportacion y reportes
 Route::get('/exportcargosexcel', [ExportacionesController::class, 'exportcargosexcel'])->name('exportcargosexcel')->middleware('auth');
 Route::get('/exportcargopdf', [ExportacionesController::class, 'exportcargopdf'])->name('exportcargopdf')->middleware('auth');
 Route::get('/exportColaboradores', [ExportacionesController::class, 'exportColaboradores'])->name('exportColaboradores')->middleware('auth');

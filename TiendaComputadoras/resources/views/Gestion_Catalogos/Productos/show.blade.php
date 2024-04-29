@@ -111,25 +111,24 @@
 
                             <!-- HTML -->
                             <div class="btn-group btn-group-md">
-                                <div class="mb-3">
-
-
-                                    <a href="{{ route('productos.index') }}" class=" btn btn-danger">
+                                <div class="mb-3 me-2">
+                                    <a href="{{ route('productos.index') }}" class="btn btn-danger">
                                         <i class="bi bi-house"></i> Volver al inicio
                                     </a>
-
+                                </div>
+                                <div class="mb-2">
+                                    <a href="{{ route('productos.agregardetalles', ['id' => $productos->id]) }}" class="btn btn-primary">
+                                        <i class="bi bi-plus"></i> Crear nuevos detalles
+                                    </a>
                                 </div>
                             </div>
-
-
-
 
                         </div>
 
                         <h5 class="card-title mb-0 text-black text-center">Producto {{ $productos->nombre }}</h5>
                     </div>
                     <div class="card-body">
-                        <livewire:detallesproductos/>
+                        <livewire:detallesproductos />
 
                     </div>
                 </div>
@@ -233,7 +232,7 @@
     function confirmAction(ColorId) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: '¿Quieres cambiar el estado de este color?',
+            text: '¿Quieres cambiar el estado de este detalle?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',

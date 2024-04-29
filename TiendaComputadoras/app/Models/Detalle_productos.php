@@ -34,6 +34,6 @@ class Detalle_productos extends Model
 
     public function generos()
     {
-        return $this->belongsTo('App\Models\Genero');
+        return $this->belongsTo('App\Models\Genero','generos_id');
     }
 }

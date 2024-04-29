@@ -232,15 +232,15 @@ class ProductosController extends Controller
         $producto = Detalle_productos::with(['productos'])->find($id);
         $Idproductos = $producto->productos_id;
         $corte = Cortes_productos::ObtenerCortes($Idproductos);
-        $cortes=Cortes_productos::with(['cortes'])->where('productos_id',$Idproductos)->get();
-       
-        return view('Gestion_Catalogos.Productos.Cortes.cortes', compact('producto','corte','cortes'));
+        $cortes = Cortes_productos::with(['cortes'])->where('productos_id', $Idproductos)->get();
+
+        return view('Gestion_Catalogos.Productos.Cortes.cortes', compact('producto', 'corte', 'cortes'));
     }
 
     public function guardarcorte(Request $request)
     {
-         // Validar los campos de la solicitud
-         $request->validate([
+        // Validar los campos de la solicitud
+        $request->validate([
             'producto' => 'required|exists:productos,id',
             'cortes' => 'required|exists:colores,id',
             'estado' => 'required|in:0,1',
@@ -252,7 +252,7 @@ class ProductosController extends Controller
             'estado.required' => 'El campo estado es obligatorio.',
             'estado.in' => 'El campo estado no esta seleccionado',
         ]);
-        
+
         $corte = new Cortes_productos();
         $corte->productos_id = $request->producto;
         $corte->cortes_id = $request->cortes;
@@ -270,7 +270,6 @@ class ProductosController extends Controller
         $detalle->estado = 1;
         $detalle->save();
         return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
-
     }
 
     public function destroycortes($id)
@@ -289,9 +288,9 @@ class ProductosController extends Controller
         $producto = Detalle_productos::with(['productos'])->find($id);
         $Idproductos = $producto->productos_id;
         $talla = Tallas_productos::ObtenerTallas($Idproductos);
-        $tallas=Tallas_productos::with(['tallas'])->where('productos_id',$Idproductos)->get();
-       
-        return view('Gestion_Catalogos.Productos.Tallas.tallas', compact('producto','talla','tallas'));
+        $tallas = Tallas_productos::with(['tallas'])->where('productos_id', $Idproductos)->get();
+
+        return view('Gestion_Catalogos.Productos.Tallas.tallas', compact('producto', 'talla', 'tallas'));
     }
     public function guardartallas(Request $request)
     {
@@ -307,7 +306,7 @@ class ProductosController extends Controller
             'estado.required' => 'El campo estado es obligatorio.',
             'estado.in' => 'El campo estado no esta seleccionado',
         ]);
-        
+
         $talla = new Tallas_productos();
         $talla->productos_id = $request->producto;
         $talla->tallas_id = $request->tallas;
@@ -332,6 +331,75 @@ class ProductosController extends Controller
         // Cambia el estado del producto
         $producto->estado = $producto->estado == 1 ? 0 : 1;
         $producto->save();
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
+    }
+
+
+    // Nuevos detalles
+    public function agregardetalles($id)
+    {
+        $producto = Productos::with(['subcategorias', 'subcategorias.categorias', 'modelos', 'modelos.marcas'])->find($id);
+        $colores = Colores_productos::ObtenerColoresProductos($id);
+        $tallas = Tallas_productos::ObtenerTallas($id);
+        $cortes = Cortes_productos::ObtenerCortes($id);
+        $generos = Genero::obtenerGenero();
+        return view('Gestion_Catalogos.Productos.Detalles.detalles', compact('colores', 'tallas', 'cortes', 'generos', 'producto'));
+    }
+
+    public function guardardetalles(Request $request)
+    {
+        $request->validate([
+            'producto' => 'required|exists:productos,id',
+            'cortes' => 'required',
+            'color' => 'required',
+            'generos' => 'required',
+            'tallas' => 'required|exists:colores,id'
+        ]);
+        $Idproducto = $request->productos;
+        //Tabla colores-productos
+        $color = new Colores_productos();
+        $color->productos_id = $Idproducto;
+        $color->colores_id = $request->color;
+        $color->estado = 1;
+        $color->save();
+        $Idcolor = $color->id;
+
+        //Tabla cortes-productos
+        $corte = new Cortes_productos();
+        $corte->productos_id = $Idproducto;
+        $corte->cortes_id = $request->corte;
+        $corte->estado = 1;
+        $corte->save();
+        $Idcorte = $corte->id;
+
+        //Tabla -productos
+        $talla = new Tallas_productos();
+        $talla->productos_id = $Idproducto;
+        $talla->tallas_id = $request->talla;
+        $talla->estado = 1;
+        $talla->save();
+        $Idtalla = $talla->id;
+
+        //Detalles del productos
+        $detalle = new Detalle_productos();
+        $detalle->productos_id = $Idproducto;
+        $detalle->coloresproductos_id = $Idcolor;
+        $detalle->tallasproductos_id = $Idtalla;
+        $detalle->cortesproductos_id = $Idcorte;
+        $detalle->generos_id = $request->generos;
+        $detalle->estado = 1;
+
+        $detalle->save();
+        Session::flash('success', 'Se ha registrado la óperacion con éxito');
+        return redirect()->route('productos.index');
+    }
+
+    public function destroydetalles($id)
+    {
+        $detalles = Detalle_productos::findorfail($id);
+        // Cambia el estado del detalle
+        $detalles->estado = $detalles->estado == 1 ? 0 : 1;
+        $detalles->save();
         return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
     }
 }

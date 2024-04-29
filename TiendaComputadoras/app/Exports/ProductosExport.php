@@ -9,12 +9,21 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class ProductosExport implements FromCollection, WithHeadings
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return Productos::with(['modelos', 'modelos.marcas', 'subcategorias', 'subcategorias.categorias', 'detalles', 'coloresproductos', 'imagenes'])->get()->map(function ($producto) {
+        return Productos::with(['modelos', 'modelos.marcas', 'subcategorias', 'subcategorias.categorias', 'detalles', 'coloresproductos', 'cortesproductos', 'tallasproductos', 'detalles.generos', 'imagenes'])->get()->map(function ($producto) {
             $colores = $producto->coloresproductos->pluck('colores.nombre')->implode(', ');
+            $cortes = $producto->cortesproductos->pluck('cortes.nombre')->implode(', ');
+            $tallas = $producto->tallasproductos->pluck('tallas.nombre')->implode(', ');
+
+            // Obtener los géneros de cada detalle
+            $generos = $producto->detalles->map(function ($detalle) {
+                return $detalle->generos->nombre;
+            })->unique()->implode(', ');
+    
+
             return [
                 'ID' => $producto->id,
                 'Código' => $producto->codigo,
@@ -26,18 +35,15 @@ class ProductosExport implements FromCollection, WithHeadings
                 'Descripción' => $producto->descripcion,
                 'Fecha de lanzamiento' => $producto->fecha_lanzamiento,
                 'Estado' => $producto->estado == 1 ? 'Activo' : 'Inactivo',
-                'Dimensiones'=>$producto->detalles->dimensiones,
-                'Peso'=>$producto->detalles->peso,
-                'Material'=>$producto->detalles->material,
-                'Instrucciones de Cuidado'=>$producto->detalles->instrucciones_cuidado,
-                'Instrucciones de Montaje'=>$producto->detalles->instrucciones_montaje,
-                'Características Especiales'=>$producto->detalles->caracteristicas_especiales,
-                'Compatibilidad'=>$producto->detalles->compatibilidad,
-                'Colores'=>$colores
+                'Generos' => $generos,
+                'Cortes' => $cortes,
+                'Tallas' => $tallas,
+                'Colores' => $colores
             ];
         });
     }
-    
+
+
     public function headings(): array
     {
         return [
@@ -51,13 +57,9 @@ class ProductosExport implements FromCollection, WithHeadings
             'Descripción',
             'Fecha de Lanzamiento',
             'Estado',
-            'Dimensiones',
-            'Peso',
-            'Material',
-            'Instrucciones de Cuidado',
-            'Instrucciones de Montaje',
-            'Características Especiales',
-            'Compatibilidad',
+            'Generos',
+            'Cortes',
+            'Tallas',
             'Colores'
             // Agrega aquí más encabezados si es necesario
         ];

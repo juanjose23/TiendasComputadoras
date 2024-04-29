@@ -23,11 +23,11 @@ class Productos extends Model
     }
     public function cortesproductos()
     {
-        return $this->hasMany('App\Models\Cortesproductos');
+        return $this->hasMany('App\Models\Cortes_productos');
     }
     public function tallasproductos()
     {
-        return $this->hasMany('App\Models\Tallasproductos');
+        return $this->hasMany('App\Models\Tallas_productos');
     }
  
     public function detalles()
