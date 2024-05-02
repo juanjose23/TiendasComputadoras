@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('colaboradores.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar colaborador
+                            <i class="fas fa-plus"></i> Registrar colaborador
                         </a>
                     </div>
                 </div>
@@ -28,13 +28,13 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a class="dropdown-item" href="{{ route('exportColaboradores') }}"><i
-                                    class="bi bi-file-earmark-spreadsheet text-success"></i>
+                                    class="fas fa-file-excel text-success"></i>
                                 Exportar a Excel
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('exportColaboradorespdf') }}"><i
-                                    class="bi bi-file-pdf text-danger"></i>
+                                    class="fas fa-file-pdf text-danger"></i>
                                 Exportar
                                 a
                                 PDF
@@ -101,7 +101,7 @@
                                 @can('update', App\Models\Empleados::class)
                                     <a href="{{ route('colaboradores.edit', ['colaboradores' => $colaborador->empleados->id]) }}"
                                         class="btn btn-info" role="button">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
 
                                     </a>
                                 @endcan
@@ -112,14 +112,14 @@
                                             class="btn btn-{{ $colaborador->empleados->estado == 1 ? 'danger' : 'success' }}"
                                             role="button" onclick="confirmAction({{ $colaborador->empleados->id }})">
                                             <i
-                                                class="bi bi-{{ $colaborador->empleados->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                class="fas fa-{{ $colaborador->empleados->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                         </button>
                                     </div>
                                 @endcan
 
                                 <a href="{{ route('colaboradores.show', ['colaboradores' => $colaborador->empleados->id]) }}"
                                     class="btn btn-secondary" role="button">
-                                    <i class="bi bi-info-circle"></i>
+                                    <i class="fas fa-info"></i>
                                 </a>
 
                             </div>

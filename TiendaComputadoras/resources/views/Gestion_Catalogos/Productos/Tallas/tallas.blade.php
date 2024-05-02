@@ -103,7 +103,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $talla->estado == 1 ? 'danger' : 'success' }} btn-sm"
                                             role="button" onclick="confirmAction({{ $talla->id }})">
-                                            <i class="bi bi-{{ $talla->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $talla->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
 
                                         </button>
                                         <form id="deleteForm{{ $talla->id }}"

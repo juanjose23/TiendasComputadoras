@@ -14,8 +14,8 @@ return new class extends Migration
         //
         Schema::create('precios', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('productoscolores_id');
-            $table->foreign('productoscolores_id')->references('id')->on('colores_productos');
+            $table->unsignedBigInteger('productosdetalles_id');
+            $table->foreign('productosdetalles_id')->references('id')->on('detallesproductos');
             $table->decimal('precio',10,2);
             $table->integer('estado');
             $table->timestamps();

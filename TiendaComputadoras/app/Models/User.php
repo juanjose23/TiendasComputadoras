@@ -246,4 +246,39 @@ application. Let's break down what each part is doing: */
             ->exists();
         return $result;
     }
+
+
+
+    /**
+     * 
+     */
+    public function ObtenerFotoPerfil()
+    {
+        if ($this->profile_photo_path) {
+            return $this->profile_photo_path;
+        }
+
+        $initials = '';
+        $names = explode(' ', $this->name);
+        foreach ($names as $name) {
+            $initials .= strtoupper(substr($name, 0, 1));
+        }
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($initials) . '&size=64';
+    }
+
+    
+
+
+     // Obtener el token de recuerdo
+     public function getRememberToken()
+     {
+         return $this->remember_token;
+     }
+ 
+     // Establecer el token de recuerdo
+     public function setRememberToken($value)
+     {
+         $this->remember_token = $value;
+     }
 }

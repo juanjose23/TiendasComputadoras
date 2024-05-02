@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('marcas.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Marca
+                            <i class="fas fa-plus"></i> Registrar Marca
                         </a>
                     </div>
                 </div>
@@ -23,11 +23,11 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle btn-icon" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <i class="bi bi-box-arrow-up-right"></i> Exportaciones
+                         Exportaciones
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('exportmarcas') }}" class="dropdown-item"><i
-                                    class="bi bi-file-earmark-spreadsheet text-success"></i>
+                                    class="fas fa-file-excel text-success"></i>
                                 Exportar a Excel</a></li>
 
 
@@ -95,18 +95,13 @@
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
-                                <!--
-                            <a href="{{ route('marcas.show', ['marcas' => $marca->id]) }}"
-                                class="btn btn-secondary me-1" role="button">
-                                <i class="bi bi-info-circle"></i>
-                            </a>
- Botón de información -->
+                          
                                 @can('update', App\Models\Productos::class)
                                     <!-- Botón para editar -->
                                     <div class=" me-1">
                                         <a href="{{ route('marcas.edit', ['marcas' => $marca->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -117,7 +112,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $marca->estado == 1 ? 'danger' : 'success' }} btn-block"
                                             role="button" onclick="confirmAction({{ $marca->id }})">
-                                            <i class="bi bi-{{ $marca->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $marca->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                         </button>
                                     </div>
                                 @endcan

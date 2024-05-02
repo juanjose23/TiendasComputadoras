@@ -74,14 +74,14 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
 
-                        <td>{{ $producto->productoscolores->productos->subcategorias->categorias->nombre }}</td>
-                        <td>{{ $producto->productoscolores->productos->subcategorias->nombre }}</td>
-                        <td>{{ $producto->productoscolores->productos->modelos->marcas->nombre }}</td>
-                        <td>{{ $producto->productoscolores->productos->modelos->nombre }}</td>
-                        <td>{{ $producto->productoscolores->productos->nombre }}</td>
+                        <td>{{ $producto->productosdetalles->productos->subcategorias->categorias->nombre }}</td>
+                        <td>{{ $producto->productosdetalles->productos->subcategorias->nombre }}</td>
+                        <td>{{ $producto->productosdetalles->productos->modelos->marcas->nombre }}</td>
+                        <td>{{ $producto->productosdetalles->productos->modelos->nombre }}</td>
+                        <td>{{ $producto->productosdetalles->productos->nombre }}</td>
 
                         <td class="text-wrap">
-                            {{ wordwrap($producto->productoscolores->colores->nombre, 50, "\n", true) }}</td>
+                            {{ wordwrap($producto->productosdetalles->coloresproductos->colores->nombre, 50, "\n", true) }}</td>
                         <td>{{ $producto->precio }}
                         </td>
 
@@ -96,14 +96,14 @@
                                 <!-- Botón de información -->
                                 <a href="{{ route('precios.show', ['precios' => $producto->id]) }}"
                                     class="btn btn-secondary me-1" role="button">
-                                    <i class="bi bi-info-circle"></i>
+                                    <i class="fas fa-info-circle"></i>
                                 </a>
                                 @can('update', App\Models\Productos::class)
                                     <!-- Botón para editar -->
                                     <div class=" me-1">
                                         <a href="{{ route('precios.edit', ['precios' => $producto->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -114,7 +114,7 @@
                                             <button type="button"
                                                 class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block"
                                                 role="button" onclick="confirmAction({{ $producto->id }})">
-                                                <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                <i class="fas fa-{{ $producto->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                             </button>
                                         @endif
                                     </div>

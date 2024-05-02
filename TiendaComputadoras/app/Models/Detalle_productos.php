@@ -36,4 +36,19 @@ class Detalle_productos extends Model
     {
         return $this->belongsTo('App\Models\Genero','generos_id');
     }
+
+     /**
+     * Busca el ID del producto asociado al ID de color.
+     * 
+     * @param int $id El ID del color del producto.
+     * @return int|null El ID del producto o null si no se encuentra.
+     */
+    public static function BuscarIdproducto($id)
+    {
+        $Producto = Detalle_productos::find($id);
+        if ($Producto) {
+            return $Producto->productos_id;
+        }
+        return null;
+    }
 }

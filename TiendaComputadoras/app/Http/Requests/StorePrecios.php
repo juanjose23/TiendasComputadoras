@@ -22,7 +22,7 @@ class StorePrecios extends FormRequest
     public function rules(): array
     {
         return [
-            'producto' => 'required|exists:colores_productos,id',
+            'producto' => 'required|exists:detallesproductos,id',
             'precio' => 'required|numeric|min:0.01',
             'estado' => 'required|in:0,1',
         ];

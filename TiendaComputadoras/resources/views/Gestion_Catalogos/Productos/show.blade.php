@@ -113,12 +113,12 @@
                             <div class="btn-group btn-group-md">
                                 <div class="mb-3 me-2">
                                     <a href="{{ route('productos.index') }}" class="btn btn-danger">
-                                        <i class="bi bi-house"></i> Volver al inicio
+                                        <i class="fas fa-house"></i> Volver al inicio
                                     </a>
                                 </div>
                                 <div class="mb-2">
                                     <a href="{{ route('productos.agregardetalles', ['id' => $productos->id]) }}" class="btn btn-primary">
-                                        <i class="bi bi-plus"></i> Crear nuevos detalles
+                                        <i class="fas fa-plus"></i> Crear nuevos detalles
                                     </a>
                                 </div>
                             </div>
@@ -143,12 +143,12 @@
                         <div class="card-actions float-end">
 
                             <a href="{{ route('productos.index') }}" class=" btn btn-danger">
-                                <i class="bi bi-house"></i> volver al inicio
+                                <i class="fas fa-home"></i> volver al inicio
                             </a>
                             @can('update', App\Models\Productos::class)
                                 <a href="{{ route('productos.multimedia', ['id' => $productos->id]) }}"
                                     class=" btn btn-primary">
-                                    <i class="bi bi-plus"></i> Agregar Imagen
+                                    <i class="fas fa-plus"></i> Agregar Imagen
                                 </a>
                             @endcan
 
@@ -183,7 +183,7 @@
                                             @can('delete', App\Models\Productos::class)
                                                 <button type="button" class="btn btn-danger btn-sm" role="button"
                                                     onclick="confirmActionimg({{ $imagenproducto->id }})">
-                                                    <i class="bi bi-trash"></i>
+                                                    <i class="fas fa-trash-alt"></i>
                                                 </button>
                                                 <form id="deleteFormimg{{ $imagenproducto->id }}"
                                                     action="{{ route('productos.destroyimg', ['id' => $imagenproducto->id]) }}"

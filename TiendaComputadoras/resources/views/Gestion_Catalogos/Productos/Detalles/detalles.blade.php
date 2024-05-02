@@ -5,34 +5,35 @@
     <form action="{{ route('productos.guardardetalles') }}" method="POST">
         @csrf
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="form-group">
                     <label for="nombre" class="form-label text-dark">Nombre</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre del producto"
                         class="form-control @error('nombre') is-invalid @enderror"
-                        value="{{ old('nombre', $producto->nombre) }}">
+                        value="{{ old('nombre', $producto->nombre) }}" disabled>
                     @error('nombre')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
-            <input type="text" name="productos" value="{{$producto->id}}" hidden>
-            <div class="col-md-4">
-                <label for="especificaciones" class="mb-2">Especificaciones:</label>
-                <textarea id="especificaciones" class="form-control" rows="6" readonly>
-                    {{ $producto->subcategorias->categorias->nombre }}
-                    {{ $producto->subcategorias->nombre }}
-                    {{ $producto->modelos->marcas->nombre }}
-                    {{ $producto->modelos->nombre }}
-                </textarea>
+            <input type="text" name="productos" value="{{ $producto->id }}" hidden>
+            <div class="col-md-9">
+                <label for="especificaciones" class="mb-2 text-black">Especificaciones:</label>
+                <ul class="especificaciones-lista">
+                    <li>1.<span>Categoría:</span> {{ $producto->subcategorias->categorias->nombre }}</li>
+                    <li>2.<span>Subcategoría:</span> {{ $producto->subcategorias->nombre }}</li>
+                    <li>3.<span>Marca:</span> {{ $producto->modelos->marcas->nombre }}</li>
+                    <li>4.<span>Modelo:</span> {{ $producto->modelos->nombre }}</li>
+                </ul>
             </div>
-            
+
+
             <!-- Campos de productos_detalles -->
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="color" class="form-label text-dark">Color</label>
                     <select id="color"style="width: 100%" name="color"
-                        class="form-select buscador @error('color') is-invalid @enderror">
+                        class="form-select buscador @error('color') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar color</option>
                         @foreach ($colores as $color)
                             <option value="{{ $color->id }}" {{ old('color') == $color->id ? 'selected' : '' }}>
@@ -49,7 +50,7 @@
                 <div class="form-group">
                     <label for="corte" class="form-label text-dark">Cortes</label>
                     <select id="corte"style="width: 100%" name="cortes"
-                        class="form-select buscador @error('cortes') is-invalid @enderror">
+                        class="form-select buscador @error('cortes') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Corte</option>
                         @foreach ($cortes as $corte)
                             <option value="{{ $corte->id }}" {{ old('cortes') == $corte->id ? 'selected' : '' }}>
@@ -66,7 +67,7 @@
                 <div class="form-group">
                     <label for="talla" class="form-label text-dark">Tallas</label>
                     <select id="talla"style="width: 100%" name="tallas"
-                        class="form-select buscador @error('tallas') is-invalid @enderror">
+                        class="form-select buscador @error('tallas') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Talla</option>
                         @foreach ($tallas as $talla)
                             <option value="{{ $talla->id }}" {{ old('tallas') == $talla->id ? 'selected' : '' }}>
@@ -83,7 +84,7 @@
                 <div class="form-group">
                     <label for="generos" class="form-label text-dark">Genero</label>
                     <select id="generos"style="width: 100%" name="generos"
-                        class="form-select buscador @error('generos') is-invalid @enderror">
+                        class="form-select buscador @error('generos') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Talla</option>
                         @foreach ($generos as $genero)
                             <option value="{{ $genero->id }}" {{ old('genero') == $genero->id ? 'selected' : '' }}>
@@ -107,3 +108,20 @@
     </form>
 
 @endsection
+
+<style>
+    .especificaciones-lista {
+        list-style-type: none;
+        padding: 0;
+        color:black; 
+    }
+
+    .especificaciones-lista li {
+        margin-bottom: 10px;
+    }
+
+    .especificaciones-lista li span {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+</style>

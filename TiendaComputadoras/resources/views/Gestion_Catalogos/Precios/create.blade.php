@@ -19,9 +19,10 @@
                                     <option value="{{ $producto['id'] }}"
                                         {{ old('producto') == $producto['id'] ? 'selected' : '' }}
                                         data-id="{{ $producto['id'] }}" data-modelo="{{ $producto['modelo'] }}"
-                                        data-codigo="{{ $producto['codigo'] }}" data-color="{{ $producto['color'] }}">
+                                        data-codigo="{{ $producto['codigo'] }}" data-color="{{ $producto['color'] }}" data-corte="{{ $producto['corte'] }}" data-talla="{{ $producto['tallas'] }}">
                                         Producto: {{ $producto['nombre'] }} Marca: {{ $producto['marca'] }} Modelo:
-                                        {{ $producto['modelo'] }} Color: {{ $producto['color'] }}
+                                        {{ $producto['modelo'] }} Color: {{ $producto['color'] }} Corte:
+                                        {{ $producto['corte'] }} Talla: {{ $producto['tallas'] }}
                                     </option>
                                 @endforeach
                             </optgroup>
@@ -62,25 +63,24 @@
                 <div class="form-group text-center">
                     <div class="mt-4"></div>
                     <label for="terminos" class="form-check text-dark">
-                        <input type="checkbox" id="terminos" name="terminos" class="form-check-input" value="1"
-                          >
+                        <input type="checkbox" id="terminos" name="terminos" class="form-check-input" value="1">
                         <span class="form-check-label text-dark">
-                            ¿Establecer este precio para todas las variantes de colores del producto?
+                            ¿Establecer este precio para todas las variantes  del producto?
                         </span>
                     </label>
-                 
+
                 </div>
             </div>
 
-            <div class="col-md-6" id="omitir-color" style="display: none;">
+            <div class="col-md-12" id="omitir-color" style="display: none;">
                 <div class="form-group">
-                    <label for="colores-omitir" class="form-label text-dark">¿Qué colores desea omitir de este
+                    <label for="colores-omitir" class="form-label text-dark">¿Qué variantes desea omitir de este
                         precio?</label>
-                    <select id="colores-omitir" name="colores-omitir[]" class="form-select buscador is-invalid" multiple="multiple"
-                        style="width: 100%">
-                     
+                    <select id="colores-omitir" name="colores-omitir[]" class="form-select buscador is-invalid"
+                        multiple="multiple" style="width: 100%">
+
                     </select>
-                    <div class="text-warning ">Todos los productos van a cambiar su precios menos el que sean omitidos</div>
+                    <div class="text-danger ">Todos los productos van a cambiar su precios menos el que sean omitidos</div>
                 </div>
             </div>
 
@@ -102,8 +102,7 @@
 
         // Mantener los valores seleccionados después de una validación
         var valoresSeleccionados = {!! json_encode(old('colores-omitir', [])) !!};
-        console.log('Colores seleccionado');
-        console.log(valoresSeleccionados);
+      
         coloresOmitirSelect.val(valoresSeleccionados).trigger('change');
 
         // El resto del código para cargar las opciones se mantiene igual
@@ -135,10 +134,12 @@
                 var codigo = $(this).data('codigo');
                 var color = $(this).data('color');
                 var modelo = $(this).data('modelo');
+                var corte= $(this).data('corte');
+                var talla=$(this).data('talla');
                 var id = $(this).data('id');
                 if (codigo === productoCodigo) {
-                    var option = $('<option></option>').val(id).text(color + ' ' +
-                        'Modelo de producto ' + modelo);
+                    var option = $('<option></option>').val(id).text('Color: '+' '+ color + ' ' +
+                        'Modelo de producto ' + modelo+ ' ' + 'Corte: '+' '+ corte +' '+ 'Talla:'+' ' + talla);
                     coloresOmitirSelect.append(option);
                 }
             });

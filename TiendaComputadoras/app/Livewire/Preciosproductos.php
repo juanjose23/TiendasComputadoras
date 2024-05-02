@@ -14,38 +14,38 @@ class Preciosproductos extends Component
     public function render()
     {
         $productos = Precios::with([
-            'productoscolores',
-            'productoscolores.colores',
-            'productoscolores.productos',
-            'productoscolores.productos.modelos',
-            'productoscolores.productos.modelos.marcas',
-            'productoscolores.productos.subcategorias',
-            'productoscolores.productos.subcategorias.categorias'
+            'productosdetalles',
+            'productosdetalles.coloresproductos.colores',
+            'productosdetalles.productos',
+            'productosdetalles.productos.modelos',
+            'productosdetalles.productos.modelos.marcas',
+            'productosdetalles.productos.subcategorias',
+            'productosdetalles.productos.subcategorias.categorias'
             
-        ])->where(function ($query) {
+        ])->where('estado',1)->where(function ($query) {
             $query->where('precio', 'like', '%' . $this->buscar . '%')
-                ->orWhereHas('productoscolores.colores', function ($query) {
+                ->orWhereHas('productosdetalles.coloresproductos.colores', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
                 })
-                ->orWhereHas('productoscolores.colores', function ($query) {
+                ->orWhereHas('productosdetalles.coloresproductos.colores', function ($query) {
                     $query->where('codigo', 'like', '%' . $this->buscar . '%');
                 })
-                ->orWhereHas('productoscolores.productos', function ($query) {
+                ->orWhereHas('productosdetalles.productos', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
                     $query->where('codigo', 'like', '%' . $this->buscar . '%');
                     $query->Where('descripcion', 'like', '%' . $this->buscar . '%');
                     $query->Where('fecha_lanzamiento', 'like', '%' . $this->buscar . '%');
                 })
-                ->orWhereHas('productoscolores.productos.subcategorias', function ($query) {
+                ->orWhereHas('productosdetalles.productos.subcategorias', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
                 })
-                ->orWhereHas('productoscolores.productos.subcategorias.categorias', function ($query) {
+                ->orWhereHas('productosdetalles.productos.subcategorias.categorias', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
                 })
-                ->orWhereHas('productoscolores.productos.modelos', function ($query) {
+                ->orWhereHas('productosdetalles.productos.modelos', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
                 })
-                ->orWhereHas('productoscolores.productos.modelos.marcas', function ($query) {
+                ->orWhereHas('productosdetalles.productos.modelos.marcas', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
                 });
                 

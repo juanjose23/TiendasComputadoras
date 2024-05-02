@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label for="color" class="form-label text-dark">Cortes:</label>
                     <select id="cortes" name="cortes"
-                        class="buscador form-select @error('cortes') is-invalid @enderror">
+                        class="buscador form-select @error('cortes') is-invalid @enderror" style="width: 100%; height: 100%">
                         <option selected disabled>Elegir cortes</option>
                         @foreach ($corte as $color)
                             <option value="{{ $color->id }}" {{ old('cortes') == $color->id ? 'selected' : '' }}>
@@ -105,9 +105,9 @@
                                 <td>
                                     @can('delete', App\Models\Productos::class)
                                         <button type="button"
-                                            class="btn btn-{{ $corte->estado == 1 ? 'danger' : 'success' }} btn-sm"
+                                            class="btn btn-{{ $corte->estado == 1 ? 'danger' : 'success' }}"
                                             role="button" onclick="confirmAction({{ $corte->id }})">
-                                            <i class="bi bi-{{ $corte->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $corte->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
 
                                         </button>
                                         <form id="deleteForm{{ $corte->id }}"

@@ -41,7 +41,7 @@ Route::get('/', function () {
 //Controller de validacion de inicio de session
 Route::get('/login',[PaginaController::class,'login'])->name('login');
 Route::post('/validarLogin', [PaginaController::class, 'validarLogin'])->name('validarLogin');
-Route::get('/logout',[PaginaController::class,'logout']);
+Route::post('/logout',[PaginaController::class,'logout'])->name('logout');
 Route::get('/error403',[PaginaController::class,'error403'])->name('error403');
 
 //Controller del modulo de Gestion de Negocio

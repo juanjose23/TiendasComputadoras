@@ -43,8 +43,7 @@
                             @can('delete', App\Models\Productos::class)
                                 <div class="mb-3 me-2">
                                     <button type="button"
-                                        class="btn btn-{{ $detalles->estado == 1 ? 'danger' : 'success' }} btn-sm btn-block"
-                                        onclick="confirmAction({{ $detalles->id }})">
+                                        class="btn btn-{{ $detalles->estado == 1 ? 'danger' : 'success' }} btn-block"  onclick="confirmAction({{ $detalles->id }})">
                                         <i class="bi bi-{{ $detalles->estado == 1 ? 'trash' : 'power' }}"></i>
                                     </button>
                                     <form id="deleteForm{{ $detalles->id }}"
@@ -61,7 +60,7 @@
                             @endcan
                             @can('update', App\Models\Productos::class)
                                 <div class="dropdown">
-                                    <button id="infoDropdown" type="button" class="btn btn-info dropdown-toggle btn-block"
+                                    <button id="infoDropdown" type="button" class="btn btn-info dropdown-toggle "
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="align-middle me-1" data-feather="settings"></i>
                                     </button>

@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('categorias.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar categoría
+                            <i class="fas fa-plus"></i> Registrar categoría
                         </a>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('exportcategorias') }}" class="dropdown-item"><i
-                                    class="bi bi-file-earmark-spreadsheet text-success"></i>
+                                    class="fas fa-file-excel text-success"></i>
                                 Exportar a Excel</a></li>
 
 
@@ -82,14 +82,14 @@
                                 <!-- Botón de información -->
                                 <a href="{{ route('categorias.show', ['categorias' => $cargo->id]) }}"
                                     class="btn btn-secondary me-1" role="button">
-                                    <i class="bi bi-info-circle"></i>
+                                    <i class="fas fa-info"></i>
                                 </a>
                                 @can('update', App\Models\Productos::class)
                                     <!-- Botón para editar -->
                                     <div class=" me-1">
                                         <a href="{{ route('categorias.edit', ['categorias' => $cargo->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -99,7 +99,7 @@
                                     <button type="button"
                                         class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} btn-block"
                                         role="button" onclick="confirmAction({{ $cargo->id }})">
-                                        <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        <i class="fas fa-{{ $cargo->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                     </button>
                                 </div>
                                 @endcan

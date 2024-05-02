@@ -160,7 +160,8 @@ return [
          * Package Service Providers...
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
 
         /*
          * Application Service Providers...

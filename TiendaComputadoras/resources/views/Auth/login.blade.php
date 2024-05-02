@@ -18,6 +18,7 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('js/bootstrap-4.min.css')}}">
 </head>
 
 <body>
@@ -49,7 +50,8 @@
                                 </div>
 
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="remember-me">
+                                    <input class="form-check-input" type="checkbox" value="" id="remember-me"
+                                        name="recordar">
                                     <label class="form-check-label" for="remember-me">
                                         Recordarme
                                     </label>
@@ -69,9 +71,9 @@
     </main>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <link defer href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
-    <script async>
+    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             @if (Session::has('success'))
                 Swal.fire({

@@ -76,6 +76,7 @@
 
                             <th>Corte</th>
                             <th>Descripcion</th>
+                            <th>Muestra</th>
                             <th>Estado</th>
                             <th>Fecha de registro</th>
                             <th>Fecha de actualización</th>
@@ -109,9 +110,9 @@
                                 <td>
                                     @can('delete', App\Models\Productos::class)
                                         <button type="button"
-                                            class="btn btn-{{ $color->estado == 1 ? 'danger' : 'success' }} btn-sm"
+                                            class="btn btn-{{ $color->estado == 1 ? 'danger' : 'success' }} btn-block"
                                             role="button" onclick="confirmAction({{ $color->id }})">
-                                            <i class="bi bi-{{ $color->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $color->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
 
                                         </button>
                                         <form id="deleteForm{{ $color->id }}"

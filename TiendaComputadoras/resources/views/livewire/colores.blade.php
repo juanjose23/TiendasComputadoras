@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('colores.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Color
+                            <i class="fas fa-plus"></i> Registrar Color
                         </a>
                     </div>
                 </div>
@@ -22,11 +22,11 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle btn-icon" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <i class="bi bi-box-arrow-up-right"></i> Exportaciones
+                       Exportaciones
                     </button>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('exportcolores') }}" class="dropdown-item"><i
-                                    class="bi bi-file-earmark-spreadsheet text-success"></i>
+                                    class="fas fa-file-excel text-success"></i>
                                 Exportar a Excel</a></li>
 
 
@@ -97,7 +97,7 @@
                                     <div class=" me-1">
                                         <a href="{{ route('colores.edit', ['colores' => $color->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -107,7 +107,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $color->estado == 1 ? 'danger' : 'success' }} btn-block"
                                             role="button" onclick="confirmAction({{ $color->id }})">
-                                            <i class="bi bi-{{ $color->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $color->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                         </button>
                                     </div>
                                 @endcan

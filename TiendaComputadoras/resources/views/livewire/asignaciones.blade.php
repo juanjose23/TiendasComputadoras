@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('asignaciones.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Asignación
+                            <i class="fas fa-plus"></i> Registrar Asignación
                         </a>
                     </div>
                 </div>
@@ -23,11 +23,11 @@
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle btn-icon" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <i class="bi bi-box-arrow-up-right"></i> Exportaciones
+                        Exportaciones
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('exportasignaciones') }}"><i
-                                    class="bi bi-file-earmark-spreadsheet text-success"></i>
+                                    class="fas fa-file-excel text-success"></i>
                                 Exportar a Excel</a></li>
                     </ul>
                 </div>
@@ -84,7 +84,7 @@
                                 @can('update', App\Models\Empleados::class)
                                     <a href="{{ route('asignaciones.edit', ['asignaciones' => $colaborador->empleados->id]) }}"
                                         class="btn btn-info" role="button">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
 
                                     </a>
                                 @endcan
@@ -92,7 +92,7 @@
                                 <div class="m-1">
                                     <a href="{{ route('asignaciones.show', ['asignaciones' => $colaborador->empleados->id]) }}"
                                         class="btn btn-secondary" role="button">
-                                        <i class="bi bi-eye"></i>
+                                        <i class="fas fa-info-circle"></i>
                                     </a>
                                 </div>
                             </div>

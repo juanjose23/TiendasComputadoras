@@ -11,18 +11,19 @@
     <link rel="preconnect" defer href="https://fonts.gstatic.com" rel="stylesheet">
     <link rel="shortcut icon" defer href="img/icons/icon-48x48.png" />
     <title>Sistema @yield('title')</title>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link defer href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link defer href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        rel="stylesheet">
-    <script src="{{ asset('js/settings.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('js/bootstrap-4.min.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ asset('css/Iconos/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <style>
         body {
             opacity: 0;
         }
     </style>
-    <!-- END SETTINGS -->
+   
 
 </head>
 
@@ -55,9 +56,10 @@
 
     </div>
 
-    <script defer src="{{ asset('js/app.js') }}"></script>
-    <link defer href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script async>
         document.addEventListener('DOMContentLoaded', function() {
             @if (Session::has('success'))
@@ -70,20 +72,18 @@
             @endif
         });
     </script>
-    <!-- Utiliza una versión específica de jQuery y carga de forma asíncrona -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Carga de forma asíncrona y desde un CDN -->
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
 
     <script>
-        $(document).ready(function() {
-            $('.buscador').select2({
-                width: 'resolve' // o puedes usar un valor numérico si prefieres un ancho fijo
-            });
+        $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
 
-        });
+            //Initialize Select2 Elements
+            $('.buscador').select2({
+                theme: 'bootstrap4'
+            })
+        })
     </script>
 </body>
 
