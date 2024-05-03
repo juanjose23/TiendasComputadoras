@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -42,9 +42,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Contraseña</label>
-                                    <input class="form-control" type="password" name="contraseña"
-                                        placeholder="Ingresa tu contraseña" value="{{ old('contraseña') }}">
-                                    @error('contraseña')
+                                    <input class="form-control" type="password" name="password"
+                                        placeholder="Ingresa tu contraseña" value="{{ old('password') }}">
+                                    @error('password')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

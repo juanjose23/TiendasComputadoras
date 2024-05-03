@@ -10,9 +10,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
+use Laravel\Fortify\TwoFactorAuthenticatable;
+
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
     /* The code snippet you provided is from a PHP class representing a User model in a Laravel
 application. Let's break down what each part is doing: */
 
@@ -35,6 +37,7 @@ application. Let's break down what each part is doing: */
 
         'usuario',
         'password',
+        'token_login',
     ];
 
     /**

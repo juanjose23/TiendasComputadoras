@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "bacon/bacon-qr-code": "^2.0",
         "barryvdh/laravel-dompdf": "*",
         "cloudinary-labs/cloudinary-laravel": "^2.0",
         "cloudinary/cloudinary_php": "^2.12",
@@ -19,6 +20,7 @@
         "laraveles/spanish": "^1.5",
         "livewire/livewire": "^3.4",
         "maatwebsite/excel": "^3.1",
+        "pragmarx/google2fa-laravel": "^2.2",
         "predis/predis": "^2.2",
         "realrashid/sweet-alert": "^7.1"
     },

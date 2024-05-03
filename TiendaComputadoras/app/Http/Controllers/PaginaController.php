@@ -6,7 +6,14 @@ use App\Models\Privilegios;
 use App\Models\RolesUsuarios;
 use App\Models\User;
 use Illuminate\Http\Request;
+use PragmaRX\Google2FA\Google2FA;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Writer as BaconQrCodeWriter;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -18,34 +25,36 @@ class PaginaController extends Controller
     //
     public function login()
     {
+      
         return view("Auth.login");
     }
     public function validarLogin(Request $request)
     {
+
         // Validar los datos del formulario
         $request->validate([
             'usuario' => 'required|string',
-            'contraseña' => 'required',
+            'password' => 'required',
         ]);
 
         $usuarios = new User();
         $user = $usuarios->ValidarUsuario($request->usuario);
         $privilegio = new Privilegios();
-        if ($user === null) {
-            return redirect()->back()->withInput()->with('error', 'Usuario no encontrado');
-        }
-
         $userId = $user['id'];
         $personasId = $user['personas_id'];
-        $validarcontraseña = $usuarios->ValidarContrasena($userId, $request->contraseña);
         $InformacionPersonal = $usuarios->ObtenerInformacionUsuario($personasId);
         $informacionDetallada = $usuarios->ObtenerCodigoCliente($personasId) ?? $usuarios->ObtenerCodigoEmpleados($personasId);
         $privilegios = $privilegio->ObtenerPrivilegiosUsuario($userId);
-
-        if (!$validarcontraseña) {
+        $credenciales = $request->only('usuario', 'password');
+        if (!Auth::attempt($credenciales, $request->filled('recordar'))) {
             return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
         }
-
+        request()->session()->regenerate();
+        if (Auth::user()->two_factor_secret) {
+            // El usuario tiene habilitada la autenticación de dos factores,
+            // por lo que redirigimos a la vista de verificación del código.
+            return view('auth.verify-two-factor-challenge');
+        }
         $validarRol = RolesUsuarios::where('users_id', $userId)
             ->where('roles_id', '!=', 1)
             ->where('estado', 1)
@@ -54,15 +63,6 @@ class PaginaController extends Controller
 
         $redirectRoute = $validarRol ? 'cargos.index' : '/';
         $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!';
-
-        // Iniciar sesión manualmente
-        if ($request->has('recordar')) {
-            // Si el checkbox "recordar" está marcado, entonces iniciar sesión con recordar
-            Auth::loginUsingId($userId, true);
-        } else {
-            // Si no está marcado, iniciar sesión sin recordar
-            Auth::loginUsingId($userId);
-        }
 
         // Crear las sesiones
         Session::put('personas_id', $personasId);
@@ -86,11 +86,12 @@ class PaginaController extends Controller
             'id' => $informacionDetallada['id'],
             'privilegios' => $privilegios
         ];
+        $sessionId = $request->session()->getId();
         $payload = Crypt::encrypt(json_encode($sessionData));
 
         // Almacenar los datos en la tabla sessions
         DB::table('sessions')->insert([
-            'id' => STR::uuid(),
+            'id' => $sessionId,
             'user_id' => $userId,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
@@ -120,6 +121,7 @@ class PaginaController extends Controller
 
         // Regenerar el token de CSRF
         $request->session()->regenerateToken();
+
 
         // Redirigir al usuario a la página de inicio
         return redirect('/');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AsignacionesController;
+use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\CargosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
@@ -43,6 +44,9 @@ Route::get('/login',[PaginaController::class,'login'])->name('login');
 Route::post('/validarLogin', [PaginaController::class, 'validarLogin'])->name('validarLogin');
 Route::post('/logout',[PaginaController::class,'logout'])->name('logout');
 Route::get('/error403',[PaginaController::class,'error403'])->name('error403');
+// Validacion en dos pasos
+Route::get('/dospasos',[\App\Http\Controllers\loginController::class,'dospasos'])->name('dospasos');
+
 
 //Controller del modulo de Gestion de Negocio
 Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'cargos'])->names('cargos')->middleware('checkRole:18');
