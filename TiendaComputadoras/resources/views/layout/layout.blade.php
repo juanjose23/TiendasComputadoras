@@ -12,6 +12,7 @@
     <link rel="shortcut icon" defer href="img/icons/icon-48x48.png" />
     <title>Sistema @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('js/bootstrap-4.min.css') }}">
+    <link href="{{ asset('css/light.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     

@@ -248,7 +248,7 @@ class ColaboradoresController extends Controller
         Session::flash('success', 'Se ha actualizado correctamente el colaborador.');
 
         // Redireccionar de vuelta a la página de edición
-        return redirect()->route('colaboradores.index');
+        return redirect()->back()->with('success', 'Se ha realizado la operacion éxito');
     }
 
 

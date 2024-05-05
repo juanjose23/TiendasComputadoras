@@ -12,6 +12,7 @@
         "cloudinary/cloudinary_php": "^2.12",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "jenssegers/agent": "^2.6",
         "laravel-lang/locales": "^2.7",
         "laravel/fortify": "^1.20",
         "laravel/framework": "^10.10",
@@ -20,7 +21,7 @@
         "laraveles/spanish": "^1.5",
         "livewire/livewire": "^3.4",
         "maatwebsite/excel": "^3.1",
-        "pragmarx/google2fa-laravel": "^2.2",
+        "pragmarx/google2fa-laravel": "*",
         "predis/predis": "^2.2",
         "realrashid/sweet-alert": "^7.1"
     },

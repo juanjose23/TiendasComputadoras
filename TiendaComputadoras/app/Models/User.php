@@ -70,6 +70,10 @@ application. Let's break down what each part is doing: */
         return $this->hasMany('App\Models\RolesUsuarios', 'users_id');
     }
 
+    public function session()
+    {
+        return $this->hasMany('App\Models\session', 'user_id');
+    }
     /**
      * Genera un nombre de usuario único combinando el nombre y el apellido de una persona.
      *
@@ -208,29 +212,30 @@ application. Let's break down what each part is doing: */
      * @param int $Id El ID de la persona asociada al empleado.
      * @return array La información del empleado.
      */
-    public function ObtenerCodigoEmpleados($Id)
+    public function ObtenerCodigoEmpleados($id)
     {
-        // Buscar el empleado con el ID de persona proporcionado
-        $empleados = Empleados::where('personas_id', $Id)->first();
+      
+        $empleado = Empleados::where('personas_id', $id)->first();
 
         // Verificar si se encontró el empleado
-        if ($empleados) {
-
+        if ($empleado) {
+           
+            $persona = Personas::findOrFail($id);
+            
+            // Buscar la imagen asociada al empleado
             $imagen = Imagen::where('imagenable_type', 'App\Models\Empleados')
-                ->where('imagenable_id', $empleados->id)
+                ->where('imagenable_id', $empleado->id)
                 ->first();
-
-          
-
+            $fotoPerfil = $imagen ? $imagen->url : $this->ObtenerFotoPerfilStatica($persona->nombre);
             // Retornar la información recopilada
             return [
-                'id' => $empleados->id,
-                'codigo' => $empleados->codigo,
-                'foto' => $imagen ? $imagen->url : null,
+                'id' => $empleado->id,
+                'codigo' => $empleado->codigo,
+                'foto' => $fotoPerfil,
             ];
         } else {
-            // El empleado no existe, retornar null o cualquier otro valor que indique que no se encontró el empleado
-            return null;
+            // El empleado no existe, retornar null
+            return NUll;
         }
     }
 
@@ -253,35 +258,34 @@ application. Let's break down what each part is doing: */
 
 
     /**
-     * 
+     * Obtiene un enlace con una foto de perfil estática basada en la inicial del nombre de usuario.
+     *
+     * @param string $nombreUsuario El nombre del usuario del cual se desea obtener la foto de perfil.
+     * @return string La URL de la foto de perfil estática.
      */
-    public function ObtenerFotoPerfil()
+    public function ObtenerFotoPerfilStatica($nombreUsuario)
     {
-        if ($this->profile_photo_path) {
-            return $this->profile_photo_path;
-        }
+        // Obtener la primera letra del nombre de usuario
+        $primerLetra = substr($nombreUsuario, 0, 1);
 
-        $initials = '';
-        $names = explode(' ', $this->name);
-        foreach ($names as $name) {
-            $initials .= strtoupper(substr($name, 0, 1));
-        }
-
-        return 'https://ui-avatars.com/api/?name=' . urlencode($initials) . '&size=64';
+        // Construir la URL de la foto de perfil estática utilizando la API ui-avatars.com
+        $url = "https://ui-avatars.com/api/?name=" . urlencode($primerLetra);
+        return $url;
     }
 
-    
-
-
-     // Obtener el token de recuerdo
-     public function getRememberToken()
-     {
-         return $this->remember_token;
-     }
  
-     // Establecer el token de recuerdo
-     public function setRememberToken($value)
-     {
-         $this->remember_token = $value;
-     }
+
+
+
+    // Obtener el token de recuerdo
+    public function getRememberToken()
+    {
+        return $this->remember_token;
+    }
+
+    // Establecer el token de recuerdo
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
 }

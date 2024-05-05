@@ -111,7 +111,7 @@ class PaginaController extends Controller
         // Marcar la sesión actual como inactiva en la tabla de sesiones
         DB::table('sessions')
             ->where('id', $sessionId)
-            ->update(['active' => false]);
+            ->delete();
 
         // Cerrar la sesión del usuario
         Auth::logout();

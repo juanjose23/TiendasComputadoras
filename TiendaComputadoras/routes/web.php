@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\CargosController;
@@ -48,6 +49,13 @@ Route::get('/error403',[PaginaController::class,'error403'])->name('error403');
 Route::get('/dospasos',[\App\Http\Controllers\loginController::class,'dospasos'])->name('dospasos');
 
 
+Route::get('/perfil', [AdminController::class, 'perfil'])->name('perfil')->middleware('auth');
+
+// Actualizar perfil
+Route::get('/actualizarperfil', [AdminController::class, 'actualizarperfil'])->name('actualizarperfil')->middleware('auth');
+
+// Cerrar sesión en dispositivo
+Route::post('/cerrar-sesion-dispositivo', [AdminController::class, 'closeSessionForDevice'])->name('cerrar_sesion_dispositivo')->middleware('auth');
 //Controller del modulo de Gestion de Negocio
 Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'cargos'])->names('cargos')->middleware('checkRole:18');
 Route::resource('colaboradores', ColaboradoresController::class)->parameters(['colaboradores' => 'colaboradores'])->names('colaboradores')->middleware('checkRole:19');
