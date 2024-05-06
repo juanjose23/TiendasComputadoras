@@ -26,7 +26,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Otros middlewares
         'checkRole' => \App\Http\Middleware\CheckRole::class,
-        '2fa' => Google2FA::class,
+   
     ];
     
 

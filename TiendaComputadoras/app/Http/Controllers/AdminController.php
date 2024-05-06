@@ -24,6 +24,7 @@ class AdminController extends Controller
 
     public function inicio()
     {
+        return view('Admin.index');
     }
 
     public function perfil()

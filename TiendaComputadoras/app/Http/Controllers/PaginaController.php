@@ -49,19 +49,16 @@ class PaginaController extends Controller
         if (!Auth::attempt($credenciales, $request->filled('recordar'))) {
             return redirect()->back()->withInput()->with('error', 'Credenciales incorrectas');
         }
-        request()->session()->regenerate();
-        if (Auth::user()->two_factor_secret) {
-            // El usuario tiene habilitada la autenticación de dos factores,
-            // por lo que redirigimos a la vista de verificación del código.
-            return view('auth.verify-two-factor-challenge');
-        }
+        $request->session()->regenerate();
+       // request()->session()->regenerate();
+      
         $validarRol = RolesUsuarios::where('users_id', $userId)
             ->where('roles_id', '!=', 1)
             ->where('estado', 1)
             ->exists();
 
 
-        $redirectRoute = $validarRol ? 'cargos.index' : '/';
+        $redirectRoute = $validarRol ? 'inicio' : '/';
         $redirectMessage = $validarRol ? '¡Bienvenido!' : '¡Bienvenido!';
 
         // Crear las sesiones
@@ -108,14 +105,14 @@ class PaginaController extends Controller
         // Obtener el identificador único de la sesión actual
         $sessionId = $request->session()->getId();
 
-        // Marcar la sesión actual como inactiva en la tabla de sesiones
-        DB::table('sessions')
-            ->where('id', $sessionId)
-            ->delete();
+       
+     
 
         // Cerrar la sesión del usuario
         Auth::logout();
-
+        DB::table('sessions')
+        ->where('id', $sessionId)
+        ->delete();
         // Invalidar la sesión actual
         $request->session()->invalidate();
 

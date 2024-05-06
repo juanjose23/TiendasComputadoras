@@ -48,13 +48,10 @@ Route::get('/error403',[PaginaController::class,'error403'])->name('error403');
 // Validacion en dos pasos
 Route::get('/dospasos',[\App\Http\Controllers\loginController::class,'dospasos'])->name('dospasos');
 
-
+//Usuarios admin
 Route::get('/perfil', [AdminController::class, 'perfil'])->name('perfil')->middleware('auth');
-
-// Actualizar perfil
 Route::get('/actualizarperfil', [AdminController::class, 'actualizarperfil'])->name('actualizarperfil')->middleware('auth');
-
-// Cerrar sesión en dispositivo
+Route::get('inicio',[AdminController::class,'inicio'])->name('inicio')->middleware('auth');
 Route::post('/cerrar-sesion-dispositivo', [AdminController::class, 'closeSessionForDevice'])->name('cerrar_sesion_dispositivo')->middleware('auth');
 //Controller del modulo de Gestion de Negocio
 Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'cargos'])->names('cargos')->middleware('checkRole:18');
