@@ -118,13 +118,7 @@ class ColaboradoresController extends Controller
             $imagen->imagenable_type = get_class($empleado);
             
 
-            // Crear una nueva entrada de imagen en la base de datos
-            $imagen = new Imagen();
-            $imagen->url = $result->getSecurePath();
-            $imagen->public_id = $result->getPublicId();
-            $imagen->imagenable_id = $ultimoId;
-            $imagen->imagenable_type = get_class($empleado);
-            $imagen->save();
+      
         }
         $direcciones = new Direcciones();
         $direcciones->municipios_id = $request->departamentos;

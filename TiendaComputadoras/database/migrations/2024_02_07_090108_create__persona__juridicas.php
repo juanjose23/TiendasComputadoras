@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('personas_id');
             $table->date('fecha_constitucional');
-            $table->string('numero_ruc', 18)->unique()->nullable(false);
+            $table->string('ruc', 18)->unique()->nullable(false);
             $table->string('razon_social', 250)->nullable();
             $table->timestamps();
             $table->foreign('personas_id')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');

@@ -19,6 +19,7 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\ImgController;
 use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\PrivilegiosController;
+use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SubcategoriasController;
 use App\Http\Controllers\TallasController;
@@ -53,6 +54,8 @@ Route::get('/perfil', [AdminController::class, 'perfil'])->name('perfil')->middl
 Route::get('/actualizarperfil', [AdminController::class, 'actualizarperfil'])->name('actualizarperfil')->middleware('auth');
 Route::get('inicio',[AdminController::class,'inicio'])->name('inicio')->middleware('auth');
 Route::post('/cerrar-sesion-dispositivo', [AdminController::class, 'closeSessionForDevice'])->name('cerrar_sesion_dispositivo')->middleware('auth');
+
+
 //Controller del modulo de Gestion de Negocio
 Route::resource('cargos', CargosController::class)->parameters(['cargos' => 'cargos'])->names('cargos')->middleware('checkRole:18');
 Route::resource('colaboradores', ColaboradoresController::class)->parameters(['colaboradores' => 'colaboradores'])->names('colaboradores')->middleware('checkRole:19');
@@ -88,6 +91,10 @@ Route::delete('/productos/destroydetalles/{id}', [ProductosController::class, 'd
 
 //Controller de los precios
 Route::resource('precios',PreciosController::class)->parameters(['precios' => 'precios'])->names('precios')->middleware('checkRole:9');
+
+//Controller de gestion de compras
+Route::resource('proveedores',ProveedoresController::class)->parameters(['proveedores' => 'proveedores'])->names('proveedores')->middleware('checkRole:10');
+
 
 
 //Controller del modulo de usuarios

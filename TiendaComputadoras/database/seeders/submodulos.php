@@ -82,7 +82,7 @@ class submodulos extends Seeder
                 'modulos_id'=>2,
                 'nombre' => 'Proveedores',
                 'descripcion' => '',
-                'enlace'=>null,
+                'enlace'=>'proveedores.index',
                 'estado' => 1
             ],
             [

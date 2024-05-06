@@ -20,6 +20,10 @@ class Pais extends Model
     {
         return $this->HasOne('App\Models\Persona_Naturales');
     }
+    public function proveedores()
+    {
+        return $this->HasOne('App\Models\Proveedores');
+    }
     public static function obtenerPaises()
     {
         return self::select('id', 'nombre')->where('estado', 1)->get();

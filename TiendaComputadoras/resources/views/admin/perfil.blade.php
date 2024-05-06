@@ -101,7 +101,7 @@
         <section class="col-md-8 col-xl-9">
             <div class="container-fluid p-0">
                 <article class="row">
-                    <div class="col-md-12 col-xl-9">
+                    <div class="col-md-12 col-xl-12">
                         <div class="card">
 
                             <div class="card-body h-100">
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 col-xl-9 ">
+                    <div class="col-md-12 col-xl-12 ">
                         <div class="card d-flex justify-content-center">
                             <div class="card-header">
                                 <h5 class="card-title mb-0">Inicios de sesión</h5>
@@ -187,7 +187,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-12 col-xl-9">
+                    <div class="col-md-12 col-xl-12">
                         <div class="card">
                             <div class="card-header">
 

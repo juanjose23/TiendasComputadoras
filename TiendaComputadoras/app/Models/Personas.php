@@ -12,7 +12,7 @@ class Personas extends Model
     {
         return $this->HasOne('App\Models\Persona_Naturales');
     }
-    public function persona_juridica()
+    public function persona_juridicas()
     {
         return $this->HasOne('App\Models\Persona_Juridicas');
     }
@@ -23,6 +23,10 @@ class Personas extends Model
     public function empleados()
     {
         return $this->HasOne('App\Models\Empleados');
+    }
+    public function proveedores()
+    {
+        return $this->HasOne('App\Models\Proveedores');
     }
     public function users()
     {

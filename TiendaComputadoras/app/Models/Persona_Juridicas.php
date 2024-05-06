@@ -9,7 +9,7 @@ class Persona_Juridicas extends Model
 {
     use HasFactory;
     protected $table = 'persona_juridicas';
-    public function persona()
+    public function personas()
     {
         return $this->belongsTo('App\Models\Personas');
     }

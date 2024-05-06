@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proveedores', function (Blueprint $table) {
+        //
+        Schema::create('contactosproveedores', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personas_id')->unique();
-            $table->enum('sector_comercial', ['Hombre', 'Mujer', 'Niños', 'Bebés', 'Deportes', 'Accesorios', 'Otro'])->nullable(false);
-            $table->unsignedBigInteger('paises_id')->nullable();
-            $table->string('telefono')->nullable();
-            $table->text('descripcion')->nullable();
+            $table->unsignedBigInteger('proveedores_id')->unique();
+            $table->unsignedBigInteger('pais_id')->nullable();
+            $table->string('cargo')->nullable();
+            $table->string('celular')->nullable();
             $table->tinyInteger('estado')->nullable(false)->default(1);
             $table->timestamps();
 
             // Definición de las restricciones de clave externa
-            $table->foreign('paises_id')->references('id')->on('pais')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('pais_id')->references('id')->on('pais')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('personas_id')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('proveedores_id')->references('id')->on('proveedores')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proveedores');
+        //
     }
 };
