@@ -128,3 +128,4 @@ Route::get('/exportprecios', [ExportacionesController::class, 'exportprecios'])-
 Route::get('/exportaciones/pdf/{colaboradores}', [ExportacionesController::class, 'pdf'])->name('exportaciones.pdf')->middleware('auth');
 Route::get('/exportroles', [ExportacionesController::class, 'exportroles'])->name('exportroles')->middleware('auth');
 Route::get('/exportusuarios', [ExportacionesController::class, 'exportusuarios'])->name('exportusuarios')->middleware('auth');
+Route::get('/exportproveedores',[ExportacionesController::class,'exportproveedores'])->name('exportproveedores');

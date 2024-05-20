@@ -15,6 +15,7 @@ use App\Exports\SalariosExport;
 use App\Exports\MarcasExport;
 use App\Exports\PreciosExport;
 use App\Exports\ProductosExport;
+use App\Exports\ProveedoresExport;
 use App\Exports\TallasExport;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
@@ -120,5 +121,13 @@ class ExportacionesController extends Controller
     public function exportusuarios()
     {
         return Excel::download(new UsersExport, 'usuario.xlsx');
+    }
+
+
+    //Inventarios
+
+    public function exportproveedores()
+    {
+        return Excel::download(new ProveedoresExport,'proveedores.xlsx');
     }
 }

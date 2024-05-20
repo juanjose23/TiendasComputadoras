@@ -33,7 +33,7 @@
                                         Exportaciones
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{{ route('exportcortes') }}" class="dropdown-item"><i
+                                        <li><a href="{{ route('exportproveedores') }}" class="dropdown-item"><i
                                                     class="fas fa-file-excel text-success"></i>
                                                 Exportar a Excel</a></li>
 
@@ -102,16 +102,20 @@
                                         <td>
 
                                             <div class="d-flex mb-1 align-items-center">
-                                                @can('update', App\Models\Productos::class)
+                                                <a href="{{ route('proveedores.show', ['proveedores' => $proveedor->id]) }}"
+                                                    class="btn btn-secondary me-1" role="button">
+                                                    <i class="fas fa-info"></i>
+                                                </a>
+                                                @can('update', App\Models\Proveedores::class)
                                                     <!-- Botón para editar -->
                                                     <div class=" me-1">
                                                         <a href="{{ route('proveedores.edit', ['proveedores' => $proveedor->id]) }}"
                                                             class="btn btn-info btn-block" role="button">
                                                             <i class="fas fa-edit"></i>
-                                                        </a>
+                                                        </a> 
                                                     </div>
                                                 @endcan
-                                                @can('delete', App\Models\Productos::class)
+                                                @can('delete', App\Models\Proveedores::class)
                                                     <!-- Botón para activar/desactivar -->
                                                     <div class="flex me-1">
                                                         <button type="button"
