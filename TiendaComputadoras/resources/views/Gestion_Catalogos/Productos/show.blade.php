@@ -177,8 +177,8 @@
 
 
 
-                                        <td>{{ $colorproducto->created_at }}</td>
-                                        <td>{{ $colorproducto->updated_at }}</td>
+                                        <td>{{ $imagenproducto->created_at }}</td>
+                                        <td>{{ $imagenproducto->updated_at }}</td>
                                         <td>
                                             @can('delete', App\Models\Productos::class)
                                                 <button type="button" class="btn btn-danger btn-sm" role="button"

@@ -24,6 +24,11 @@ class Pais extends Model
     {
         return $this->HasOne('App\Models\Proveedores');
     }
+
+    public function contacto()
+    {
+        return $this->HasOne('App\Models\contactosproveedores');
+    }
     public static function obtenerPaises()
     {
         return self::select('id', 'nombre')->where('estado', 1)->get();

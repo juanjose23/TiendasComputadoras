@@ -14,6 +14,7 @@ class CheckRole
         if (!$UserId) {
             return redirect()->route('login');
         }
+        
         if (!User::hasPrivilege($UserId, $privilegeId)) {
             return redirect()->route('error403');
         }

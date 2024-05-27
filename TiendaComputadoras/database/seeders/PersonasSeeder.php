@@ -16,6 +16,12 @@ class PersonasSeeder extends Seeder
         //
         $personas = [
             [
+                'nombre' => 'Sebras',
+                'correo' => 'sebras@gmail.com',
+                'telefono'=>'85859636'
+               
+            ],
+            [
                 'nombre' => 'Juan José',
                 'correo' => 'juanhuete052@gmail.com',
                 'telefono'=>'76668163'

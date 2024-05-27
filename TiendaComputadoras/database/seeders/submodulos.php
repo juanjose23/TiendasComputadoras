@@ -259,6 +259,13 @@ class submodulos extends Seeder
                 'descripcion' => '',
                 'enlace'=>null,
                 'estado' => 1
+            ],
+            [
+                'modulos_id'=>4,
+                'nombre' => 'Comapañia',
+                'descripcion' => '',
+                'enlace'=>'empresa.index',
+                'estado' => 1
             ]
 
         ];

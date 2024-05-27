@@ -28,6 +28,10 @@ class Personas extends Model
     {
         return $this->HasOne('App\Models\Proveedores');
     }
+    public function contacto()
+    {
+        return $this->HasOne('App\Models\contactosproveedores');
+    }
     public function users()
     {
         return $this->hasOne('App\Models\User');

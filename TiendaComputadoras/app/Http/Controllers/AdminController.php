@@ -112,7 +112,7 @@ class AdminController extends Controller
         }
 
         DB::table(config('session.table', 'sessions'))
-            ->where('user_id', $request->user()->getAuthIdentifier())
+         
             ->where('id', '!=', $request->session()->getId())
             ->delete();
     }

@@ -129,6 +129,13 @@ class ProveedoresController extends Controller
     public function show(proveedores $proveedores)
     {
         //
+        $imagenes = Imagen::where('imagenable_type', 'App\Models\Proveedores')
+        ->where('imagenable_id', $proveedores->id)
+        ->get();
+        $proveedores = Proveedores::with(['personas', 'personas.persona_naturales', 'personas.persona_juridicas', 'personas.direcciones'])
+        ->find($proveedores->id);
+
+        return view('Gestion_Compras.Proveedores.show',compact('proveedores','imagenes'));
     }
 
     /**

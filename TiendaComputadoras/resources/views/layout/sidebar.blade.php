@@ -3,7 +3,7 @@
         <a class="sidebar-brand" href="">
             <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1708926952/Blue_Computer_Electronic_Logo_4_e3gikf.png"
                 class="" alt="" width="60">
-            <span class="align-middle">ElectrocTech</span>
+            <span class="align-middle">{{$company->nombre}}</span>
         </a>
 
 

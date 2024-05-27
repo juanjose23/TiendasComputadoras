@@ -9,6 +9,7 @@ use App\Http\Controllers\ColaboradoresController;
 use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\Coloresproductos;
 use App\Http\Controllers\CortesController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\SalariosController;
@@ -107,7 +108,8 @@ Route::delete('/usuarios/destroyroles/{id}', [UsersController::class, 'destroyro
 
 //Controller para multimedia
 Route::resource('img',ImgController::class)->parameters(['img' => 'img'])->names('img')->middleware('auth');
-
+//Controller para la administracion de la pagina
+Route::resource('empresa', EmpresaController::class)->parameters(['empresa' => 'empresa'])->names('empresa')->middleware('checkRole:18');
 
 //Controller para exportacion y reportes
 Route::get('/exportcargosexcel', [ExportacionesController::class, 'exportcargosexcel'])->name('exportcargosexcel')->middleware('auth');

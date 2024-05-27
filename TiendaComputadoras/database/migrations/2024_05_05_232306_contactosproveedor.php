@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('proveedores_id')->unique();
             $table->unsignedBigInteger('pais_id')->nullable();
             $table->string('cargo')->nullable();
-            $table->string('celular')->nullable();
             $table->tinyInteger('estado')->nullable(false)->default(1);
             $table->timestamps();
 

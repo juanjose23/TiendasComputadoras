@@ -16,35 +16,35 @@ class empleadosseeder extends Seeder
         //
         $personas = [
             [
-                'personas_id'=>1,
+                'personas_id'=>2,
                 'estado_civiles_id'=>1,
                 'codigo'=>'EMP-01',
                 'codigo_inss' => null,
                 'estado'=>1
             ],
             [
-                'personas_id'=>2,
+                'personas_id'=>3,
                 'estado_civiles_id'=>1,
                 'codigo'=>'EMP-02',
                 'codigo_inss' => null,
                 'estado'=>1
             ],
             [
-                'personas_id'=>3,
+                'personas_id'=>4,
                 'estado_civiles_id'=>1,
                 'codigo'=>'EMP-03',
                 'codigo_inss' =>null,
                 'estado'=>1
             ],
             [
-                'personas_id'=>4,
+                'personas_id'=>5,
                 'estado_civiles_id'=>1,
                 'codigo'=>'EMP-04',
                 'codigo_inss' => null,
                 'estado'=>1
             ],
             [
-                'personas_id'=>5,
+                'personas_id'=>6,
                 'estado_civiles_id'=>1,
                 'codigo'=>'EMP-05',
                 'codigo_inss' => null,

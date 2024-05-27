@@ -17,7 +17,7 @@ class personanaturalseeder extends Seeder
         $personas = [
 
             [
-                'personas_id' => 1,
+                'personas_id' => 2,
                 'paises_id' => 168,
                 'generos_id' => 2,
                 'apellido' => 'Rios Huete',
@@ -26,7 +26,7 @@ class personanaturalseeder extends Seeder
                 'fecha_nacimiento' => '2002-04-16'
             ],
             [
-                'personas_id' => 2,
+                'personas_id' => 3,
                 'paises_id' => 168,
                 'generos_id' => 2,
                 'apellido' => 'Varela',
@@ -35,7 +35,7 @@ class personanaturalseeder extends Seeder
                 'fecha_nacimiento' => '2002-10-16'
             ],
             [
-                'personas_id' => 3,
+                'personas_id' => 4,
                 'paises_id' => 168,
                 'generos_id' => 1,
                 'apellido' => 'Guillen Davila',
@@ -44,19 +44,19 @@ class personanaturalseeder extends Seeder
                 'fecha_nacimiento' => '2003-04-18'
             ],
             [
-                'personas_id' => 4,
+                'personas_id' => 5,
                 'paises_id' => 168,
                 'generos_id' => 1,
-                'apellido' => 'Portocarrero Rojas',
+                'apellido' => 'Torrez',
                 'tipo_identificacion' => 'Cedula',
                 'identificacion' => '001-170103-0403W',
                 'fecha_nacimiento' => '2003-04-17'
             ],
             [
-                'personas_id' => 5,
+                'personas_id' => 6,
                 'paises_id' => 168,
                 'generos_id' => 2,
-                'apellido' => 'Aragon',
+                'apellido' => 'Lopez',
                 'tipo_identificacion' => 'Cedula',
                 'identificacion' => '001-480502-0403W',
                 'fecha_nacimiento' => '2002-05-01'

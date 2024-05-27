@@ -16,19 +16,22 @@ class Colaboradores extends Component
         $buscar = $this->buscar; // Asigna el valor de $this->buscar a una variable local $buscar
 
         $datos = Personas::with(['persona_naturales', 'empleados'])
-            ->whereHas('empleados', function ($query) use ($buscar) { // Añade $buscar aquí
+        ->where('id', '!=', 1)
+        ->where(function ($query) use ($buscar) {
+            $query->whereHas('empleados', function ($query) use ($buscar) {
                 $query->where('codigo', 'like', '%' . $buscar . '%');
             })
-            ->orWhereHas('persona_naturales', function ($query) use ($buscar) { // Añade $buscar aquí
+            ->orWhereHas('persona_naturales', function ($query) use ($buscar) {
                 $query->where('apellido', 'like', '%' . $buscar . '%')
                     ->orWhere('tipo_identificacion', 'like', '%' . $buscar . '%')
                     ->orWhere('identificacion', 'like', '%' . $buscar . '%');
             })
             ->orWhere('telefono', 'like', '%' . $buscar . '%')
             ->orWhere('correo', 'like', '%' . $buscar . '%')
-            ->orWhere('nombre', 'like', '%' . $buscar . '%')
-            ->paginate($this->perPage);
-
+            ->orWhere('nombre', 'like', '%' . $buscar . '%');
+        })
+        ->paginate($this->perPage);
+      
         return view('livewire.colaboradores',compact('datos'));
     }
 

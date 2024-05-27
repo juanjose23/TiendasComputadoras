@@ -38,7 +38,7 @@ class ColaboradoresController extends Controller
     public function index()
     {
         //
-
+        
         return view('Gestion_Negocio.Colaborador.index');
     }
 

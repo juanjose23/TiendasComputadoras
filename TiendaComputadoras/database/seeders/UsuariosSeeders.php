@@ -17,7 +17,7 @@ class UsuariosSeeders extends Seeder
         //
         $usuarios = [
             [
-                'personas_id' => 1,
+                'personas_id' => 2,
                 'usuario' => 'juan',
                 'password' => Hash::make('12345678'),
                 'estado' => 1,

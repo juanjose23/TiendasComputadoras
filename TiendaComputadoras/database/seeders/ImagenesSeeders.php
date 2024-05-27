@@ -16,6 +16,13 @@ class ImagenesSeeders extends Seeder
         //
         $direcciones = [
             [
+                'url' =>'https://res.cloudinary.com/dxtlbsa62/image/upload/v1716184314/empleados/nie7bj2tfw5roxoez1zh.png',
+                'public_id'=>'empleados/nie7bj2tfw5roxoez1zh',
+                'imagenable_type'=>'App\Models\Personas',
+                'imagenable_id'=>1,
+               
+            ],
+            [
                 'url' =>'https://res.cloudinary.com/dxtlbsa62/image/upload/v1710829297/empleados/noypkvrqqvhpmpereg5k.jpg',
                 'public_id'=>'empleados/noypkvrqqvhpmpereg5k',
                 'imagenable_type'=>'App\Models\Empleados',
