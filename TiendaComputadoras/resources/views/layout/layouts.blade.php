@@ -9,7 +9,7 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="">
     <link rel="preconnect" defer href="https://fonts.gstatic.com" rel="stylesheet">
-    <link rel="shortcut icon" defer href="{{ $datos['imagen']->url }}" />
+    <link rel="shortcut icon" defer href="{{ $empresa['imagen']->url }}" />
     <title>Sistema @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('js/bootstrap-4.min.css') }}">
     <link href="{{ asset('css/light.css') }}" rel="stylesheet">
@@ -57,6 +57,14 @@
                     icon: 'success',
                     title: '¡Éxito!',
                     text: '{{ Session::get('success') }}',
+                    confirmButtonText: 'Aceptar'
+                });
+            @endif
+            @if (Session::has('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: '{{ Session::get('error') }}',
                     confirmButtonText: 'Aceptar'
                 });
             @endif

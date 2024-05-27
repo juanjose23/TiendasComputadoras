@@ -16,13 +16,16 @@ class Preciosproductos extends Component
         $productos = Precios::with([
             'productosdetalles',
             'productosdetalles.coloresproductos.colores',
-            'productosdetalles.productos',
+            'productosdetalles.productos' => function ($query) {
+                $query->where('estado', 1);
+            },
             'productosdetalles.productos.modelos',
             'productosdetalles.productos.modelos.marcas',
             'productosdetalles.productos.subcategorias',
             'productosdetalles.productos.subcategorias.categorias'
-            
-        ])->where('estado',1)->where(function ($query) {
+
+        ])
+        ->where(function ($query) {
             $query->where('precio', 'like', '%' . $this->buscar . '%')
                 ->orWhereHas('productosdetalles.coloresproductos.colores', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
@@ -48,10 +51,10 @@ class Preciosproductos extends Component
                 ->orWhereHas('productosdetalles.productos.modelos.marcas', function ($query) {
                     $query->where('nombre', 'like', '%' . $this->buscar . '%');
                 });
-                
+
         })->paginate($this->perPage);
-        
-        return view('livewire.preciosproductos',compact('productos'));
+
+        return view('livewire.preciosproductos', compact('productos'));
     }
     public function setPerPage($perPage)
     {

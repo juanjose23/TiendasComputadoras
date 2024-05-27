@@ -86,12 +86,10 @@ class AdminController extends Controller
         if (Auth::check()) {
             // Verificar la contraseña proporcionada
             if (!Hash::check($request->current_password, Auth::user()->password)) {
-                // La contraseña proporcionada no coincide, lanzar una excepción de validación
-                throw ValidationException::withMessages([
-                    'current_password' => [__('La contraseña actual es incorrecta.')],
-                ])->redirectTo(route('perfil'));
+                return redirect()->route('perfil')->with('error', 'Se ha ingresado la contraseña incorrecta.');
             }
 
+          
             // Cerrar la sesión en otros dispositivos
             Auth::logoutOtherDevices($request->current_password);
 

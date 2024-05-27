@@ -148,56 +148,64 @@
                             <div class="card-body h-100 d-flex align-items-center">
                                 <div class="flex-grow-1">
                                     <strong>Inicios activos:</strong>
-                                    <div class="row row-cols-3 row-cols-md-2 g-4 mt-2">
+                                    <div class="row g-4 mt-2">
                                         @foreach ($sessiones as $item)
-                                            <div class="col card bg-light py-2 py-md-3 border">
-                                                <p class="card-text">
-                                                    @if ($item->platform_name == 'Mobile')
-                                                        <i class="fas fa-mobile-alt"></i>
-                                                        <strong>{{ $item->platform_name }} {{ $item->browser_name }}</strong>
-                                                        <br>
-                                                    @else
-                                                        <i class="fas fa-desktop"></i>
-                                                        <strong>{{ $item->platform_name }} {{ $item->browser_name }}</strong>
-                                                        <br>
-                                                    @endif
-                                                    {{ $item->ip_address }}
-                    
-                                                    @if ($item->ip_address === request()->ip())
-                                                        <span class="badge rounded-pill bg-primary">Esta es la sesión actual</span><br>
-                                                    @else
-                                                        <strong>Actividad:</strong>
-                                                        {{ \Carbon\Carbon::createFromTimeStamp($item->last_activity)->diffForHumans() }}<br>
-                                                    @endif
-                                                </p>
-                                                <form action="{{ route('cerrar_sesion_dispositivo') }}" method="POST">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ $item->id }}">
-                                                    <!-- Este botón desencadenará el SweetAlert -->
-                                                    <button type="button" class="btn btn-danger "
-                                                        onclick="confirmAction({{ $item->id }})">
-                                                        <i class="fas fa-cancel"></i> Cerrar sesión
-                                                    </button>
-                                                </form>
+                                            <div class="col-md-4">
+                                                <div class="card bg-light border">
+                                                    <div class="card-body">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-center mb-3">
+                                                            @if ($item->platform_name == 'Mobile')
+                                                                <i class="fas fa-mobile-alt fa-2x text-primary"></i>
+                                                            @else
+                                                                <i class="fas fa-desktop fa-2x text-primary"></i>
+                                                            @endif
+                                                            <span class="text-muted">{{ $item->platform_name }}
+                                                                {{ $item->browser_name }}</span>
+                                                        </div>
+                                                        <p class="card-text mb-0">
+                                                            <strong>IP:</strong> {{ $item->ip_address }}
+                                                            @if ($item->ip_address === request()->ip() && $item->user_agent === request()->header('User-Agent'))
+                                                                <span class="badge rounded-pill bg-primary">Esta es la
+                                                                    sesión actual </span>
+                                                            @else
+                                                                <strong>Actividad:</strong>
+                                                                {{ \Carbon\Carbon::createFromTimeStamp($item->last_activity)->diffForHumans() }}
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         @endforeach
                                     </div>
+                                    @if ($sessiones->count() > 1)
+                                        <form id="formCerrarSesion" action="{{ route('cerrar_sesion_dispositivo') }}"
+                                            method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ session('id') }}">
+                                            <!-- Este botón desencadenará el SweetAlert -->
+                                            <button type="button" class="btn btn-danger mt-3"
+                                                onclick="confirmAction({{ session('id') }})">
+                                                <i class="fas fa-cancel"></i> Cerrar sesión en los otros dispositivos
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-xl-12">
+                            <div class="card">
+                                <div class="card-header">
+
+                                    <h5 class="card-title mb-0">Cambiar contraseña</h5>
+                                </div>
+                                <div class="card-body h-100">
+                                    <livewire:cambiarclave />
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="col-md-12 col-xl-12">
-                        <div class="card">
-                            <div class="card-header">
-
-                                <h5 class="card-title mb-0">Cambiar contraseña</h5>
-                            </div>
-                            <div class="card-body h-100">
-                                <livewire:cambiarclave/>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </article>
@@ -205,47 +213,47 @@
 
         </section>
     </div>
-@endsection
-<script>
-    function confirmAction(SessionId) {
-        Swal.fire({
-            title: '¿Estás seguro de cerrar todas las sesiones en otros dispositivos?',
-            html: '<input type="password" id="password" class="swal2-input" placeholder="Contraseña">',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, cerrar todas las sesiones',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Obtener la contraseña ingresada por el usuario
-                var password = document.getElementById('password').value;
+    <script>
+        async function confirmAction(SessionId) {
+            const {
+                value: password
+            } = await Swal.fire({
+                title: "Ingresa tu contraseña",
+                input: "password",
+                inputLabel: "Contraseña",
+                inputPlaceholder: "Ingresa tu contraseña",
+                inputAttributes: {
+                    maxlength: "10",
+                    autocapitalize: "off",
+                    autocorrect: "off"
+                },
+                inputValidator: (value) => {
+                    return new Promise((resolve) => {
+                        if (value.trim() === "") {
+                            resolve("Debes ingresar tu contraseña");
+                        } else {
+                            resolve();
+                        }
+                    });
+                },
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, cerrar todas las sesiones',
+                cancelButtonText: 'Cancelar'
+            });
 
-                // Validar que se haya ingresado una contraseña
-                if (password.trim() === '') {
-                    Swal.fire('¡Error!', 'Debes ingresar tu contraseña.', 'error');
-                    return;
-                }
-
-                // Agregar un campo oculto al formulario para la contraseña
-                var form = document.getElementById('deleteForm' + SessionId);
+            if (password) {
+                // Si se ingresó una contraseña, proceder con el envío del formulario
+                var form = document.getElementById('formCerrarSesion');
                 var passwordInput = document.createElement('input');
                 passwordInput.type = 'hidden';
                 passwordInput.name = 'current_password';
                 passwordInput.value = password;
                 form.appendChild(passwordInput);
-
-                // Agregar un campo oculto para el método POST
-                var methodInput = document.createElement('input');
-                methodInput.type = 'hidden';
-                methodInput.name = '_method';
-                methodInput.value = 'POST';
-                form.appendChild(methodInput);
-
-                // Enviar el formulario
                 form.submit();
             }
-        });
-    }
-</script>
+        }
+    </script>
+
+@endsection

@@ -15,6 +15,7 @@ use App\Models\proveedores;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class ProveedoresController extends Controller
 {
@@ -24,6 +25,7 @@ class ProveedoresController extends Controller
     public function index()
     {
         //
+
         return view('Gestion_Compras.Proveedores.index');
     }
 
@@ -47,80 +49,90 @@ class ProveedoresController extends Controller
      */
     public function store(StoreProveedores $request)
     {
+        // Iniciar una transacción
+        DB::beginTransaction();
 
-        // Crear una nueva instancia del modelo Persona
-        $persona = new Personas();
-        // Establecer los valores de los atributos
-        $persona->nombre = $request->nombre;
-        $persona->correo = $request->correo;
-        $persona->telefono = $request->telefono;
-        // Guardar la persona en la base de datos
-        $persona->save();
-        $ultimoId = $persona->id;
+        try {
+            // Crear una nueva instancia del modelo Persona
+            $persona = new Personas();
+            // Establecer los valores de los atributos
+            $persona->nombre = $request->nombre;
+            $persona->correo = $request->correo;
+            $persona->telefono = $request->telefono;
+            // Guardar la persona en la base de datos
+            $persona->save();
+            $ultimoId = $persona->id;
 
-        if ($request->has('juridico')) {
-            $personaJuridica = new Persona_Juridicas();
-            // Establecer los valores de los atributos de PersonaNatural
-            $personaJuridica->personas_id = $ultimoId;
-            $personaJuridica->razon_social = $request->apellido;
-            $personaJuridica->fecha_constitucional = $request->fecha;
-            $personaJuridica->razon_social = $request->apellido;
-            $personaJuridica->ruc = $request->identificacion;
-            $personaJuridica->save();
-        } else {
-            // Crear una nueva instancia del modelo PersonaNatural
-            $personaNatural = new Persona_Naturales();
-            // Establecer los valores de los atributos de PersonaNatural
-            $personaNatural->personas_id = $ultimoId;
-            $personaNatural->apellido = $request->apellido;
-            $personaNatural->fecha_nacimiento = $request->fecha;
-            $personaNatural->tipo_identificacion = $request->tipo;
-            $personaNatural->identificacion = $request->identificacion;
-            $personaNatural->paises_id = $request->pais;
-            $personaNatural->generos_id = 19;
-            $personaNatural->save();
-        }
+            if ($request->has('juridico') || $request->tipo = "RUC") {
+                $personaJuridica = new Persona_Juridicas();
+                // Establecer los valores de los atributos de PersonaNatural
+                $personaJuridica->personas_id = $ultimoId;
+                $personaJuridica->razon_social = $request->apellido;
+                $personaJuridica->fecha_constitucional = $request->fecha;
+                $personaJuridica->ruc = $request->identificacion;
+                $personaJuridica->save();
+            } else {
+                // Crear una nueva instancia del modelo PersonaNatural
+                $personaNatural = new Persona_Naturales();
+                // Establecer los valores de los atributos de PersonaNatural
+                $personaNatural->personas_id = $ultimoId;
+                $personaNatural->apellido = $request->apellido;
+                $personaNatural->fecha_nacimiento = $request->fecha;
+                $personaNatural->tipo_identificacion = $request->tipo;
+                $personaNatural->identificacion = $request->identificacion;
+                $personaNatural->paises_id = $request->pais;
+                $personaNatural->generos_id = 19;
+                $personaNatural->save();
+            }
 
 
-        // Crear una nueva instancia del modelo proveedor
-        $proveedor = new proveedores();
-        // Establecer los valores de los atributos de proveedor
-        $proveedor->personas_id = $ultimoId;
-        $proveedor->paises_id = $request->pais;
-        $proveedor->sector_comercial = $request->sector;
-        $proveedor->descripcion = $request->descripcion;
-        $proveedor->estado = $request->estado;
-
-        // Guardar el empleado en la base de datos
-        $proveedor->save();
-        if ($request->hasFile('foto')) {
-            $result = $request->file('foto')->storeOnCloudinary('empleados', [
-                'transformation' => [
-                    [
-                        'width' => 200,
-                        'height' => 200,
-                        'crop' => 'fill', // Esto llenará la imagen en lugar de cortarla
-                        'gravity' => 'auto' // Esto centrará la imagen si la relación de aspecto cambia
+            // Crear una nueva instancia del modelo proveedor
+            $proveedor = new proveedores();
+            // Establecer los valores de los atributos de proveedor
+            $proveedor->personas_id = $ultimoId;
+            $proveedor->paises_id = $request->pais;
+            $proveedor->sector_comercial = $request->sector;
+            $proveedor->descripcion = $request->descripcion;
+            $proveedor->estado = $request->estado;
+            $proveedor->save();
+            // Guardar el empleado en la base de datos
+            $proveedor->save();
+            if ($request->hasFile('foto')) {
+                $result = $request->file('foto')->storeOnCloudinary('empleados', [
+                    'transformation' => [
+                        [
+                            'width' => 200,
+                            'height' => 200,
+                            'crop' => 'fill', // Esto llenará la imagen en lugar de cortarla
+                            'gravity' => 'auto' // Esto centrará la imagen si la relación de aspecto cambia
+                        ]
                     ]
-                ]
-            ]);
+                ]);
 
-            // Crear una nueva entrada de imagen en la base de datos
-            $imagen = new Imagen();
-            $imagen->url = $result->getSecurePath();
-            $imagen->public_id = $result->getPublicId();
-            $imagen->imagenable_id = $ultimoId;
-            $imagen->imagenable_type = get_class($proveedor);
+                // Crear una nueva entrada de imagen en la base de datos
+                $imagen = new Imagen();
+                $imagen->url = $result->getSecurePath();
+                $imagen->public_id = $result->getPublicId();
+                $imagen->imagenable_id = $ultimoId;
+                $imagen->imagenable_type = get_class($proveedor);
+                $imagen->save();
+            }
+            $direcciones = new Direcciones();
+            $direcciones->municipios_id = $request->departamentos;
+            $direcciones->personas_id = $ultimoId;
+            $direcciones->punto_referencia = $request->punto;
+            $direcciones->direccion = $request->direccion;
+            $direcciones->estado = 1;
+            $direcciones->save();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => 'Hubo un problema al guardar los datos: ' . $e->getMessage()]);
         }
-        $direcciones = new Direcciones();
-        $direcciones->municipios_id = $request->departamentos;
-        $direcciones->personas_id = $ultimoId;
-        $direcciones->punto_referencia = $request->punto;
-        $direcciones->direccion = $request->direccion;
-        $direcciones->estado = 1;
-        $direcciones->save();
-        Session::flash('success', 'Sea registrado correctamente el colaborador.');
-        return redirect()->route('proveedores.index');
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('proveedores.index')->with('success', 'Proveedor creado exitosamente');
     }
 
     /**
@@ -130,12 +142,12 @@ class ProveedoresController extends Controller
     {
         //
         $imagenes = Imagen::where('imagenable_type', 'App\Models\Proveedores')
-        ->where('imagenable_id', $proveedores->id)
-        ->get();
+            ->where('imagenable_id', $proveedores->id)
+            ->get();
         $proveedores = Proveedores::with(['personas', 'personas.persona_naturales', 'personas.persona_juridicas', 'personas.direcciones'])
-        ->find($proveedores->id);
+            ->find($proveedores->id);
 
-        return view('Gestion_Compras.Proveedores.show',compact('proveedores','imagenes'));
+        return view('Gestion_Compras.Proveedores.show', compact('proveedores', 'imagenes'));
     }
 
     /**

@@ -1,7 +1,9 @@
 @extends('layout.layout')
+
 @section('title', 'Proveedores')
 @section('submodulo', 'Registrar Proveedor')
 @section('content')
+
     <form action="{{ route('proveedores.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">

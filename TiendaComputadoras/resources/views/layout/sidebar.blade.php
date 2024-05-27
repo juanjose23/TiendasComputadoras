@@ -1,9 +1,9 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="">
-            <img src="{{ $datos['imagen']->url }}"
+            <img src="{{ $empresa ['imagen']->url }}"
                 class="" alt="" width="40" height="40">
-            <span class="align-middle">{{ $datos['company']->nombre }}</span>
+            <span class="align-middle">{{ $empresa ['company']->nombre }}</span>
         </a>
 
 

@@ -86,11 +86,7 @@
                                         </td>
 
                                         <td>
-                                            @if ($proveedor->personas->persona_juridicas->razon_social)
-                                                {{ $proveedor->personas->persona_juridicas->razon_social }}
-                                            @else
-                                                {{ $proveedor->personas->persona_naturales->apellido }}
-                                            @endif
+                                          {{  isset($proveedor->personas->persona_naturales->apellido) ?  $proveedor->personas->persona_naturales->apellido : $proveedor->personas->persona_juridicas->razon_social}}
                                         </td>
 
                                         <td>Ropa de {{ $proveedor->sector_comercial }}</td>
@@ -112,7 +108,7 @@
                                                         <a href="{{ route('proveedores.edit', ['proveedores' => $proveedor->id]) }}"
                                                             class="btn btn-info btn-block" role="button">
                                                             <i class="fas fa-edit"></i>
-                                                        </a> 
+                                                        </a>
                                                     </div>
                                                 @endcan
                                                 @can('delete', App\Models\Proveedores::class)

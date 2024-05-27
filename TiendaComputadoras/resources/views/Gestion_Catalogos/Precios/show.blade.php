@@ -12,20 +12,19 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-unstyled">
-                            <li><strong>Producto:</strong> {{ $precio->productoscolores->productos->nombre }}</li>
-                            <li><strong>Código:</strong> {{ $precio->productoscolores->productos->codigo }}</li>
+                            <li><strong>Producto:</strong> {{ $precio->productosdetalles->productos->nombre }}</li>
+                            <li><strong>Código:</strong> {{ $precio->productosdetalles->productos->codigo }}</li>
                             <li><strong>Categoría / Subcategoría:</strong>
-                                {{ $precio->productoscolores->productos->subcategorias->categorias->nombre }} /
-                                {{ $precio->productoscolores->productos->subcategorias->nombre }}</li>
+                                {{ $precio->productosdetalles->productos->subcategorias->categorias->nombre }} /
+                                {{ $precio->productosdetalles->productos->subcategorias->nombre }}</li>
                             <li><strong>Marca / Modelo:</strong>
-                                {{ $precio->productoscolores->productos->modelos->marcas->nombre }} /
-                                {{ $precio->productoscolores->productos->modelos->nombre }}</li>
-                            <li><strong>Dimensiones:</strong>
-                                {{ $precio->productoscolores->productos->detalles->dimencion }}</li>
-                            <li><strong>Peso:</strong> {{ $precio->productoscolores->productos->detalles->peso }}</li>
-                            <li><strong>Material:</strong> {{ $precio->productoscolores->productos->detalles->material }}
-                            </li>
-                            <li><strong>Color:</strong> {{ $precio->productoscolores->colores->nombre }}</li>
+                                {{ $precio->productosdetalles->productos->modelos->marcas->nombre }} /
+                                {{ $precio->productosdetalles->productos->modelos->nombre }}</li>
+                           
+                            <li><strong>Color:</strong> {{ $precio->productosdetalles->coloresproductos->colores->nombre }}</li>
+                            <li><strong>Corte:</strong> {{ $precio->productosdetalles->cortesproductos->cortes->nombre }}</li>
+                            <li><strong>Talla:</strong> {{ $precio->productosdetalles->tallasproductos->tallas->nombre }}</li>
+                            <li><strong>Género:</strong> {{ $precio->productosdetalles->generos->nombre }}</li>
                             <!-- Agrega más especificaciones según sea necesario -->
                         </ul>
                     </div>
@@ -35,7 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col" class="px-4 py-3">
-                                            <span class="sr-only">#</span>
+                                          #
                                         </th>
 
                                         <th scope="col" class="px-4 py-3">Precio</th>
@@ -48,7 +47,7 @@
                                 <tbody>
                                     @foreach ($historial as $colaborador)
                                         <tr>
-                                            <td>{{ $loop->index }}</td>
+                                            <td>{{ $loop->index +1 }}</td>
 
                                             <td>{{ $colaborador->precio }}</td>
                                             <td>{{ $colaborador->created_at }}</td>
@@ -65,7 +64,7 @@
                                                             class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }}"
                                                             role="button" onclick="confirmAction({{ $colaborador->id }})">
                                                             <i
-                                                                class="bi bi-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
+                                                                class="fas fa-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
                                                         </button>
                                                     @endif
 

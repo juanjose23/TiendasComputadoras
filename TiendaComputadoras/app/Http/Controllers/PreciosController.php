@@ -147,8 +147,15 @@ class PreciosController extends Controller
     }
     public function show(Precios $precios)
     {
-        $precio = Precios::with(['productoscolores', 'productoscolores.productos', 'productoscolores.productos.modelos', 'productoscolores.productos.modelos.marcas', 'productoscolores.productos.subcategorias', 'productoscolores.productos.subcategorias.categorias'])->findOrFail($precios->id);
-        $historial = Precios::where('productoscolores_id',$precio->productoscolores_id)->get();
+        $precio = Precios::with([
+            'productosdetalles',
+            'productosdetalles.coloresproductos.colores',
+            'productosdetalles.productos',
+            'productosdetalles.productos.modelos',
+            'productosdetalles.productos.modelos.marcas',
+            'productosdetalles.productos.subcategorias',
+            'productosdetalles.productos.subcategorias.categorias'])->findOrFail($precios->id);
+        $historial = Precios::where('productosdetalles_id',$precio->productosdetalles_id)->get();
 
         return  view('Gestion_Catalogos.Precios.show', compact('precio', 'historial'));
     }

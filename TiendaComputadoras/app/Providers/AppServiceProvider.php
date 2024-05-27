@@ -20,14 +20,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-     
-         // Obtén los datos de la empresa
-         $datos = [
-         'company'=> Personas::with(['persona_juridicas'])->where('id',1)->first(),
-         'imagen' => Imagen::where('imagenable_type', 'App\Models\Personas')
-         ->where('imagenable_id',1)->first(),
-         ];
-         // Comparte los datos con todas las vistas
-         view()->share('datos', $datos);
+        $empresa = [
+            'company' => Personas::with(['persona_juridicas'])->where('id', 1)->first(),
+            'imagen' => Imagen::where('imagenable_type', 'App\Models\Personas')
+                              ->where('imagenable_id', 1)
+                              ->first() ?? null,
+        ];
+      
+        // Comparte los datos con todas las vistas
+        view()->share('empresa', $empresa);
     }
 }
