@@ -1,6 +1,6 @@
 @extends('layout.layouts')
-@section('title', 'Proveedor')
-@section('submodulo', 'Acerca del proveedor')
+@section('title', 'Empresa')
+@section('submodulo', 'Acerca de la empresa')
 @section('content')
 
 
@@ -59,21 +59,16 @@
                             <div class="card-body h-100">
                                 <div class="d-flex align-items-start">
                                     <div class="flex-grow-1">
-                                        <strong>Estadisticas:</strong>
+                                        <strong>Datos:</strong>
                                         <br />
+                                        <span class="text-muted">Teléfono:</span> {{$persona->telefono}}<br>
+                                        <span class="text-muted">Correo:</span> {{$persona->correo}}<br>
+                                        <span class="text-muted">Razón Social:</span> {{$persona->persona_juridicas->razon_social}}<br>
+                                        <span class="text-muted">RUC:</span> {{$persona->persona_juridicas->ruc}}<br>
+                                        <span class="text-muted">Fecha de Constitución:</span> {{$persona->persona_juridicas->fecha_constitucional}}<br>
                                     </div>
                                 </div>
-                                <hr />
-                                <div class="d-flex align-items-start">
-
-                                    <div class="flex-grow-1">
-                                        <strong>Cargos Actuales:</strong>
-                                        <ul class="list-group mt-2">
-                                            
-                                        </ul>
-                                    </div>
-                                </div>
-                                <hr />
+                               
                                 
                             </div>
                         </div>
@@ -81,14 +76,11 @@
                     <div class="col-md-12 col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Detalles del contacto</h5>
+                                <h5 class="card-title mb-0">Actualizar detalles de la empresa</h5>
                             </div>
                             <div class="card-body h-100">
-                                <button class="btn btn-primary mb-3" id="toggleForm">Agregar Nuevo Contacto</button>
-                                <!-- Formulario oculto -->
-                                <div id="contactForm" style="display: none;">
-                                   
-                                </div>
+                                <a href="{{route('empresa.edit',$persona->id)}}" class="btn btn-primary mb-3" >Agregar detalle</a>
+                               
                             </div>
                         </div>
                     </div>

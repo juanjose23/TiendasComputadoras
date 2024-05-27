@@ -1,9 +1,9 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="">
-            <img src="https://res.cloudinary.com/dxtlbsa62/image/upload/v1708926952/Blue_Computer_Electronic_Logo_4_e3gikf.png"
-                class="" alt="" width="60">
-            <span class="align-middle">{{$company->nombre}}</span>
+            <img src="{{ $datos['imagen']->url }}"
+                class="" alt="" width="40" height="40">
+            <span class="align-middle">{{ $datos['company']->nombre }}</span>
         </a>
 
 

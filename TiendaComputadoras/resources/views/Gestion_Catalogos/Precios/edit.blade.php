@@ -6,12 +6,12 @@
         @csrf
         @method('PUT')
         <div class="row">
-            <input type="text"  id="producto"name="producto" value="{{ $precio->productoscolores_id }}" hidden>
+            <input type="text"  id="producto"name="producto" value="{{ $precio->productosdetalles_id }}" hidden>
             <div class="col-md-6 col-lg-16">
                 <div class="form-group">
                     <label for="Marca" class="form-label text-dark">Marca y modelos:</label>
                     <input type="text" id="Marca" name="marcas" class="form-control"
-                        value="Marca:{{ $precio->productoscolores->productos->modelos->marcas->nombre }} Modelo:{{ $precio->productoscolores->productos->modelos->nombre }}"
+                        value="Marca:{{ $precio->productosdetalles->productos->modelos->marcas->nombre }} Modelo:{{ $precio->productosdetalles->productos->modelos->nombre }}"
                         disabled>
                     @error('producto')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label for="categorias" class="form-label text-dark">Categoría y subcategoria:</label>
                     <input type="text" id="categorias" name="categorias" class="form-control"
-                        value="Categoría: {{ $precio->productoscolores->productos->subcategorias->categorias->nombre }} Subcategoria: {{ $precio->productoscolores->productos->subcategorias->nombre }}"
+                        value="Categoría: {{ $precio->productosdetalles->productos->subcategorias->categorias->nombre }} Subcategoria: {{ $precio->productosdetalles->productos->subcategorias->nombre }}"
                         disabled>
                     @error('producto')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label for="nombre" class="form-label text-dark">Productos:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control"
-                        value="{{ $precio->productoscolores->productos->nombre }}" disabled>
+                        value="{{ $precio->productosdetalles->productos->nombre }}" disabled>
                     @error('producto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -79,14 +79,14 @@
                 </div>
             </div>
 
-            <div class="col-md-6" id="omitir-color" style="display: none;">
+            <div class="col-md-12" id="omitir-color" style="display: none;">
                 <div class="form-group">
                     <label for="colores-omitir" class="form-label text-dark">¿Qué colores desea omitir de este
                         precio?</label>
                     <select id="colores-omitir" name="colores-omitir[]" class="form-select buscador is-invalid"
                         multiple="multiple" style="width: 100%">
                         @foreach ($colores as $color)
-                            <option value="{{ $color->id }}">{{ $color->colores->nombre }}</option>
+                            <option value="{{ $color->id }}">Producto: {{ $color->productos->nombre }} Marca: {{ $color->productos->modelos->marcas->nombre }} Modelo: {{ $color->productos->modelos->nombre }}  Color: {{ $color->coloresproductos->colores->nombre }} Talla: {{ $color->tallasproductos->tallas->nombre }} Cortes: {{ $color->cortesproductos->cortes->nombre }}</option>
                         @endforeach
                     </select>
                     <div class="text-warning ">Todos los productos van a cambiar su precios menos el que sean omitidos</div>

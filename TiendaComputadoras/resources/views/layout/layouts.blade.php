@@ -9,7 +9,7 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="">
     <link rel="preconnect" defer href="https://fonts.gstatic.com" rel="stylesheet">
-    <link rel="shortcut icon" defer href="img/icons/icon-48x48.png" />
+    <link rel="shortcut icon" defer href="{{ $datos['imagen']->url }}" />
     <title>Sistema @yield('title')</title>
     <link rel="stylesheet" href="{{ asset('js/bootstrap-4.min.css') }}">
     <link href="{{ asset('css/light.css') }}" rel="stylesheet">

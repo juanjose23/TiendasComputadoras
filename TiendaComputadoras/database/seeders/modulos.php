@@ -45,12 +45,6 @@ class modulos extends Seeder
                 'estado' => 1
             ],
             [
-                'nombre' => 'Gestión de caja',
-                'descripcion' => '',
-                'icono'=>'box',
-                'estado' => 1
-            ],
-            [
                 'nombre' => 'Gestión de usuarios',
                 'descripcion' => '',
                 'icono'=>'users',
