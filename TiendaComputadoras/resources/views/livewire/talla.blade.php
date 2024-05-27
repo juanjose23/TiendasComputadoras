@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('tallas.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar talla
+                            <i class="fas fa-plus"></i> Registrar talla
                         </a>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                                     <div class=" me-1">
                                         <a href="{{ route('tallas.edit', ['tallas' => $talla->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -101,7 +101,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $talla->estado == 1 ? 'danger' : 'success' }} btn-block"
                                             role="button" onclick="confirmAction({{ $talla->id }})">
-                                            <i class="bi bi-{{ $talla->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $talla->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                         </button>
                                     </div>
                                 @endcan

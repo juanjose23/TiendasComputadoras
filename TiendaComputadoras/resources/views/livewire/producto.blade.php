@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('productos.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar producto
+                            <i class="fas fa-plus"></i> Registrar producto
                         </a>
                     </div>
                 </div>
@@ -94,14 +94,14 @@
                                 <!-- Botón de información -->
                                 <a href="{{ route('productos.show', ['productos' => $producto->id]) }}"
                                     class="btn btn-secondary me-1" role="button">
-                                    <i class="bi bi-info-circle"></i>
+                                    <i class="fas fa-info"></i>
                                 </a>
                                 @can('update', App\Models\Productos::class)
                                     <!-- Botón para editar -->
                                     <div class=" me-1">
                                         <a href="{{ route('productos.edit', ['productos' => $producto->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -111,7 +111,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $producto->estado == 1 ? 'danger' : 'success' }} btn-block"
                                             role="button" onclick="confirmAction({{ $producto->id }})">
-                                            <i class="bi bi-{{ $producto->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $producto->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                         </button>
                                     </div>
                                 @endcan

@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('roles.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Crear rol
+                            <i class="fas fa-plus"></i> Crear rol
                         </a>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                                 @can('update', App\Models\permisos::class)
                                     <a href="{{ route('roles.edit', ['roles' => $rol->id]) }}" class="btn btn-info d-block"
                                         role="button">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                 @endcan
                                 @can('delete', App\Models\permisos::class)
@@ -92,7 +92,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $rol->estado == 1 ? 'danger' : 'success' }} d-block"
                                             role="button" onclick="confirmAction({{ $rol->id }})">
-                                            <i class="bi bi-{{ $rol->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $rol->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
 
                                         </button>
                                     </div>

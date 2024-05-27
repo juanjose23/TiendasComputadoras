@@ -15,7 +15,7 @@
 
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('cargos.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Crear cargo
+                            <i class="fas fa-plus"></i> Crear cargo
                         </a>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                                 @can('update', App\Models\Cargos::class)
                                     <a href="{{ route('cargos.edit', ['cargos' => $cargo->id]) }}"
                                         class="btn btn-info d-block" role="button">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                 @endcan
 
@@ -98,7 +98,7 @@
                                     <button type="button"
                                         class="btn btn-{{ $cargo->estado == 1 ? 'danger' : 'success' }} d-block"
                                         role="button" onclick="confirmAction({{ $cargo->id }})">
-                                        <i class="bi bi-{{ $cargo->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        <i class="fas fa-{{ $cargo->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
 
                                     </button>
                                     @endcan

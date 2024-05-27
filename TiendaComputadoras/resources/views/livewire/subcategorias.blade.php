@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('subcategorias.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Sub-categoría
+                            <i class="fas fa-plus"></i> Registrar Sub-categoría
                         </a>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                                     <div class=" me-1">
                                         <a href="{{ route('subcategorias.edit', ['subcategorias' => $subcategoria->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -97,7 +97,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $subcategoria->estado == 1 ? 'danger' : 'success' }} btn-block"
                                             role="button" onclick="confirmAction({{ $subcategoria->id }})">
-                                            <i class="bi bi-{{ $subcategoria->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $subcategoria->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                         </button>
                                     </div>
                                 @endcan
