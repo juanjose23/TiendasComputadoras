@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('privilegios.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Asignar privielgios
+                            <i class="fas fa-plus"></i> Asignar privielgios
                         </a>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                                 @can('update', App\Models\permisos::class)
                                     <a href="{{ route('privilegios.edit', ['privilegios' => $rol->roles->id]) }}"
                                         class="btn btn-info" role="button">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
 
                                     </a>
                                 @endcan
@@ -66,7 +66,7 @@
                                     <div class="m-1">
                                         <a href="{{ route('privilegios.show', ['privilegios' => $rol->roles->id]) }}"
                                             class="btn btn-secondary" role="button">
-                                            <i class="bi bi-eye"></i>
+                                            <i class="fas fa-info"></i>
                                         </a>
                                     </div>
                                 @endcan

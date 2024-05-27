@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('salarios.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Salario
+                            <i class="fas fa-plus"></i> Registrar Salario
                         </a>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                                     <div class="mr-2">
                                         <a href="{{ route('salarios.edit', ['salarios' => $colaborador->empleados->id]) }}"
                                             class="btn btn-info" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
 
                                         </a>
                                     </div>

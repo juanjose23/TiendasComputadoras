@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('modelos.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar Modelos
+                            <i class="fas fa-plus"></i> Registrar Modelos
                         </a>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                                     <div class=" me-1">
                                         <a href="{{ route('modelos.edit', ['modelos' => $modelo->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="bi bi-pencil"></i>
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 @endcan
@@ -100,7 +100,7 @@
                                         <button type="button"
                                             class="btn btn-{{ $modelo->estado == 1 ? 'danger' : 'success' }} btn-block"
                                             role="button" onclick="confirmAction({{ $modelo->id }})">
-                                            <i class="bi bi-{{ $modelo->estado == 1 ? 'trash' : 'power' }}"></i>
+                                            <i class="fas fa-{{ $modelo->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
                                         </button>
                                     </div>
                                 @endcan

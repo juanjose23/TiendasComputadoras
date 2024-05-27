@@ -12,7 +12,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('usuarios.create') }}" class="btn btn-success btn-icon">
-                            <i class="bi bi-file-earmark-plus-fill"></i> Registrar usuario
+                            <i class="fas fa-plus"></i> Registrar usuario
                         </a>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                                 @can('update', App\Models\permisos::class)
                                     <a href="{{ route('usuarios.edit', ['usuarios' => $colaborador->id]) }}"
                                         class="btn btn-info" role="button">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="fas fa-edit"></i>
 
                                     </a>
                                 @endcan
@@ -97,7 +97,7 @@
                                     <button type="button"
                                         class="btn btn-{{ $colaborador->estado == 1 ? 'danger' : 'success' }} d-block"
                                         role="button" onclick="confirmAction({{ $colaborador->id }})">
-                                        <i class="bi bi-{{ $colaborador->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        <i class="fas fa-{{ $colaborador->estado == 1 ? 'trash-alt' : 'toggle-on' }}"></i>
 
                                     </button>
                                 </div>
