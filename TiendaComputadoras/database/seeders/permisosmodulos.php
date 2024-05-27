@@ -126,42 +126,6 @@ class permisosmodulos extends Seeder
             ],
             [
                 'modulos_id' => 6,
-                'permisos_id'=>4,
-                'estado'=>1
-               
-            ],
-            [
-                'modulos_id' => 6,
-                'permisos_id'=>5,
-                'estado'=>1
-               
-            ],
-            [
-                'modulos_id' => 6,
-                'permisos_id'=>6,
-                'estado'=>1
-               
-            ],
-            [
-                'modulos_id' => 7,
-                'permisos_id'=>1,
-                'estado'=>1
-               
-            ],
-            [
-                'modulos_id' => 7,
-                'permisos_id'=>2,
-                'estado'=>1
-               
-            ],
-            [
-                'modulos_id' => 7,
-                'permisos_id'=>3,
-                'estado'=>1
-               
-            ],
-            [
-                'modulos_id' => 7,
                 'permisos_id'=>7,
                 'estado'=>1
                

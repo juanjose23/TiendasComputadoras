@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Personas;
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Imagen;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -20,11 +20,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       ///
+     
          // Obtén los datos de la empresa
-         $company = Personas::first();
-
+         $datos = [
+         'company'=> Personas::with(['persona_juridicas'])->where('id',1)->first(),
+         'imagen' => Imagen::where('imagenable_type', 'App\Models\Personas')
+         ->where('imagenable_id',1)->first(),
+         ];
          // Comparte los datos con todas las vistas
-         view()->share('company', $company);
+         view()->share('datos', $datos);
     }
 }

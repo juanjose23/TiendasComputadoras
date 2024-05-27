@@ -192,69 +192,34 @@ class submodulos extends Seeder
             ],
             [
                 'modulos_id'=>6,
-                'nombre' => 'Cajas',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
-            [
-                'modulos_id'=>6,
-                'nombre' => 'Apertura',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
-            [
-                'modulos_id'=>6,
-                'nombre' => 'Arqueo',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
-            [
-                'modulos_id'=>6,
-                'nombre' => 'Cierre',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
-            [
-                'modulos_id'=>6,
-                'nombre' => 'Configuraciones',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
-            [
-                'modulos_id'=>7,
                 'nombre' => 'Roles',
                 'descripcion' => '',
                 'enlace'=>'roles.index',
                 'estado' => 1
             ],
             [
-                'modulos_id'=>7,
+                'modulos_id'=>6,
                 'nombre' => 'Usuarios',
                 'descripcion' => '',
                 'enlace'=>'usuarios.index',
                 'estado' => 1
             ],
             [
-                'modulos_id'=>7,
+                'modulos_id'=>6,
                 'nombre' => 'Privilegios',
                 'descripcion' => '',
                 'enlace'=>'privilegios.index',
                 'estado' => 1
             ],
             [
-                'modulos_id'=>7,
+                'modulos_id'=>6,
                 'nombre' => 'Permisos',
                 'descripcion' => '',
                 'enlace'=>'permisos.index',
                 'estado' => 1
             ],
             [
-                'modulos_id'=>7,
+                'modulos_id'=>6,
                 'nombre' => 'Conexiones',
                 'descripcion' => '',
                 'enlace'=>null,

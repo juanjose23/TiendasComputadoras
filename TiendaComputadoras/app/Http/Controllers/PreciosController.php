@@ -30,7 +30,6 @@ class PreciosController extends Controller
     //
     public function create()
     {
-        //$productos = Colores_productos::ObtenerProductosConCategorias();
         $Precios = new Precios();
         $productos=$Precios->ObtenerProductosConCategorias();
         //return $productos;
@@ -78,9 +77,35 @@ class PreciosController extends Controller
     //
     public function edit(Precios $precios)
     {
-        $precio = Precios::with(['productoscolores', 'productoscolores.productos', 'productoscolores.productos.modelos', 'productoscolores.productos.modelos.marcas', 'productoscolores.productos.subcategorias', 'productoscolores.productos.subcategorias.categorias'])->findOrFail($precios->id);
-        $idProducto = Colores_productos::BuscarIdproducto($precios->productoscolores_id);
-        $colores = Colores_productos::with(['colores'])->where('productos_id', $idProducto)->get();
+        $precio = Precios::with([
+        'productosdetalles',
+        'productosdetalles.coloresproductos.colores',
+        'productosdetalles.productos',
+        'productosdetalles.productos.modelos',
+        'productosdetalles.productos.modelos.marcas',
+        'productosdetalles.productos.subcategorias',
+        'productosdetalles.productos.subcategorias.categorias'])->findOrFail($precios->id);
+        $idProducto = Detalle_productos::BuscarIdproducto($precios->productosdetalles_id);
+        $excluirId = $precios->productosdetalles_id;
+
+        $colores = Detalle_productos::with([
+            'productos', 
+            'tallasproductos', 
+            'cortesproductos', 
+            'tallasproductos.tallas', 
+            'cortesproductos.cortes', 
+            'coloresproductos', 
+            'coloresproductos.colores', 
+            'productos.modelos.marcas', 
+            'productos.subcategorias.categorias', 
+            'productos.subcategorias', 
+            'generos'
+        ])
+        ->where('productos_id', $idProducto)
+        ->where('id', '!=', $excluirId)
+        ->where('estado',1)
+        ->get();
+   
         return view('Gestion_Catalogos.Precios.edit', compact('precio', 'colores'));
     }
     public function update(UpdatePrecios $request, $precios)
