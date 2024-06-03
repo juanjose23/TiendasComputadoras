@@ -28,7 +28,7 @@
                     </h5>
                     <div class="text-muted mb-2"></div>
 
-                    
+
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
@@ -36,24 +36,27 @@
                     <ul class="list-unstyled mb-0">
                         <li class="mb-1"><span data-feather="calendar" class="feather-sm me-1"></span><a
                                 href="#">Fecha de constitucion:
-                                {{ isset($proveedores->personas->persona_naturales->fecha_nacimiento) ? $proveedores->personas->persona_naturales->fecha_nacimiento : $proveedores->personas->persona_juridicas->fecha_constitucional}}</a></li>
+                                {{ isset($proveedores->personas->persona_naturales->fecha_nacimiento) ? $proveedores->personas->persona_naturales->fecha_nacimiento : $proveedores->personas->persona_juridicas->fecha_constitucional }}</a>
+                        </li>
                         <li class="mb-1"><span data-feather="credit-card" class="feather-sm me-1"></span><a
                                 href="#">Tipo de identificación:
-                                {{isset($proveedores->personas->persona_naturales->tipo_identificacion) ? $proveedores->personas->persona_naturales->tipo_identificacion : 'RUC'}}</a></li>
+                                {{ isset($proveedores->personas->persona_naturales->tipo_identificacion) ? $proveedores->personas->persona_naturales->tipo_identificacion : 'RUC' }}</a>
+                        </li>
                         <li class="mb-1"><span data-feather="user" class="feather-sm me-1"></span><a
                                 href="#">Identificación:
-                                {{isset($proveedores->personas->persona_naturales->identificacion) ? $proveedores->personas->persona_naturales->identificacion : $proveedores->personas->persona_juridicas->ruc }}</a></li>
+                                {{ isset($proveedores->personas->persona_naturales->identificacion) ? $proveedores->personas->persona_naturales->identificacion : $proveedores->personas->persona_juridicas->ruc }}</a>
+                        </li>
                         <li class="mb-1"><span data-feather="mail" class="feather-sm me-1"></span><a
                                 href="#">Correo: {{ $proveedores->personas->correo }}</a></li>
                         <li class="mb-1"><span data-feather="phone" class="feather-sm me-1"></span><a
                                 href="#">Teléfono: {{ $proveedores->personas->telefono }}</a></li>
                         <li class="mb-1"><span data-feather="phone" class="feather-sm me-1"></span><a
                                 href="#">Teléfono: {{ $proveedores->telefono }}</a></li>
-                                
+
                         <li class="mb-1"><span data-feather="{{ $proveedores->estado ? 'check-circle' : 'x-circle' }}"
-                            class="feather-sm me-1"></span>Estado: <a
-                            class="badge rounded-pill {{ $proveedores->estado == 1 ? 'bg-success' : 'bg-danger' }}">{{ $proveedores->estado ? 'Activo' : 'Inactivo' }}</a>
-                    </li>
+                                class="feather-sm me-1"></span>Estado: <a
+                                class="badge rounded-pill {{ $proveedores->estado == 1 ? 'bg-success' : 'bg-danger' }}">{{ $proveedores->estado ? 'Activo' : 'Inactivo' }}</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -93,14 +96,17 @@
                                 <div class="d-flex align-items-start">
 
                                     <div class="flex-grow-1">
-                                        <strong>Cargos Actuales:</strong>
-                                        <ul class="list-group mt-2">
-                                            
-                                        </ul>
+                                        <div class="col-md-11 col-sm-12">
+                                            <strong>Lista de contactos:</strong>
+
+                                            <livewire:Tabla-Contactos :proveedorId="$proveedores->id" />
+                                        </div>
+
+
                                     </div>
                                 </div>
                                 <hr />
-                                
+
                             </div>
                         </div>
                     </div>
@@ -113,7 +119,7 @@
                                 <button class="btn btn-primary mb-3" id="toggleForm">Agregar Nuevo Contacto</button>
                                 <!-- Formulario oculto -->
                                 <div id="contactForm" style="display: none;">
-                                   <livewire:agregar-contacto :proveedorId="$proveedores->id"/>
+                                    <livewire:agregar-contacto :proveedorId="$proveedores->id" />
                                 </div>
                             </div>
                         </div>
@@ -127,7 +133,7 @@
         // Obtener elementos del DOM
         const toggleFormButton = document.getElementById('toggleForm');
         const contactForm = document.getElementById('contactForm');
-    
+
         // Función para mostrar u ocultar el formulario y ocultar el botón
         function toggleForm() {
             if (contactForm.style.display === 'none') {
@@ -138,7 +144,7 @@
                 toggleFormButton.style.display = 'block'; // Mostrar el botón
             }
         }
-    
+
         // Agregar evento de clic al botón para mostrar/ocultar el formulario
         toggleFormButton.addEventListener('click', toggleForm);
     </script>

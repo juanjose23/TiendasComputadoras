@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('contactosproveedores', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('personas_id')->unique();
-            $table->unsignedBigInteger('proveedores_id')->unique();
+            $table->unsignedBigInteger('proveedores_id');
             $table->unsignedBigInteger('pais_id')->nullable();
             $table->string('cargo')->nullable();
             $table->tinyInteger('estado')->nullable(false)->default(1);
