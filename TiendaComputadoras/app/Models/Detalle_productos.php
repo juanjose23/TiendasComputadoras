@@ -31,6 +31,10 @@ class Detalle_productos extends Model
     {
         return $this->BelongsTo('App\Models\Cortes_Productos');
     }
+    public function lotes()
+    {
+        return $this->hasMany('App\Models\Lotes');
+    }
 
     public function generos()
     {

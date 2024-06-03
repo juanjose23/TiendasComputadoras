@@ -10,6 +10,7 @@ use App\Http\Controllers\ColoresController;
 use App\Http\Controllers\Coloresproductos;
 use App\Http\Controllers\CortesController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\Lotes;
 use App\Http\Controllers\PaginaController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\SalariosController;
@@ -95,6 +96,7 @@ Route::resource('precios',PreciosController::class)->parameters(['precios' => 'p
 
 //Controller de gestion de compras
 Route::resource('proveedores',ProveedoresController::class)->parameters(['proveedores' => 'proveedores'])->names('proveedores')->middleware('checkRole:10');
+Route::resource('lotes',Lotes::class)->parameters(['lotes' => 'lotes'])->names('lotes')->middleware('checkRole:10');
 
 
 
