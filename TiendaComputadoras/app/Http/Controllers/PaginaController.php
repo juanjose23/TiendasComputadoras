@@ -6,17 +6,10 @@ use App\Models\Privilegios;
 use App\Models\RolesUsuarios;
 use App\Models\User;
 use Illuminate\Http\Request;
-use PragmaRX\Google2FA\Google2FA;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use BaconQrCode\Renderer\ImageRenderer;
-use BaconQrCode\Writer as BaconQrCodeWriter;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use BaconQrCode\Renderer\Image\ImagickImageBackEnd;
-use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Crypt;
 

@@ -40,7 +40,7 @@ class AdminController extends Controller
             ->get();
 
         $sessiones = inicio::where('user_id', $idUsuario)->where('active', true)->orderBy('last_activity', 'DESC')->get();
-      
+
         $agent = new Agent();
         foreach ($sessiones as $session) {
             $agent->setUserAgent($session->user_agent);
@@ -89,7 +89,7 @@ class AdminController extends Controller
                 return redirect()->route('perfil')->with('error', 'Se ha ingresado la contraseña incorrecta.');
             }
 
-          
+
             // Cerrar la sesión en otros dispositivos
             Auth::logoutOtherDevices($request->current_password);
 
@@ -110,7 +110,7 @@ class AdminController extends Controller
         }
 
         DB::table(config('session.table', 'sessions'))
-         
+
             ->where('id', '!=', $request->session()->getId())
             ->delete();
     }

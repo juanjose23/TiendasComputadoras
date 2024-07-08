@@ -32,6 +32,10 @@ class Empleados extends Model
     {
         return $this->morphOne('App\Models\Imagen', 'imagenable');
     }
+    public function solicitud_compra()
+    {
+        return $this->hasMany('App\Models\Solicitud_compra','empleados_id');
+    }
 
     /**
      * Genera un nuevo código para empleados basado en el último ID en la tabla.

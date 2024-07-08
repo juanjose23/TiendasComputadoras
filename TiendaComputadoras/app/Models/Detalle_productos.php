@@ -40,7 +40,11 @@ class Detalle_productos extends Model
     {
         return $this->belongsTo('App\Models\Genero','generos_id');
     }
-
+    public function detallessolicitud()
+    {
+        return $this->hasMany('App\Models\Detalle_solicitud_compra');
+    }
+    
      /**
      * Busca el ID del producto asociado al ID de color.
      * 

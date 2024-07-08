@@ -23,7 +23,7 @@
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
                         <a href="{{ route('marcas.create') }}" class="btn btn-success btn-icon">
-                            <i class="fas fa-plus"></i> Registrar Lote
+                            <i class="fas fa-plus"></i> Registrar Solicitud
                         </a>
                     </div>
                 </div>
@@ -65,79 +65,26 @@
             <thead>
                 <tr>
                     <th scope="col" class="px-4 py-3">
-                        <a style="  color: black;   " wire:click="sortBy('numero_lote')" class="sortable">
-                            N°
-                            @if ($sortColumn == 'numero_lote')
-                                @if ($sortDirection == 'asc')
-                                    <i class="fas fa-sort-up sort-icon"></i>
-                                @else
-                                    <i class="fas fa-sort-down sort-icon"></i>
-                                @endif
-                            @else
-                                <i class="fas fa-sort sort-icon"></i>
-                            @endif
-                        </a>
+                       #
                     </th>
-                    <th scope="col" class="px-4 py-3">
-                        Tipo Movimiento
-                    </th>
-                    <th scope="col" class="px-4 py-3">Categoria</th>
-                    <th scope="col" class="px-4 py-3">Subcategoria</th>
-                    <th scope="col" class="px-4 py-3">Producto</th>
-                    <th scope="col" class="px-4 py-3">Caracteristicas</th>
+                    <th scope="col" class="px-4 py-3">Solicitado por</th>
+                    <th scope="col" class="px-4 py-3">Notas</th>
+                    <th scope="col" class="px-4 py-3">Fechas de Entrega esperada</th>
                     <th scope="col" class="px-4 py-3">Estado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ($Lotes as $lote)
+                @foreach ($Solicitudes as $lote)
                     <tr>
-                        <td>{{ $lote->numero_lote }}</td>
-                        <td>{{ $lote->movimientos->tipo }}</td>
-                        <td>
-                            
-
-                            <span>{{ $lote->productosdetalles->productos->nombre }}</span>
-
-                        </td>
-                        <td>{{ $lote->productosdetalles->productos->subcategorias->categorias->nombre }}</td>
-                        <td>{{ $lote->productosdetalles->productos->subcategorias->nombre }}</td>
-                        <td class="text-wrap text-black">
-                            <div class="mb-2">
-                                <strong>Marcas:</strong>
-                                <span class="badge bg-primary">
-                                    {{ $lote->productosdetalles->productos->modelos->marcas->nombre }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Modelos:</strong>
-                                <span class="badge bg-secondary">
-                                    {{ $lote->productosdetalles->productos->modelos->nombre }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Color:</strong>
-                                <span class="badge bg-info">
-                                    {{ wordwrap($lote->productosdetalles->coloresproductos->colores->nombre, 50, "\n", true) }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Corte:</strong>
-                                <span class="badge bg-warning">
-                                    {{ wordwrap($lote->productosdetalles->cortesproductos->cortes->nombre, 50, "\n", true) }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Talla:</strong>
-                                <span class="badge bg-success">
-                                    {{ wordwrap($lote->productosdetalles->tallasproductos->tallas->nombre, 50, "\n", true) }}
-                                </span>
-                            </div>
-                        </td>
-
-
-
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td>{{ $lote->empleados->personas->nombre}}</td>
+                        
+                        
+                       
+                        <td>{{ $lote->notas }}</td>
+                        <td>{{ $lote->fecha_entrega_esperada }}</td>
                         <td><span class="badge rounded-pill {{ $lote->estado == 1 ? 'bg-success' : 'bg-danger' }}">
                                 {{ $lote->estado == 1 ? 'Activo' : 'Inactivo' }}
                             </span>
@@ -145,12 +92,20 @@
                         <td>
 
                             <div class="d-flex mb-1 align-items-center">
-
+                                @can('update', App\Models\Productos::class)
+                                <!-- Botón para editar -->
+                                <div class=" me-1">
+                                    <a href="{{ route('marcas.edit', ['marcas' => $lote->id]) }}"
+                                        class="btn btn-info btn-block" role="button">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                            @endcan
                                 @can('update', App\Models\Productos::class)
                                     <!-- Botón para editar -->
                                     <div class=" me-1">
                                         <a href="{{ route('marcas.edit', ['marcas' => $lote->id]) }}"
-                                            class="btn btn-info btn-block" role="button">
+                                            class="btn btn-warning btn-block" role="button">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
@@ -193,25 +148,25 @@
                 <div class="btn-group me-2" role="group" aria-label="First group">
                     <!-- Botón para la página anterior -->
                     <button type="button" class="btn btn-primary" wire:click="previousPage"
-                        {{ $Lotes->onFirstPage() ? 'disabled' : '' }}>
+                        {{ $Solicitudes->onFirstPage() ? 'disabled' : '' }}>
                         &laquo; Previo
                     </button>
                 </div>
 
                 <!-- Botones para cada página -->
-                @foreach ($Lotes->links() as $page => $url)
+                @foreach ($Solicitudes->links() as $page => $url)
                     @if (
                         $loop->first ||
                             $loop->last ||
-                            ($loop->index >= $Marcas->currentPage() - 2 && $loop->index <= $Lotes->currentPage() + 2))
+                            ($loop->index >= $Solicitudes->currentPage() - 2 && $loop->index <= $Solicitudes->currentPage() + 2))
                         <div class="btn-group me-2" role="group" aria-label="Page {{ $page }}">
                             <button type="button"
-                                class="btn btn-primary {{ $Lotes->currentPage() == $page ? 'active' : '' }}"
+                                class="btn btn-primary {{ $Solicitudes->currentPage() == $page ? 'active' : '' }}"
                                 wire:click="gotoPage({{ $page }})">
                                 {{ $page }}
                             </button>
                         </div>
-                    @elseif ($loop->index == $Lotes->currentPage() - 3 || $loop->index == $Lotes->currentPage() + 3)
+                    @elseif ($loop->index == $Solicitudes->currentPage() - 3 || $loop->index == $Solicitudes->currentPage() + 3)
                         <span class="mx-2">...</span>
                     @endif
                 @endforeach
@@ -219,7 +174,7 @@
                 <div class="btn-group" role="group" aria-label="Next group">
                     <!-- Botón para la página siguiente -->
                     <button type="button" class="btn btn-primary" wire:click="nextPage"
-                        {{ $Lotes->hasMorePages() ? '' : 'disabled' }}>
+                        {{ $Solicitudes->hasMorePages() ? '' : 'disabled' }}>
                         Siguiente
                     </button>
                 </div>

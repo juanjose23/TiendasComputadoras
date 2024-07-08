@@ -92,27 +92,15 @@ class submodulos extends Seeder
                 'enlace'=>null,
                 'estado' => 1
             ],
-            [
-                'modulos_id'=>2,
-                'nombre' => 'Movimientos',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
+           
             [
                 'modulos_id'=>3,
                 'nombre' => 'Solicitudes',
                 'descripcion' => '',
-                'enlace'=>null,
+                'enlace'=>'solicitud.index',
                 'estado' => 1
             ],
-            [
-                'modulos_id'=>3,
-                'nombre' => 'Cotizaciones',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
+           
             [
                 'modulos_id'=>3,
                 'nombre' => 'Ordenes de compras',
@@ -127,13 +115,7 @@ class submodulos extends Seeder
                 'enlace'=>null,
                 'estado' => 1
             ],
-            [
-                'modulos_id'=>3,
-                'nombre' => 'Recepciones de compras',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
+          
             [
                 'modulos_id'=>4,
                 'nombre' => 'Cargos',
@@ -162,20 +144,7 @@ class submodulos extends Seeder
                 'enlace'=>'salarios.index',
                 'estado' => 1
             ],
-            [
-                'modulos_id'=>5,
-                'nombre' => 'Pedidos',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
-            [
-                'modulos_id'=>5,
-                'nombre' => 'Cotizaciones de venta',
-                'descripcion' => '',
-                'enlace'=>null,
-                'estado' => 1
-            ],
+          
             [
                 'modulos_id'=>5,
                 'nombre' => 'Ventas',

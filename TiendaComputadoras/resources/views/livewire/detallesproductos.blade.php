@@ -44,7 +44,7 @@
                                 <div class="mb-3 me-2">
                                     <button type="button"
                                         class="btn btn-{{ $detalles->estado == 1 ? 'danger' : 'success' }} btn-block"  onclick="confirmAction({{ $detalles->id }})">
-                                        <i class="bi bi-{{ $detalles->estado == 1 ? 'trash' : 'power' }}"></i>
+                                        <i class="fas fa-{{ $detalles->estado == 1 ? 'trash' : 'power' }}"></i>
                                     </button>
                                     <form id="deleteForm{{ $detalles->id }}"
                                         action="{{ route('productos.destroydetalles', ['id' => $detalles->id]) }}"

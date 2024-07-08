@@ -23,6 +23,7 @@ use App\Http\Controllers\PreciosController;
 use App\Http\Controllers\PrivilegiosController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SolicitudCompraController;
 use App\Http\Controllers\SubcategoriasController;
 use App\Http\Controllers\TallasController;
 use App\Http\Controllers\UsersController;
@@ -96,6 +97,7 @@ Route::resource('precios',PreciosController::class)->parameters(['precios' => 'p
 
 //Controller de gestion de compras
 Route::resource('proveedores',ProveedoresController::class)->parameters(['proveedores' => 'proveedores'])->names('proveedores')->middleware('checkRole:10');
+Route::resource('solicitud',SolicitudCompraController::class)->parameters(['solicitud' => 'solicitud'])->names('solicitud')->middleware('checkRole:13');
 Route::resource('lotes',Lotes::class)->parameters(['lotes' => 'lotes'])->names('lotes')->middleware('checkRole:10');
 
 
