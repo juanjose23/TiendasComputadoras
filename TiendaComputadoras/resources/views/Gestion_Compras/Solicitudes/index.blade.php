@@ -6,7 +6,7 @@
         <section class="col-md-12 col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">Detalle del proveedor</h5>
+                    <h5 class="card-title mb-0">Solicitudes de compras</h5>
                 </div>
                 <div class="card-body text-center">
                     <livewire:solicitudes />

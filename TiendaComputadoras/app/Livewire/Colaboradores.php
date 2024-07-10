@@ -15,8 +15,7 @@ class Colaboradores extends Component
     {
         $buscar = $this->buscar; // Asigna el valor de $this->buscar a una variable local $buscar
 
-        $datos = Personas::with(['persona_naturales', 'empleados'])
-        ->where('id', '!=', 1)
+        $datos = Personas::has('empleados')->with(['persona_naturales', 'empleados'])
         ->where(function ($query) use ($buscar) {
             $query->whereHas('empleados', function ($query) use ($buscar) {
                 $query->where('codigo', 'like', '%' . $buscar . '%');

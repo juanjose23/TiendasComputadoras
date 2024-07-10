@@ -43,7 +43,7 @@
                                         <!-- Botón para activar/desactivar -->
                                         <button type="button" class="btn btn-danger d-block" role="button"
                                             onclick="confirmAction({{ $submodulo['id_permiso_modulo'] }})">
-                                           
+                                           <i class="fas fa-trash"></i>
 
                                         </button>
                                     </div>

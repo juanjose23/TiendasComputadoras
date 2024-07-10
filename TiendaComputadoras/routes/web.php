@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AsignacionesController;
-use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\CargosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;

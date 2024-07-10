@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Solicitud_compra;
+use App\Policies\SolicitudPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         //
+        Solicitud_compra::class =>SolicitudPolicy::class,
     ];
 
     /**
@@ -22,5 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        $this->registerPolicies();
+
+       
     }
 }

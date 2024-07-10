@@ -2,17 +2,12 @@
 
 namespace App\Policies;
 
-use App\Models\permisos;
 use App\Models\permisosroles;
+use App\Models\Solicitud_compra;
 use App\Models\User;
-use App\Models\RolesUsuarios;
 
-class PermisosPolicy
+class SolicitudPolicy
 {
-    /**
-     * Create a new policy instance.
-     */
-
     public function viewAny(User $user): bool
     {
         //
@@ -22,7 +17,7 @@ class PermisosPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, permisos $model): bool
+    public function view(User $user, Solicitud_compra $solicitud): bool
     {
         //
         return true;
@@ -33,16 +28,14 @@ class PermisosPolicy
      */
     public function create(User $user): bool
     {
-        //        
-        $idPermisoDeseado = 16;
+        //
+        $idPermisoDeseado = 7;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
 
-            return true;
+          return true;
         }
 
-
-    
-            return false;
+        return false;
     }
 
     /**
@@ -51,10 +44,12 @@ class PermisosPolicy
     public function update(User $user): bool
     {
         //
-        $idPermisoDeseado = 17;
+        $idPermisoDeseado = 8;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
+
             return true;
         }
+
 
         return false;
     }
@@ -65,48 +60,36 @@ class PermisosPolicy
     public function delete(User $user): bool
     {
         //
-        $idPermisoDeseado = 18;
+        $idPermisoDeseado = 9;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
+
             return true;
         }
 
+
         return false;
     }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
     public function restore(User $user): bool
     {
         //
-        $idPermisoDeseado = 18;
+        $idPermisoDeseado = 20;
         if ($this->tienePermiso($user, $idPermisoDeseado)) {
+
             return true;
         }
+
 
         return false;
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user): bool
-    {
-        //
-        $idPermisoDeseado = 18;
-        if ($this->tienePermiso($user, $idPermisoDeseado)) {
-            return true;
-        }
-
-        return false;
-    }
     private function tienePermiso(User $user, $idPermisoDeseado): bool
     {
         $userId = $user->id;
         $permisos = permisosroles::obtenerPermisosRoles($userId);
+        $userId = $user->id;
+        $permisos = permisosroles::obtenerPermisosRoles($userId); // Aquí deberías llamar a tu función para obtener los permisos del usuario
 
-        // Verifica si el usuario tiene el permiso deseado
+       
         return collect($permisos)->contains('permisosmodulos_id', $idPermisoDeseado);
     }
-
 }

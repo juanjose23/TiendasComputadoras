@@ -39,6 +39,7 @@ class ColaboradoresController extends Controller
     {
         //
         
+     
         return view('Gestion_Negocio.Colaborador.index');
     }
 

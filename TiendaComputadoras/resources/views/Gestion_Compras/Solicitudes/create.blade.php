@@ -87,7 +87,7 @@
                                 <a href="{{ route('solicitud.index') }}" class="btn btn-danger mb-2 me-md-2">Cancelar</a>
                                 <button id="registrar" type="submit" class="btn btn-primary mb-2" disabled>Registrar
                                     Solicitud</button>
-                                <button id="agregar" class="btn btn-secondary mb-2">Agregar a la Solicitud</button>
+                                <button type="button" id="agregar" class="btn btn-secondary mb-2">Agregar a la Solicitud</button>
                             </div>
 
                         </div>
@@ -133,6 +133,7 @@
             cargarProductos();
             verificarProductos();
             cargarProductosEnFormulario();
+           
 
             const formulario = document.getElementById('formulario');
             formulario.addEventListener('submit', function(event) {
@@ -162,7 +163,10 @@
                 }
 
                 // Si la fecha es válida, enviar el formulario
+
                 this.submit();
+                localStorage.clear();
+
             });
 
 
@@ -246,7 +250,7 @@
 
         function actualizarCantidad(button, id) {
             const row = button.parentElement.parentElement;
-            const cantidadCell = row.cells[2];
+            const cantidadCell = row.cells[6];
             const currentCantidad = cantidadCell.textContent;
 
             Swal.fire({
