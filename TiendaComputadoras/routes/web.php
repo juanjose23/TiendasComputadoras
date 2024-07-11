@@ -28,6 +28,7 @@ use App\Http\Controllers\SolicitudCompraController;
 use App\Http\Controllers\SubcategoriasController;
 use App\Http\Controllers\TallasController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Stripe\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,12 +54,16 @@ Route::get('shop',[PaginaController::class, 'shop'])->name('shop');
 
 
 //Controller DEL CARRITO
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::put('/cart/update/{itemId}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
-Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')->middleware('auth');
+Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove');
+Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 
+//CONTROLLER DE LA PASARELA DE PAGO
+Route::post('stripe', [StripeController::class, 'stripe'])->name('stripe');
+Route::get('success', [StripeController::class, 'success'])->name('success');
+Route::get('cancel', [StripeController::class, 'cancel'])->name('cancel');
 
 //Controller de validacion de inicio de session
 Route::get('/login',[PaginaController::class,'login'])->name('login');

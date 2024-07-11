@@ -10,7 +10,7 @@ class Precios extends Model
     use HasFactory;
     public function productosdetalles()
     {
-        return $this->belongsTo('App\Models\Detalle_productos');
+        return $this->belongsTo('App\Models\Detalle_productos','productosdetalles_id');
     }
 
 

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/slick-carousel/slick-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <script src="{{ asset('assets/vendors/jquery/jquery.min.js') }}"></script>
-
+    <link rel="stylesheet" href="{{ asset('css/Iconos/css/all.min.css') }}">
 </head>
 
 <body>
@@ -30,7 +30,14 @@
                 </li>
                 <li class="nav-item nav-item-cart">
                     <a class="nav-link" href="#!">
-                        <span class="cart-item-count">0</span>
+
+
+                        <span class="cart-item-count">
+                            <livewire:contador />
+                            
+                        </span>
+
+
                         <img src="{{ asset('assets/images/shopping-cart.svg') }}" alt="cart">
                     </a>
                 </li>
@@ -79,8 +86,8 @@
                         </a>
                     </li>
                     <li class="nav-item nav-item-cart">
-                        <a class="nav-link" href="#!">
-                            <span class="cart-item-count">0</span>
+                        <a class="nav-link" href="{{route('cart.index')}}">
+                            <span class="cart-item-count">  <livewire:contador /></span>
                             <img src="{{ asset('assets/images/shopping-cart.svg') }}" alt="cart">
                         </a>
                     </li>
@@ -93,6 +100,7 @@
                         </div>
                     </li>
                     @guest
+                    
                     @else
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img
@@ -122,7 +130,7 @@
     <main class="{{ Request::is('shop') ? 'shop-page' : (Request::is('nosotros') ? 'about-page' : '') }}">
         @yield('content')
     </main>
-    
+
 
     <footer class="oleez-footer wow fadeInUp">
         <div class="container">
@@ -203,6 +211,61 @@
     <script src="{{ asset('assets/vendors/slick-carousel/slick.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/landing.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script async>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (Session::has('successs'))
+                Toastify({
+                    className: "info",
+                    text: '{{ Session::get('successs') }}',
+                    duration: 2000,
+                    close: true,
+                    gravity: 'top',
+                    backgroundColor: '#4CAF50',
+                    stopOnFocus: true
+                }).showToast();
+            @endif
+            @if (Session::has('errors'))
+                Toastify({
+                    text: '{{ Session::get('errors') }}',
+                    duration: 3000, // Duración en milisegundos
+                    close: true, // Mostrar botón para cerrar
+                    gravity: 'top', // Posición del mensaje ('top', 'bottom', 'center')
+                    backgroundColor: '#f44336', // Color de fondo
+                    stopOnFocus: true // Detener el conteo regresivo cuando se enfoca
+                }).showToast();
+            @endif
+        });
+    </script>
+   <script src="
+   https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js
+   "></script>
+<link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css
+" rel="stylesheet">
+<script async>
+    document.addEventListener('DOMContentLoaded', function() {
+        @if (Session::has('success'))
+            Swal.fire({
+                icon: 'successs',
+                title: '¡Éxito!',
+                text: '{{ Session::get('success') }}',
+                confirmButtonText: 'Aceptar'
+            });
+        @endif
+        @if (Session::has('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '{{ Session::get('error') }}',
+                confirmButtonText: 'Aceptar'
+            });
+        @endif
+    });
+</script>
+
+
     <script>
         new WOW({
             mobile: false

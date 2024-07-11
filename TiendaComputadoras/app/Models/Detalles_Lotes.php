@@ -15,11 +15,8 @@ class Detalles_Lotes extends Model
     }
     public function productosdetalles()
     {
-        return $this->belongsTo('App\Models\Detalle_productos');
+        return $this->belongsTo('App\Models\Detalle_productos','productosdetalles_id');
     }
 
-    public function InventarioDisponible($id,$cantidad)
-    {
-
-    }
+   
 }

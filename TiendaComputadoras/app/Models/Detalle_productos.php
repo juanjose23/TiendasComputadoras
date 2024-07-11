@@ -26,31 +26,34 @@ class Detalle_productos extends Model
     {
         return $this->BelongsTo('App\Models\Colores_productos');
     }
-   
+
     public function cortesproductos()
     {
         return $this->BelongsTo('App\Models\Cortes_Productos');
     }
     public function detalleslotes()
     {
-        return $this->hasMany('App\Models\Lotes');
+        return $this->hasMany('App\Models\Detalles_Lotes','productosdetalles_id');
     }
 
     public function generos()
     {
-        return $this->belongsTo('App\Models\Genero','generos_id');
+        return $this->belongsTo('App\Models\Genero', 'generos_id');
     }
     public function detallessolicitud()
     {
         return $this->hasMany('App\Models\Detalle_solicitud_compra');
     }
-
+    public function precios()
+    {
+        return $this->hasMany('App\Models\Precios','productosdetalles_id');
+    }
     public function imagenes()
     {
         return $this->morphOne('App\Models\Imagen', 'imagenable');
     }
-    
-     /**
+
+    /**
      * Busca el ID del producto asociado al ID de color.
      * 
      * @param int $id El ID del color del producto.

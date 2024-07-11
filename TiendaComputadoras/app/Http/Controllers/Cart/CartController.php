@@ -22,8 +22,7 @@ class CartController extends Controller
         // Obtener los ítems del carrito basado en la sesión actual
         $cartItems = Cart::session($sessionId)->getContent();
 
-        // Retornar la vista 'cart.index' con los ítems del carrito
-        return view('cart.index', compact('cartItems'));
+        return view('cart.index', compact('cartItems', 'sessionId'));
     }
 
 
@@ -39,7 +38,7 @@ class CartController extends Controller
 
         // Verificar si hay suficiente inventario disponible
         if (!$this->InventarioDisponible($productId, $quantity)) {
-            return redirect()->back()->with('error', 'No hay suficiente inventario disponible para este producto.');
+            return redirect()->back()->with('errors', 'No hay suficiente inventario disponible para este producto.');
         }
 
         // Crear el array del producto con sus atributos
@@ -62,7 +61,7 @@ class CartController extends Controller
         Cart::session($sessionId)->add($product);
 
         // Redireccionar de vuelta con un mensaje de éxito
-        return redirect()->back()->with('success', 'Material agregado a la cesta de reciclaje correctamente');
+        return redirect()->back()->with('successs', 'se ha añadido al carrito');
     }
     public function update(Request $request, $itemId)
     {
@@ -106,20 +105,26 @@ class CartController extends Controller
         // Agregar el producto nuevamente al carrito usando el ID de la sesión
         Cart::session($sessionId)->add($product);
 
-        return redirect()->route('cart.index')->with('success', 'Cantidad del producto actualizada correctamente');
+        return redirect()->route('cart.index')->with('successs', 'Cantidad del producto actualizada correctamente');
     }
 
 
     public function remove($itemId)
     {
-        Cart::session(Auth::id())->remove($itemId);
-        return redirect()->route('cart.index')->with('success', 'Producto eliminado del carrito');
+        $sessionId = session()->getId();
+
+        // Obtener los ítems del carrito basado en la sesión actual
+        Cart::session($sessionId)->remove($itemId);
+        return redirect()->route('cart.index')->with('successs', 'Producto eliminado del carrito');
     }
 
     public function clear()
     {
-        Cart::session(Auth::id())->clear();
-        return redirect()->route('cart.index')->with('success', 'Carrito vaciado');
+        $sessionId = session()->getId();
+
+        // Obtener los ítems del carrito basado en la sesión actual
+        Cart::session($sessionId)->clear();
+        return redirect()->route('cart.index')->with('successs', 'Carrito vaciado');
     }
     public function InventarioDisponible($productosdetalles_id, $cantidad)
     {
