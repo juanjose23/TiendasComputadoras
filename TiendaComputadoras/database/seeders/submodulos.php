@@ -89,7 +89,7 @@ class submodulos extends Seeder
                 'modulos_id'=>2,
                 'nombre' => 'Stock',
                 'descripcion' => '',
-                'enlace'=>null,
+                'enlace'=>'lotes.index',
                 'estado' => 1
             ],
            
