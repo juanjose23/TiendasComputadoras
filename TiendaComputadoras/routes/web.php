@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\CargosController;
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
 use App\Http\Controllers\ColoresController;
@@ -40,9 +41,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
+*/
+//CONTROLLER DE TIENDA
+Route::get('/',[PaginaController::class, 'index'])->name('inicios');
+Route::get('nosotros',[PaginaController::class, 'nosotros'])->name('nosotros');
+Route::get('contactos',[PaginaController::class, 'contactos'])->name('contactos');
+Route::get('shop',[PaginaController::class, 'shop'])->name('shop');
+
+
+//Controller DEL CARRITO
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index')->middleware('auth');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add')->middleware('auth');
+Route::put('/cart/update/{itemId}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{itemId}', [CartController::class, 'remove'])->name('cart.remove')->middleware('auth');
+Route::delete('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')->middleware('auth');
+
 
 //Controller de validacion de inicio de session
 Route::get('/login',[PaginaController::class,'login'])->name('login');

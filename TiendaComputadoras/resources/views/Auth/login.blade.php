@@ -18,18 +18,21 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('js/bootstrap-4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('js/bootstrap-4.min.css') }}">
 </head>
 
 <body>
-    <main class="d-flex w-100"
-        style="background-image: url('https://img1.wallspic.com/crops/4/7/9/4/7/174974/174974-de_colores-explosion-petalo-morado-violeta-3840x2160.jpg'); background-size: cover; background-position: center; position: relative;">
+    <main class="d-flex w-100" style="background:#EDE9E9;">
         <div class="container d-flex flex-column">
             <div class="row vh-100 justify-content-center align-items-center">
                 <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2 text-center mb-4">Iniciar sesión</h1>
+                            <h1 class="h2 text-center mb-4">
+                                <img src="{{ $empresa['imagen']->url }}" class="" alt="" width="40"
+                                    height="40">
+                                <span class="align-middle">{{ $empresa['company']->nombre }}</span>
+                            </h1>
                             <form action="{{ route('validarLogin') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
@@ -57,21 +60,33 @@
                                     </label>
                                 </div>
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-primary btn-lg" type="submit">Iniciar sesión</button>
+                                    <button style="background-color: blacK;"
+                                        class="btn btn-primary btn-lg text-white    " type="submit">Iniciar
+                                        sesión</button>
+                                </div>
+                                <div class="text-center mt-3 text-black">
+                                    ¿Has olvidado tu contraseña? <a href="">Recuperar</a>
+                                </div>
+                                <hr>
+                                <div class="mb-3">
+                                    <a href="{{ route('auth.google') }}"
+                                        class="btn d-flex gap-2 w-100 align-items-center">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png"
+                                            alt="" width="20">
+                                        <span>Iniciar con Google</span>
+                                    </a>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="text-center text-white mt-3">
-                        ¿Has olvidado tu contraseña? <a href="">Recuperar</a>
-                    </div>
+
                 </div>
             </div>
         </div>
     </main>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{asset('js/sweetalert2.min.js')}}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

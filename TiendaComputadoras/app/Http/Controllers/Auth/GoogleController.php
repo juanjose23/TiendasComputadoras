@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clientes;
+use App\Models\Imagen;
 use Illuminate\Http\Request;
 use App\Models\Media;
 use App\Models\Personas;
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use App\Models\Persona_Naturales;
 class GoogleController extends Controller
 {
     //
@@ -79,6 +82,7 @@ class GoogleController extends Controller
         $googleApellido = $googleUser['family_name'];
         $googleEmail = $googleUser['email'];
         $googleProfile = $googleUser['picture'];
+      
         $user = User::where('provider', 'google')
             ->where('provider_id', $googleId)
             ->first();
@@ -87,7 +91,7 @@ class GoogleController extends Controller
 
         if (!$user) {
             // Verificar si ya existe un usuario con el mismo correo electrónico
-            $existeUser = User::where('email', $googleEmail)->first();
+            $existeUser = Personas::where('correo', $googleEmail)->first();
 
             // Si ya existe un usuario con el mismo correo electrónico, devuelve ese usuario
             if ($existeUser) {
@@ -97,7 +101,7 @@ class GoogleController extends Controller
         }
 
         // Si el usuario ya existe, actualiza sus datos
-        $user->email = $googleEmail;
+        $user->usuario = $googleEmail;
         $user->save();
 
        
@@ -105,15 +109,17 @@ class GoogleController extends Controller
         $persona = $user->persona;
         if ($persona) {
             $persona->nombre = $googleNombre;
-            $persona->apellido = $googleApellido;
+            $persona->correo = $googleEmail;
             $persona->save();
         }
+
+
         $imagenes = $user->imagenes;
         if ($imagenes) {
-            Media::destroy($imagenes['id']);
+            Imagen::destroy($imagenes['id']);
         }
 
-        $imagen = new Media();
+        $imagen = new Imagen();
         $imagen->url = $googleProfile;
         $imagen->imagenable_id = $user->id;
         $imagen->imagenable_type = get_class($user);
@@ -134,15 +140,30 @@ class GoogleController extends Controller
 
         $persona = new Personas();
         $persona->nombre = $googleNombre;
-        $persona->apellido = $googleApellido;
+        $persona->correo =  $googleEmail;
         $persona->save();
 
+        $personaNaturales = new Persona_Naturales();
+        $personaNaturales->paises_id=168;
+        $personaNaturales->generos_id=19;
+        $personaNaturales->personas_id = $persona->id;
+        $personaNaturales->apellido =  $googleApellido;
+        $personaNaturales->save();
+
+        $clientes= new Clientes();
+        $clientes->personas_id = $persona->id;
+        $clientes->tipo_cliente="Individual";
+        $clientes->estado = 1;
+        $clientes->save();
+
         $user = new User();
-        $user->personas_id = $persona->id;
+        
         $user->provider = 'google';
         $user->provider_id = $googleId;
-        $user->email = $googleEmail;
+        $user->personas_id = $persona->id;
+        $user->usuario = $googleEmail;
         $user->password = bcrypt(Str::random(24));
+        $user->estado=1;
         $user->save();
         
         $userRol = new RolesUsuarios();
@@ -151,7 +172,7 @@ class GoogleController extends Controller
         $userRol->estado = 1;
         $userRol->save();
 
-        $imagen = new Media();
+        $imagen = new Imagen();
         $imagen->url = $googleProfile;
         $imagen->imagenable_id = $user->id;
         $imagen->imagenable_type = get_class($user);

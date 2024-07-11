@@ -44,6 +44,11 @@ class Detalle_productos extends Model
     {
         return $this->hasMany('App\Models\Detalle_solicitud_compra');
     }
+
+    public function imagenes()
+    {
+        return $this->morphOne('App\Models\Imagen', 'imagenable');
+    }
     
      /**
      * Busca el ID del producto asociado al ID de color.

@@ -13,6 +13,7 @@ use App\Models\Detalle_productos;
 use App\Models\Genero;
 use App\Models\Imagen;
 use App\Models\Modelos;
+use App\Models\Precios;
 use App\Models\Productos;
 use App\Models\Subcategorias;
 use App\Models\Tallas;
@@ -123,11 +124,12 @@ class ProductosController extends Controller
         $productos = Productos::with(['modelos', 'modelos.marcas', 'subcategorias', 'subcategorias.categorias', 'detalles', 'coloresproductos', 'imagenes'])
             ->findOrFail($productos->id);
 
-        $imagenes = Imagen::where('imagenable_type', 'App\Models\Productos')
-            ->where('imagenable_id', $productos->id)
+            $imagenes = Detalle_productos::where('productos_id', $productos->id)
+            ->whereHas('imagenes', function ($query) {
+                $query->where('imagenable_type', 'App\Models\Detalle_productos');
+            })
+            ->with('imagenes')
             ->get();
-
-
 
         return view('Gestion_Catalogos.Productos.show', compact('productos',  'imagenes'));
     }
@@ -188,15 +190,17 @@ class ProductosController extends Controller
         Session::flash('success', 'El estado del producto ha sido cambiado exitosamente.');
         return redirect()->route('productos.index');
     }
-    public function multimedia($productos)
+    public function multimedia($id)
     {
-        $producto = Productos::with(['modelos', 'modelos.marcas'])->find($productos);
+        $productoL = Productos::with(['modelos', 'modelos.marcas'])->find($id);
+        $Precios = new Precios();
+        $productos = $Precios->ObtenerProductosConCategoriasImagenes($id);
 
-        return view('Gestion_Catalogos.Productos.image.create', compact('producto'));
+        return view('Gestion_Catalogos.Productos.image.create', compact('productoL','productos'));
     }
     public function guardarmultimedia(Request $request)
     {
-        $producto = Productos::findOrFail($request->producto);
+        $producto = Detalle_productos::findOrFail($request->producto);
         if ($request->hasFile('foto')) {
             // Subir la imagen a Cloudinary y obtener el resultado
             $result = $request->file('foto')->storeOnCloudinary('productos');
@@ -210,7 +214,7 @@ class ProductosController extends Controller
             $imagen->save();
             // Verificar si la imagen se guardó correctamente en la base de datos
             Session::flash('success', 'Se ha registrado correctamente la operación');
-            return redirect()->route('productos.show', $producto->id);
+            return redirect()->route('productos.show', $producto->productos_id);
         }
     }
     public function destroyimg($id)
@@ -220,7 +224,8 @@ class ProductosController extends Controller
         $public_id = $logo->public_id;
         Cloudinary::destroy($public_id);
         Imagen::destroy($logo->id);
-        return redirect()->route('productos.show', $logo->imagenable_id);
+        Session::flash('success', 'Se ha registrado correctamente la operación');
+        return redirect()->back();
     }
 
     /**

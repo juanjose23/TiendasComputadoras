@@ -126,4 +126,21 @@ class PaginaController extends Controller
     {
         return view('Error.403');
     }
+
+    public function index()
+    {
+        return view('page.inicio');
+    }
+    public function nosotros()
+    {
+        return view('page.about');
+    }
+    public function contactos()
+    {
+        return view('page.contacto');
+    }
+    public function shop()
+    {
+        return view('page.shop');
+    }
 }

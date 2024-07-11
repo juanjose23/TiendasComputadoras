@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_personas')->unique();
+            $table->unsignedBigInteger('personas_id')->unique();
             $table->enum('tipo_cliente', ['Individual', 'Corporativo', 'VIP', 'Preferencial'])->nullable(false);
             $table->tinyInteger('estado')->nullable(false)->default(1);
             $table->timestamps();
-            $table->foreign('id_personas')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('personas_id')->references('id')->on('personas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

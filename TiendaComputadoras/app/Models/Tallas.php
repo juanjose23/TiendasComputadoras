@@ -11,7 +11,7 @@ class Tallas extends Model
     use HasFactory;
     public function tallasproductos()
     {
-        return $this->hasMany('App\Models\Tallasproductos');
+        return $this->hasMany('App\Models\Tallas_productos');
     }
     
 }

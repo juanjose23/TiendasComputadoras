@@ -170,7 +170,7 @@
                                 @foreach ($imagenes as $imagenproducto)
                                     <tr>
                                         <td>
-                                            <img src="{{ $imagenproducto->url }}" alt="Imagen" class="img-fluid"
+                                            <img src="{{ $imagenproducto->imagenes->url }}" alt="Imagen" class="img-fluid"
                                                 width="100px">
                                         </td>
 
@@ -182,18 +182,18 @@
                                         <td>
                                             @can('delete', App\Models\Productos::class)
                                                 <button type="button" class="btn btn-danger btn-sm" role="button"
-                                                    onclick="confirmActionimg({{ $imagenproducto->id }})">
+                                                    onclick="confirmActionimg({{ $imagenproducto->imagenes->id }})">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </button>
-                                                <form id="deleteFormimg{{ $imagenproducto->id }}"
-                                                    action="{{ route('productos.destroyimg', ['id' => $imagenproducto->id]) }}"
+                                                <form id="deleteFormimg{{ $imagenproducto->imagenes->id }}"
+                                                    action="{{ route('productos.destroyimg', ['id' => $imagenproducto->imagenes->id]) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <input type="text" name="id" value={{ $imagenproducto->id }}
+                                                    <input type="text" name="id" value={{ $imagenproducto->imagenes->id }}
                                                         hidden>
                                                     <!-- Este botón no es visible, pero se utilizará para activar el SweetAlert -->
-                                                    <button id="submitBtn{{ $imagenproducto->id }}" type="submit"
+                                                    <button id="submitBtn{{ $imagenproducto->imagenes->id }}" type="submit"
                                                         style="display: none;"></button>
                                                 </form>
                                             @endcan
