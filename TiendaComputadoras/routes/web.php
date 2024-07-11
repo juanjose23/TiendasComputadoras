@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AsignacionesController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\CargosController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ColaboradoresController;
@@ -48,6 +49,10 @@ Route::get('/login',[PaginaController::class,'login'])->name('login');
 Route::post('/validarLogin', [PaginaController::class, 'validarLogin'])->name('validarLogin');
 Route::post('/logout',[PaginaController::class,'logout'])->name('logout');
 Route::get('/error403',[PaginaController::class,'error403'])->name('error403');
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
 // Validacion en dos pasos
 Route::get('/dospasos',[\App\Http\Controllers\loginController::class,'dospasos'])->name('dospasos');
 
