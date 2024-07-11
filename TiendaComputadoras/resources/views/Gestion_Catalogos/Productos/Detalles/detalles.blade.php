@@ -49,16 +49,16 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="corte" class="form-label text-dark">Cortes</label>
-                    <select id="corte"style="width: 100%" name="cortes"
-                        class="form-select buscador @error('cortes') is-invalid @enderror" style="width: 100%">
+                    <select id="corte"style="width: 100%" name="corte"
+                        class="form-select buscador @error('corte') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Corte</option>
                         @foreach ($cortes as $corte)
-                            <option value="{{ $corte->id }}" {{ old('cortes') == $corte->id ? 'selected' : '' }}>
+                            <option value="{{ $corte->id }}" {{ old('corte') == $corte->id ? 'selected' : '' }}>
                                 {{ $corte->nombre }}
                             </option>
                         @endforeach
                     </select>
-                    @error('cortes')
+                    @error('corte')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -66,16 +66,16 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="talla" class="form-label text-dark">Tallas</label>
-                    <select id="talla"style="width: 100%" name="tallas"
-                        class="form-select buscador @error('tallas') is-invalid @enderror" style="width: 100%">
+                    <select id="talla"style="width: 100%" name="talla"
+                        class="form-select buscador @error('talla') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Talla</option>
                         @foreach ($tallas as $talla)
-                            <option value="{{ $talla->id }}" {{ old('tallas') == $talla->id ? 'selected' : '' }}>
+                            <option value="{{ $talla->id }}" {{ old('talla') == $talla->id ? 'selected' : '' }}>
                                 {{ $talla->nombre }}
                             </option>
                         @endforeach
                     </select>
-                    @error('tallas')
+                    @error('talla')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -83,8 +83,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="generos" class="form-label text-dark">Genero</label>
-                    <select id="generos"style="width: 100%" name="generos"
-                        class="form-select buscador @error('generos') is-invalid @enderror" style="width: 100%">
+                    <select id="generos"style="width: 100%" name="genero"
+                        class="form-select buscador @error('genero') is-invalid @enderror" style="width: 100%">
                         <option selected disabled>Seleccionar Talla</option>
                         @foreach ($generos as $genero)
                             <option value="{{ $genero->id }}" {{ old('genero') == $genero->id ? 'selected' : '' }}>
@@ -92,7 +92,7 @@
                             </option>
                         @endforeach
                     </select>
-                    @error('generos')
+                    @error('genero')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

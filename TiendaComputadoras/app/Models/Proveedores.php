@@ -22,4 +22,9 @@ class Proveedores extends Model
     {
         return $this->hasMany('App\Models\contactosproveedores');
     }
+
+    public function lotes()
+    {
+        return $this->hasMany('App\Models\Lotes');
+    }
 }

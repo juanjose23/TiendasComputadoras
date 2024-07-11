@@ -18,45 +18,12 @@ class Lote extends Component
     {
         $buscar = $this->buscar;
         $Lotes = Lotes::with([
-            'productosdetalles',
-            'productosdetalles.productos',
-            'productosdetalles.productos.subcategorias',
-            'productosdetalles.productos.modelos',
-            'productosdetalles.productos.modelos.marcas',
-            'productosdetalles.productos.subcategorias.categorias',
-            'productosdetalles.tallasproductos',
-            'productosdetalles.coloresproductos',
-            'productosdetalles.cortesproductos', 
-            'productosdetalles.tallasproductos.tallas',
-            'productosdetalles.coloresproductos.colores',
-            'productosdetalles.cortesproductos.cortes',
-            'movimientos'
+            
+            'proveedores','empleados'
         ])
             ->where('numero_lote', 'like', '%' . $this->buscar . '%')
-            ->orWhereHas('movimientos', function ($query) {
-                $query->where('tipo', 'like', '%' . $this->buscar . '%');
-            })
-            ->orWhereHas('productosdetalles.productos.coloresproductos.colores', function ($query) {
-                $query->where('nombre', 'like', '%' . $this->buscar . '%');
-            })
-            ->orWhereHas('productosdetalles.productos', function ($query) {
-                $query->where(function ($query) {
-                    $query->where('nombre', 'like', '%' . $this->buscar . '%')
-                        ->orWhere('codigo', 'like', '%' . $this->buscar . '%');
-                });
-            })
-            ->orWhereHas('productosdetalles.productos.subcategorias', function ($query) {
-                $query->where('nombre', 'like', '%' . $this->buscar . '%');
-            })
-            ->orWhereHas('productosdetalles.productos.subcategorias.categorias', function ($query) {
-                $query->where('nombre', 'like', '%' . $this->buscar . '%');
-            })
-            ->orWhereHas('productosdetalles.productos.modelos', function ($query) {
-                $query->where('nombre', 'like', '%' . $this->buscar . '%');
-            })
-            ->orWhereHas('productosdetalles.productos.modelos.marcas', function ($query) {
-                $query->where('nombre', 'like', '%' . $this->buscar . '%');
-            })
+            
+          
             ->orderBy($this->sortColumn, $this->sortDirection)
             ->paginate($this->perPage);
 

@@ -39,7 +39,23 @@ class Precios extends Model
             ]);
         return $productos;
     }
-
+    public function  ObtenerProductosInventario()
+    {
+        $productos = Detalle_productos::with(['productos', 'tallasproductos', 'cortesproductos',  'tallasproductos.tallas', 'cortesproductos.cortes', 'coloresproductos', 'coloresproductos.colores', 'productos.modelos.marcas', 'productos.subcategorias.categorias', 'productos.subcategorias', 'generos'])->where('estado', 1)
+           ->get()
+            ->sortBy([
+                function ($producto) {
+                    return $producto->productos->subcategorias->nombre;
+                },
+                function ($producto) {
+                    return $producto->productos->nombre;
+                },
+                function ($producto) {
+                    return $producto->id;
+                },
+            ]);
+        return $productos;
+    }
 
     /**
      * Obtiene los productos agrupados por categorías y subcategorías.
@@ -49,6 +65,28 @@ class Precios extends Model
     public function ObtenerProductosConCategorias()
     {
         $productos = self::ObtenerProductos();
+
+        $resultados = [];
+        // Agrupar productos por subcategorías
+        foreach ($productos as $producto) {
+            $subcategoriaNombre = $producto->productos->subcategorias->categorias->nombre;
+            $resultados[$subcategoriaNombre][$producto->productos->subcategorias->nombre][] = [
+                'id' => $producto->id,
+                'codigo'=>$producto->productos->codigo, 
+                'idproducto'=>$producto->productos->id,
+                'nombre' => $producto->productos->nombre,
+                'marca' => $producto->productos->modelos->marcas->nombre,
+                'modelo' => $producto->productos->modelos->nombre,
+                'color' => $producto->coloresproductos->colores->nombre,
+                'tallas' => $producto->tallasproductos->tallas->nombre,
+                'corte'=>$producto->cortesproductos->cortes->nombre
+            ];
+        }
+        return $resultados;
+    }
+    public function ObtenerProductosConCategoriasInventario()
+    {
+        $productos = self::ObtenerProductosInventario();
 
         $resultados = [];
         // Agrupar productos por subcategorías

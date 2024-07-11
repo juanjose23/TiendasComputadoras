@@ -10,46 +10,23 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        // Creación de la tabla movimiento
-        Schema::create('movimiento', function (Blueprint $table) {
-            $table->id();
-            $table->enum('tipo', ['Entrada', 'Salida','Devolución de compra','Devolución de venta'])->notNull();
-          
-            $table->text('descripcion')->nullable();
-            $table->timestamps();
-        });
-
+       
 
         // Creación de la tabla lote
         Schema::create('lote', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('productosdetalles_id');
-            $table->foreign('productosdetalles_id')->references('id')->on('detallesproductos');
             $table->string('numero_lote', 50)->notNull();
-            $table->date('fecha_vencimiento')->nullable();
-            $table->integer('cantidad')->unsigned()->notNull();
-            $table->foreignId('movimiento_id')->nullable()->constrained('movimiento')->onDelete('cascade');
+            $table->unsignedBigInteger('empleados_id');
+            $table->foreign('empleados_id')->references('id')->on('empleados');
+            $table->foreignId('proveedores_id')->nullable()->constrained('proveedores')->onDelete('cascade');
+            $table->decimal('subtotal');
+            $table->decimal('iva');
+            $table->decimal('total');
             $table->integer('estado')->default(1);
             $table->timestamps();
 
-            // Índices para mejorar el rendimiento en consultas
-            $table->index('productosdetalles_id');
-            $table->index('movimiento_id');
-        });
-
-
-        // Creación de la tabla inventario
-        Schema::create('inventario', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('lote_id');
-            $table->foreign('lote_id')->references('id')->on('lote')->onDelete('cascade');
-            $table->integer('cantidad')->unsigned()->notNull();
-            $table->integer('stock_maximo')->unsigned()->notNull();
-            $table->integer('stock_minimo')->unsigned()->notNull();
-            $table->timestamps();
-
-            // Índice para mejorar el rendimiento en consultas
-            $table->index('lote_id');
+           
+            $table->index('proveedores_id');
         });
 
     }
@@ -59,9 +36,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('inventario');
+       
         Schema::dropIfExists('lote');
-        Schema::dropIfExists('movimiento');
+       
     }
 
 };

@@ -349,12 +349,13 @@ class ProductosController extends Controller
     public function guardardetalles(Request $request)
     {
         $request->validate([
-            'producto' => 'required|exists:productos,id',
-            'cortes' => 'required',
+            'productos' => 'required',
+            'corte' => 'required',
             'color' => 'required',
-            'generos' => 'required',
-            'tallas' => 'required|exists:colores,id'
+            'genero' => 'required',
+            'talla' => 'required'
         ]);
+
         $Idproducto = $request->productos;
         //Tabla colores-productos
         $color = new Colores_productos();
@@ -386,7 +387,7 @@ class ProductosController extends Controller
         $detalle->coloresproductos_id = $Idcolor;
         $detalle->tallasproductos_id = $Idtalla;
         $detalle->cortesproductos_id = $Idcorte;
-        $detalle->generos_id = $request->generos;
+        $detalle->generos_id = $request->genero;
         $detalle->estado = 1;
 
         $detalle->save();

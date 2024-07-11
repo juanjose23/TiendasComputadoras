@@ -31,7 +31,7 @@ class Detalle_productos extends Model
     {
         return $this->BelongsTo('App\Models\Cortes_Productos');
     }
-    public function lotes()
+    public function detalleslotes()
     {
         return $this->hasMany('App\Models\Lotes');
     }

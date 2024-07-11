@@ -22,7 +22,7 @@
             @can('create', App\Models\Proveedores::class)
                 <div class="dropdown">
                     <div class="btn-group ms-2 mb-2 mb-md-0">
-                        <a href="{{ route('marcas.create') }}" class="btn btn-success btn-icon">
+                        <a href="{{ route('lotes.create') }}" class="btn btn-success btn-icon">
                             <i class="fas fa-plus"></i> Registrar Lote
                         </a>
                     </div>
@@ -78,13 +78,11 @@
                             @endif
                         </a>
                     </th>
-                    <th scope="col" class="px-4 py-3">
-                        Tipo Movimiento
-                    </th>
-                    <th scope="col" class="px-4 py-3">Categoria</th>
-                    <th scope="col" class="px-4 py-3">Subcategoria</th>
-                    <th scope="col" class="px-4 py-3">Producto</th>
-                    <th scope="col" class="px-4 py-3">Caracteristicas</th>
+                    <th scope="col" class="px-4 py-3">Proveedor </th>
+                    <th scope="col" class="px-4 py-3">Registrado por</th>
+                    <th scope="col" class="px-4 py-3">Subtotal</th>
+                    <th scope="col" class="px-4 py-3">IVA</th>
+                    <th scope="col" class="px-4 py-3">Total</th>
                     <th scope="col" class="px-4 py-3">Estado</th>
                     <th scope="col" class="px-4 py-3">Acciones</th>
                 </tr>
@@ -94,49 +92,12 @@
                 @foreach ($Lotes as $lote)
                     <tr>
                         <td>{{ $lote->numero_lote }}</td>
-                        <td>{{ $lote->movimientos->tipo }}</td>
-                        <td>
-                            
-
-                            <span>{{ $lote->productosdetalles->productos->nombre }}</span>
-
-                        </td>
-                        <td>{{ $lote->productosdetalles->productos->subcategorias->categorias->nombre }}</td>
-                        <td>{{ $lote->productosdetalles->productos->subcategorias->nombre }}</td>
-                        <td class="text-wrap text-black">
-                            <div class="mb-2">
-                                <strong>Marcas:</strong>
-                                <span class="badge bg-primary">
-                                    {{ $lote->productosdetalles->productos->modelos->marcas->nombre }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Modelos:</strong>
-                                <span class="badge bg-secondary">
-                                    {{ $lote->productosdetalles->productos->modelos->nombre }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Color:</strong>
-                                <span class="badge bg-info">
-                                    {{ wordwrap($lote->productosdetalles->coloresproductos->colores->nombre, 50, "\n", true) }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Corte:</strong>
-                                <span class="badge bg-warning">
-                                    {{ wordwrap($lote->productosdetalles->cortesproductos->cortes->nombre, 50, "\n", true) }}
-                                </span>
-                            </div>
-                            <div class="mb-2">
-                                <strong>Talla:</strong>
-                                <span class="badge bg-success">
-                                    {{ wordwrap($lote->productosdetalles->tallasproductos->tallas->nombre, 50, "\n", true) }}
-                                </span>
-                            </div>
-                        </td>
-
-
+                        <td>{{ $lote->proveedores->personas->nombre }}</td>
+                    
+                        <td>{{ $lote->empleados->personas->nombre }}</td>
+                        <td>{{ $lote->subtotal }}</td>
+                        <td>{{ $lote->iva }}</td>
+                        <td>{{ $lote->total }}</td>
 
                         <td><span class="badge rounded-pill {{ $lote->estado == 1 ? 'bg-success' : 'bg-danger' }}">
                                 {{ $lote->estado == 1 ? 'Activo' : 'Inactivo' }}
@@ -149,9 +110,9 @@
                                 @can('update', App\Models\Productos::class)
                                     <!-- Botón para editar -->
                                     <div class=" me-1">
-                                        <a href="{{ route('marcas.edit', ['marcas' => $lote->id]) }}"
+                                        <a href="{{ route('lotes.show', ['lotes' => $lote->id]) }}"
                                             class="btn btn-info btn-block" role="button">
-                                            <i class="fas fa-edit"></i>
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                     </div>
                                 @endcan

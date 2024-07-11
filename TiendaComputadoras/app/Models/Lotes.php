@@ -9,20 +9,21 @@ class Lotes extends Model
 {
     protected $table = 'lote';
     use HasFactory;
-    public function movimientos()
+  
+    
+    public function detalleslotes()
     {
-        return $this->belongsTo('App\Models\movimiento','movimiento_id');
-    }
-    public function productosdetalles()
-    {
-        return $this->belongsTo('App\Models\Detalle_productos');
+        return $this->hasMany('App\Models\Lotes');
     }
 
-    public function inventarios()
-    {
-        return $this->hasMany('App\Models\Inventarios');
-    }
 
-     
+    public function proveedores()
+    {
+        return $this->belongsTo(Proveedores::class);
+    }
+    public function empleados()
+    {
+        return $this->belongsTo(Empleados::class);
+    }
    
 }
